@@ -1,0 +1,7 @@
+/bin
+/include
+/Lib
+/Lib64
+pyvenv.cfg
+.env
+\Scripts
