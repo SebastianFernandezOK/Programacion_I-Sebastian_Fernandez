@@ -4,4 +4,4 @@
 /Lib64
 pyvenv.cfg
 .env
-\Scripts
+/Scripts
