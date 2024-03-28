@@ -25,22 +25,22 @@ class Prestamo(Resource):
         if int(id) in PRESTAMOS:
             #retorno prestamo
             return PRESTAMOS[int(id)]
-        #Si no existe 404
-        return '', 404
+        else:
+            return 'Inexistente', 404
     #eliminar recurso
     def delete(self, id):
         #Verifico que exista el prestamo
         if int(id) in PRESTAMOS:
             #elimino prestamo
             del PRESTAMOS[int(id)]
-            return '', 204
-        #Si no existe 404
-        return '', 404
+            return 'Solicitud correcta', 204
+        else:
+            return 'Inexistente', 404
     #Modificar el recurso prestamo
     def put(self, id):
         if int(id) in PRESTAMOS:
             prestamo = PRESTAMOS[int(id)]
             data = request.get_json()
             prestamo.update(data)
-            return '', 201
-        return '', 404
+            return 'Solicitud correcta', 201
+        return 'Inexistente', 404

@@ -29,8 +29,8 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
         if int(id) in LIBROS:
             #retorno libro
             return LIBROS[int(id)]
-        #Si no existe 404
-        return '', 404
+        else:
+            return 'Inexiste', 404
     
     #eliminar recurso
     def delete(self, id):
@@ -38,9 +38,9 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
         if int(id) in LIBROS:
             #elimino libro
             del LIBROS[int(id)]
-            return '', 204
-        #Si no existe 404
-        return '', 404
+            return 'Solicitud correcta', 204
+        else:
+            return 'Inexistente', 404
     
     #Modificar el recurso libro
     def put(self, id):
@@ -48,5 +48,5 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
             libro = LIBROS[int(id)]
             data = request.get_json()
             libro.update(data)
-            return '', 201
-        return '', 404  
+            return 'Solicitud correcta', 201
+        return 'Inexistente', 404  

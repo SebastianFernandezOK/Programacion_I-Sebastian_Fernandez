@@ -22,8 +22,8 @@ class Valoraciones(Resource):
             valoracion = VALORACION[int(id)]
             data = request.get_json()
             valoracion.update(data)
-            return '', 201
-        return '', 404
+            return 'Solicitud correcta', 201
+        return 'Inexistente', 404
     
 
 class Comentarios(Resource):
@@ -36,5 +36,5 @@ class Comentarios(Resource):
             comentario = COMENTARIOS[int(id)]
             data = request.get_json()
             comentario.update(data)
-            return '', 201
-        return '', 404    
+            return 'Solicitud correcta', 201
+        return 'Inexistente', 404    

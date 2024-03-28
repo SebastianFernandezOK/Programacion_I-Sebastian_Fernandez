@@ -29,8 +29,8 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
         if int(id) in USUARIOS:
             #retorno usuario
             return USUARIOS[int(id)]
-        #Si no existe 404
-        return '', 404
+        else:
+            return 'Inexistente', 404
     
     #eliminar recurso
     def delete(self, id):
@@ -38,9 +38,9 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
         if int(id) in USUARIOS:
             #elimino usuario
             del USUARIOS[int(id)]
-            return '', 204
-        #Si no existe 404
-        return '', 404
+            return 'Solicitud correcta', 204
+        else:
+            return 'Inexistente', 404
     
     #Modificar el recurso usuario
     def put(self, id):
@@ -48,5 +48,5 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
             usuario = USUARIOS[int(id)]
             data = request.get_json()
             usuario.update(data)
-            return '', 201
-        return '', 404
+            return 'Solicitud correcta', 201
+        return 'Inexistente', 404
