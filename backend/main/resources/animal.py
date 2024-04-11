@@ -1,5 +1,7 @@
 from flask_restful import Resource
-from flask import request
+from flask import request, jsonify
+from .. import db
+from main.models import AnimalModel
 
 #Datos de prueba en JSON
 ANIMALES = {
@@ -11,13 +13,16 @@ ANIMALES = {
 class Animal(Resource): #A la clase animal le indico que va a ser del tipo recurso(Resource)
     #obtener recurso
     def get(self, id):
+        animal = db.session.query(AnimalesModel).get_or_404(id)
+        return animal.to_json
         #Verifico que exista el animal
-        if int(id) in ANIMALES:
+        #if int(id) in ANIMALES:
             #retorno animal
-            return ANIMALES[int(id)]
+        #    return ANIMALES[int(id)]
         #Si no existe 404
-        return '', 404
+        #return '', 404
     #eliminar recurso
+    
     def delete(self, id):
         #Verifico que exista el animal
         if int(id) in ANIMALES:

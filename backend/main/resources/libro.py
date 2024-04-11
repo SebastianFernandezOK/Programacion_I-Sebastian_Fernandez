@@ -25,12 +25,14 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
     #obtener recurso
         
     def get(self, id):
+        Libro = db.session.query(LibrosModel).get_or_404(id)
+        return Libro.to_json
         #Verifico que exista el libro
-        if int(id) in LIBROS:
+       #if int(id) in LIBROS:
             #retorno libro
-            return LIBROS[int(id)]
-        else:
-            return 'Inexiste', 404
+            #return LIBROS[int(id)]
+        #else:
+            #return 'Inexiste', 404
     
     #eliminar recurso
     def delete(self, id):
