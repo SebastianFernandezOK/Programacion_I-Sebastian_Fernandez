@@ -10,5 +10,5 @@ from .prestamo import Prestamos as PrestamosResources
 from .prestamo import Prestamo as PrestamoResources
 from .notificacion import Notificaciones as NotificacionesResources
 from .configuracion import Configuraciones as ConfiguracionesResources
-from .puntuar import Valoraciones as ValoracionesResources
-from .puntuar import Comentarios  as ComentariosResources
+from .reseña import Valoraciones as ValoracionesResources
+from .reseña import Comentarios  as ComentariosResources

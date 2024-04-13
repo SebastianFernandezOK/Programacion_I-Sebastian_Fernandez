@@ -9,7 +9,11 @@ CONFIGURACION = {
 class Configuraciones(Resource):
 
     def get(self):
-        return CONFIGURACION
+        
+        Configuracion = db.session.query(ConfiguracionModel).get_or_404(id)
+        return Configuracion_json
+
+        #return CONFIGURACION
 
     def post(self):
         configuracion = request.get_json()

@@ -1,5 +1,7 @@
 from flask_restful import Resource
-from flask import request
+from flask import request, jsonify
+from .. import db
+
 
 PRESTAMOS = {
     1: {'fecha_alquilado':'20/03/2024', 'fecha_limite':'30/03/2024'},
@@ -21,12 +23,17 @@ class Prestamos(Resource):
 class Prestamo(Resource):
 
     def get(self, id):
+        Prestamo= db.session.query(PrestamoModel).get_or_404(id)
+        return Prestamo_json
+
         #Verifico que exista el prestamo
-        if int(id) in PRESTAMOS:
+        #if int(id) in PRESTAMOS:
             #retorno prestamo
-            return PRESTAMOS[int(id)]
-        else:
-            return 'Inexistente', 404
+        #    return PRESTAMOS[int(id)]
+        #else:
+        #    return 'Inexistente', 404
+
+
     #eliminar recurso
     def delete(self, id):
         #Verifico que exista el prestamo

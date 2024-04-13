@@ -1,5 +1,6 @@
 from flask_restful import Resource
 from flask import request
+from .. import db
 
 VALORACION = {
     1: {'valoracion':'5 estrellas'}
@@ -15,7 +16,10 @@ COMENTARIOS = {
 class Valoraciones(Resource):
 
     def get(self):
-        return VALORACION
+        Reseña= db.session.query(ReseñaModel).get_or_404(id)
+        return Reseña_json
+
+        #return VALORACION
 
     def put(self, id):
         if int(id) in VALORACION:
@@ -29,7 +33,10 @@ class Valoraciones(Resource):
 class Comentarios(Resource):
 
     def get(self):
-        return COMENTARIOS
+       Reseña= db.session.query(ReseñaModel).get_or_404(id)
+       return Reseña_json
+
+        #return COMENTARIOS
 
     def put(self, id):
         if int(id) in COMENTARIOS:

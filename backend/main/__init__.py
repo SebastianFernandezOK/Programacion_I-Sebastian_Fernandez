@@ -12,7 +12,7 @@ db=SQLAlchemy() #Iniciar SQLAlchemy
 def create_app():
     app = Flask(__name__)
     load_dotenv() #Se cargan variables del archivo .env
-    import main.resources as resources
+    
 
     #if not os.path.exists(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')): ## LINUX
         #os.mknod(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME'))           ##
@@ -28,7 +28,7 @@ def create_app():
         if not os.path.exists(os.path.join(os.getenv('DATABASE_PATH'), os.getenv('DATABASE_NAME'))):  ##
             db.create_all()
 
-
+    import main.resources as resources
 
     api.add_resource(resources.AnimalesResources, '/animales')
 

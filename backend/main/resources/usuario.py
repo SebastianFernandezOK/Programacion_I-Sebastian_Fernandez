@@ -25,12 +25,14 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
     #obtener recurso
         
     def get(self, id):
+       Usuario= db.session.query(UsuarioModel).get_or_404(id)
+       return Usuario_json
         #Verifico que exista el usuario
-        if int(id) in USUARIOS:
+        #if int(id) in USUARIOS:
             #retorno usuario
-            return USUARIOS[int(id)]
-        else:
-            return 'Inexistente', 404
+        #    return USUARIOS[int(id)]
+        #else:
+        #    return 'Inexistente', 404
     
     #eliminar recurso
     def delete(self, id):
