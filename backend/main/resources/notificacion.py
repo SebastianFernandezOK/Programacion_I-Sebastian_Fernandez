@@ -1,6 +1,8 @@
 from flask_restful import Resource
-from flask import request, jsonify
+from flask import request
 from .. import db
+from main.models import NotificacionModel
+from flask import jsonify
 
 
 
@@ -12,8 +14,10 @@ NOTIFICACION = {
 class Notificaciones(Resource):
 
     def post(self):
-        Notificacion= db.session.query(NotificacionModel).get_or_404(id)
-        return Notificacion_json
+        notificacion = notificacion.from_json(request.get_json())
+        db.session.add(notificacion)
+        db.session.commit()
+        return notificacion.to_json(), 201
         
         
         #notificacion = request.get_json()

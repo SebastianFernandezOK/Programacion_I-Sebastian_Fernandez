@@ -1,6 +1,8 @@
 from flask_restful import Resource
 from flask import request
 from .. import db
+from main.models import ReseñaModel
+from flask import jsonify
 
 VALORACION = {
     1: {'valoracion':'5 estrellas'}
@@ -16,32 +18,24 @@ COMENTARIOS = {
 class Valoraciones(Resource):
 
     def get(self):
-        Reseña= db.session.query(ReseñaModel).get_or_404(id)
-        return Reseña_json
-
+        reseñas = db.session.query(ReseñaModel).all()
+        return jsonify([usuario.to_json() for usuario in reseñas])
         #return VALORACION
 
-    def put(self, id):
-        if int(id) in VALORACION:
-            valoracion = VALORACION[int(id)]
-            data = request.get_json()
-            valoracion.update(data)
-            return 'Solicitud correcta', 201
-        return 'Inexistente', 404
-    
+    def post(self):
+        reseña = reseña.from_json(request.get_json())
+        db.session.add(reseña)
+        db.session.commit()
+        return reseña.to_json(), 201
+
 
 class Comentarios(Resource):
-
     def get(self):
-       Reseña= db.session.query(ReseñaModel).get_or_404(id)
-       return Reseña_json
-
-        #return COMENTARIOS
-
-    def put(self, id):
-        if int(id) in COMENTARIOS:
-            comentario = COMENTARIOS[int(id)]
-            data = request.get_json()
-            comentario.update(data)
-            return 'Solicitud correcta', 201
-        return 'Inexistente', 404    
+        comentarios = db.session.query(ReseñaModel).all()
+        return jsonify([comentarios.to_json() for comentario in comentarios])
+    
+    def post(self):
+        comentario = comentario.from_json(request.get_json())
+        db.session.add(comentario)
+        db.session.commit()
+        return comentario.to_json(), 201

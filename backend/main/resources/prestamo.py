@@ -1,6 +1,8 @@
 from flask_restful import Resource
-from flask import request, jsonify
+from flask import request
 from .. import db
+from main.models import PrestamoModel
+from flask import jsonify
 
 
 PRESTAMOS = {
@@ -11,43 +13,35 @@ PRESTAMOS = {
 class Prestamos(Resource):
 
     def get(self):
-        return PRESTAMOS
-    
-    
+        prestamos = db.session.query(PrestamoModel).all()
+        return jsonify([prestamo.to_json() for prestamo in prestamos])
+
+    #insertar recurso
     def post(self):
-        prestamo = request.get_json()
-        id = int(max(PRESTAMOS.keys()))+1
-        PRESTAMOS[id] = prestamo
-        return PRESTAMOS[id], 201
+        prestamo = prestamo.from_json(request.get_json())
+        db.session.add(prestamo)
+        db.session.commit()
+        return prestamo.to_json(), 201
+
     
 class Prestamo(Resource):
 
     def get(self, id):
-        Prestamo= db.session.query(PrestamoModel).get_or_404(id)
-        return Prestamo_json
+        prestamo = db.session.query(PrestamoModel).get_or_404(id)
+        return prestamo.to_json()
 
-        #Verifico que exista el prestamo
-        #if int(id) in PRESTAMOS:
-            #retorno prestamo
-        #    return PRESTAMOS[int(id)]
-        #else:
-        #    return 'Inexistente', 404
-
-
-    #eliminar recurso
     def delete(self, id):
-        #Verifico que exista el prestamo
-        if int(id) in PRESTAMOS:
-            #elimino prestamo
-            del PRESTAMOS[int(id)]
-            return 'Solicitud correcta', 204
-        else:
-            return 'Inexistente', 404
-    #Modificar el recurso prestamo
+        prestamo = db.session.query(prestamo).get_or_404(id)
+        db.session.delete(prestamo)
+        db.session.commit()
+        return '', 204
+
+    
     def put(self, id):
-        if int(id) in PRESTAMOS:
-            prestamo = PRESTAMOS[int(id)]
-            data = request.get_json()
-            prestamo.update(data)
-            return 'Solicitud correcta', 201
-        return 'Inexistente', 404
+        prestamo = db.session.query(prestamo).get_or_404(id)
+        data = request.get_json().items()
+        for key, value in data:
+            setattr(prestamo, key, value)
+        db.session.add(prestamo)
+        db.session.commit()
+        return prestamo.to_json() , 201
