@@ -8,3 +8,5 @@ pyvenv.cfg
 .env
 /Scripts
 /include
+/lib
+/scripts
