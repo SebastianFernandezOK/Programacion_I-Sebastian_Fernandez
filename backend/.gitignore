@@ -1,9 +1,10 @@
 /bin
-/include
-/lib
+/Include
+/Lib
 /lib64
 /share
 **_/pycache
 pyvenv.cfg
 .env
-
+/Scripts
+/include
