@@ -1,7 +1,9 @@
-/Scripts
+/bin
 /include
-/Lib
-/Lib64
+/lib
+/lib64
+/share
+**_/pycache
 pyvenv.cfg
 .env
 
