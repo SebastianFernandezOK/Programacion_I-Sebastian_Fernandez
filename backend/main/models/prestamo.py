@@ -4,7 +4,7 @@ from datetime import datetime
 class Prestamo(db.Model):
     prestamosID = db.Column(db.Integer, primary_key=True)
     usuarioID = db.Column(db.Integer, nullable=False)
-    libroID = db.Column(db.Integer, db.ForeignKey("libro.libroID"), nullable=False)
+    libroID = db.Column(db.Integer, db.ForeignKey("libro.libroID"), nullable=False)##---->Clave Foranea
     fecha_entrega = db.Column(db.DateTime, nullable=False)
     fecha_devolucion = db.Column(db.DateTime, nullable=False)
     #nombre de la relacion 
@@ -16,7 +16,7 @@ class Prestamo(db.Model):
 
     #Convertir objeto en JSON   
     def to_json(self):
-        self.libro = db.session.query(LibrolModel).get_or_404(self.libroID)
+        #self.libro = db.session.query(LibroModel).get_or_404(self.libroID)
         Prestamo_json = {
             "prestamosID": self.prestamosID,
             "usuarioID": self.usuarioID,
@@ -28,7 +28,7 @@ class Prestamo(db.Model):
         return Prestamo_json
 
     def to_json_complete(self):
-        libros = [libro.to_json() for libro in self.libro]
+        libros= [libro.to_json() for libro in self.libro]
         Prestamo_json = {
             "prestamosID": self.prestamosID,
             "usuarioID": self.usuarioID,
@@ -61,4 +61,5 @@ class Prestamo(db.Model):
                         fecha_entrega=fecha_entrega,
                         fecha_devolucion=fecha_devolucion,
                     )
+
 

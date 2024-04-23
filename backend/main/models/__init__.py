@@ -5,5 +5,4 @@ from .prestamo import Prestamo as PrestamoModel
 from .reseña import Reseña as ReseñaModel
 from .usuario import Usuario as UsuarioModel
 from .configuracion import Configuracion as ConfiguracionModel
-from .autor import Autor as AutorModel
 from .historia_clinica import HistoriaClinica as HistoriaClinicaModel
