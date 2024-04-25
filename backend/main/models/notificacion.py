@@ -1,11 +1,13 @@
 from .. import db
 
 class Notificacion(db.Model):
+    __tablename__ = 'notificaciones'  # Nombre de la tabla en plural
+    
     notificacionID = db.Column(db.Integer, primary_key=True)
     comentario = db.Column(db.String(100), nullable=False)
-    usuarioID = db.Column(db.Integer, db.ForeignKey("usuario.usuarioID"), nullable=False)##---->Clave Foranea
+    usuarioID = db.Column(db.Integer, db.ForeignKey("usuarios.usuarioID"), nullable=False)##---->Clave Foranea
     # Nombre de la relación 
-    usuarios = db.relationship("Usuario", back_populates="notificacion", cascade="all, delete-orphan") 
+    usuarios = db.relationship("Usuario", back_populates="notificacion", cascade="all, delete-orphan")
 
     def __repr__(self):
         return '<Notificacion: %r >' % self.notificacionID
@@ -19,12 +21,12 @@ class Notificacion(db.Model):
         return Notificacion_json
 
     def to_json_complete(self):
-        usuarios = [usuario.to_json() for usuario in self.usuarios]
+        usuarios_info = [usuario.to_json() for usuario in self.usuarios]
         Notificacion_json = {
             "notificacionID": self.notificacionID,
             "comentario":str(self.comentario),
             "usuarioID": self.usuarioID,
-            'usuarios': usuarios
+            'usuarios': usuarios_info
         }
         return Notificacion_json
 

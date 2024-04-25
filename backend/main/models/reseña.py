@@ -1,16 +1,17 @@
 from .. import db
 
 class Reseña(db.Model):
+    __tablename__ = 'reseñas'  # Nombre de la tabla en plural
+
     reseñaID = db.Column(db.Integer, primary_key=True)
-    usuarioID = db.Column(db.Integer, db.ForeignKey("usuario.usuarioID"), nullable=False)  # Clave Foranea
-    libroID = db.Column(db.Integer, db.ForeignKey("libro.libroID"), nullable=False)  # Clave Foranea
+    usuarioID = db.Column(db.Integer, db.ForeignKey("usuarios.usuarioID"), nullable=False)  # Clave Foranea
+    libroID = db.Column(db.Integer, db.ForeignKey("libros.libroID"), nullable=False)  # Clave Foranea
     valoracion = db.Column(db.Integer, nullable=False)
-    comentario = db.Column(db.String(100), nullable=False)
-    
+    comentario = db.Column(db.String(100), nullable=False)  
     # Relación con Usuario
-    usuarios = db.relationship("Usuario", back_populates="reseñas")
+    usuario = db.relationship("Usuario", back_populates="reseñas")
     # Relación con Libro
-    libros = db.relationship("Libro", back_populates="reseñas")
+    libro = db.relationship("Libro", back_populates="reseñas")
     
     def __repr__(self):
         return '<Reseña: %r >' % self.reseñaID

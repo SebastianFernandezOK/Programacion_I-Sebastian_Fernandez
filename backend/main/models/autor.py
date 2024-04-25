@@ -2,8 +2,10 @@ from .. import db
 
 
 class Autor(db.Model):
+    __tablename__ = 'autores'  # Nombre de la tabla en plural
+    
     autorID = db.Column(db.Integer, primary_key=True)
-    libroID = db.Column(db.Integer, db.ForeignKey("libro.libroID"), nullable=False)  # Clave Foranea
+    libroID = db.Column(db.Integer, db.ForeignKey("libros.libroID"), nullable=False)  # Clave Foranea
     autor_nombre = db.Column(db.String(100), nullable=False)
     autor_apellido = db.Column(db.String(100), nullable=False)
     # Nombre de la relación
@@ -22,12 +24,12 @@ class Autor(db.Model):
         return autor_json
 
     def to_json_complete(self):
-        libros = [libro.to_json() for libro in self.libros]
+        libros_info = [libro.to_json() for libro in self.libros]
         autor_json = {
             "autorID": self.autorID,
             "autor_nombre": self.autor_nombre,
             "autor_apellido": self.autor_apellido,
-            "libros": libros
+            "libros": libros_info
         }
         return autor_json
 

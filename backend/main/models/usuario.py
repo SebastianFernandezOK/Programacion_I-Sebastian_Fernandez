@@ -1,6 +1,8 @@
 from .. import db
 
 class Usuario(db.Model):
+    __tablename__ = 'usuarios'  # Nombre de la tabla en plural
+    
     usuarioID = db.Column(db.Integer, primary_key=True)
     prestamoID = db.Column(db.Integer, nullable=False)
     usuario_nombre = db.Column(db.String(100), nullable=False)
@@ -9,7 +11,7 @@ class Usuario(db.Model):
     usuario_email = db.Column(db.String(100), nullable=False)
     usuario_telefono = db.Column(db.Integer, nullable=False)
     # Nombre de la relación 
-    configuraciones = db.relationship("Configuracion", back_populates="usuario", cascade="all, delete-orphan") 
+    configuracion = db.relationship("Configuracion", back_populates="usuario", cascade="all, delete-orphan") 
 
 
     def __repr__(self):
@@ -29,7 +31,7 @@ class Usuario(db.Model):
         return usuario_json
 
     def to_json_complete(self):
-        configuraciones = [configuracion.to_json() for configuracion in self.configuraciones]
+        configuraciones_info = [configuracion.to_json() for configuracion in self.configuraciones]
         Usuario_json = {
             "usuarioID": self.usuarioID,
             "prestamoID": self.prestamoID,
@@ -38,7 +40,7 @@ class Usuario(db.Model):
             "usuario_contraseña": self.usuario_contraseña,
             "usuario_email": self.usuario_email,
             "usuario_telefono": self.usuario_telefono,
-            "configuraciones": configuraciones
+            "configuraciones": configuraciones_info
         }
         return Usuario_json
 

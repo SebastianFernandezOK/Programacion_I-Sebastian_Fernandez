@@ -2,6 +2,8 @@ from .. import db
 from datetime import datetime
 
 class Libro(db.Model):
+    __tablename__ = 'libros'  # Nombre de la tabla en plural
+
     libroID = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(100), nullable=False)
     cantidad = db.Column(db.Integer, nullable=False)
@@ -27,7 +29,7 @@ class Libro(db.Model):
 
     # Convertir objeto en JSON completo con lista de prestamos
     def to_json_complete(self):
-        prestamos = [prestamo.to_json() for prestamo in self.prestamos]
+        prestamos_info = [prestamo.to_json() for prestamo in self.prestamos]
         autores_info = [{"autor_nombre": autor.autor_nombre, "autor_apellido": autor.autor_apellido} for autor in self.autores]
         Libro_json = {
             "libroID": self.libroID,
@@ -35,7 +37,7 @@ class Libro(db.Model):
             "cantidad": self.cantidad,
             'editorial': self.editorial,
             'valoracion': self.valoracion,
-            'prestamos': prestamos,
+            'prestamos': prestamos_info,
             "autores": autores_info,
         }
         return Libro_json

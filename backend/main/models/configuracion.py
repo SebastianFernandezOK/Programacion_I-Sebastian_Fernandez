@@ -1,13 +1,13 @@
 from .. import db
 
 class Configuracion(db.Model):
+    __tablename__ = 'configuraciones'  # Nombre de la tabla en plural
+
     configuracionID = db.Column(db.Integer, primary_key=True)
     idioma = db.Column(db.String, nullable=False)
     orden = db.Column(db.String, nullable=False)
     # Nombre de la relación 
-    usuarios = db.relationship("Usuario", back_populates="configuracion", cascade="all, delete-orphan") 
-
-
+    usuarios = db.relationship("Usuario", back_populates="configuracion", cascade="all, delete-orphan")
 
     def __repr__(self):
         return '<Configuracion: %r >' % self.configuracionID
