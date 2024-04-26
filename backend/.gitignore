@@ -3,6 +3,6 @@
 /Lib
 /Lib64
 pyvenv.cfg
-.en
+.env
 /boot.bat
 /install.bat
