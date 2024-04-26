@@ -12,6 +12,10 @@ class Usuario(db.Model):
     usuario_telefono = db.Column(db.Integer, nullable=False)
     # Nombre de la relación 
     configuracion = db.relationship("Configuracion", back_populates="usuario", cascade="all, delete-orphan") 
+    reseñas = db.relationship("Reseña", back_populates="usuario", cascade="all, delete-orphan") 
+    notificaciones = db.relationship("Notificacion", back_populates="usuario", cascade="all, delete-orphan")
+    prestamos = db.relationship("Prestamo", back_populates="usuario", cascade="all, delete-orphan")
+
 
 
     def __repr__(self):
@@ -32,6 +36,9 @@ class Usuario(db.Model):
 
     def to_json_complete(self):
         configuraciones_info = [configuracion.to_json() for configuracion in self.configuraciones]
+        reseñas_info = [reseña.to_json() for reseña in self.reseñas]
+        notificaciones_info = [notificacion.to_json() for notificacion in self.notificaciones]
+        prestamos_info = [prestamo.to_json() for prestamo in self.prestamos]
         Usuario_json = {
             "usuarioID": self.usuarioID,
             "prestamoID": self.prestamoID,
@@ -40,7 +47,10 @@ class Usuario(db.Model):
             "usuario_contraseña": self.usuario_contraseña,
             "usuario_email": self.usuario_email,
             "usuario_telefono": self.usuario_telefono,
-            "configuraciones": configuraciones_info
+            "configuraciones": configuraciones_info,
+            "reseñas": reseñas_info,
+            "notificaciones": notificaciones_info,
+            'prestamos': prestamos_info,
         }
         return Usuario_json
 

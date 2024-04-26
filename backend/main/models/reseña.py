@@ -12,7 +12,7 @@ class Reseña(db.Model):
     usuario = db.relationship("Usuario", back_populates="reseñas")
     # Relación con Libro
     libro = db.relationship("Libro", back_populates="reseñas")
-    
+
     def __repr__(self):
         return '<Reseña: %r >' % self.reseñaID
 
@@ -27,14 +27,14 @@ class Reseña(db.Model):
         return Reseña_json
 
     def to_json_complete(self):
-        usuarios_info = [usuario.to_json() for usuario in self.usuarios]
-        libros_info = [libro.to_json() for libro in self.libros]
+        usuario_info = self.usuario.to_json()
+        libro_info = self.libro.to_json()
         Reseña_json = {
             "reseñaID": self.reseñaID,
-            "usuarios": usuarios_info,
-            "libros": libros_info,
             "valoracion": self.valoracion,
             "comentario": self.comentario,
+            "usuario": usuario_info,
+            "libro": libro_info,
         }
         return Reseña_json
 

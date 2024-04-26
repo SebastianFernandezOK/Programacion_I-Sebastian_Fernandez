@@ -4,3 +4,5 @@
 /Lib64
 pyvenv.cfg
 .env
+/boot.sh
+/install.sh

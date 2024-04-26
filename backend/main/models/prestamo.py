@@ -11,6 +11,8 @@ class Prestamo(db.Model):
     fecha_devolucion = db.Column(db.DateTime, nullable=False)
     # nombre de la relación 
     libro = db.relationship("Libro", back_populates="prestamos", cascade="all, delete-orphan")
+    usuarios = db.relationship("Usuario", back_populates="prestamos", cascade="all, delete-orphan")
+
 
     def __repr__(self):
         return '<Prestamo: %r >' % (self.prestamosID)
@@ -29,13 +31,15 @@ class Prestamo(db.Model):
 
     def to_json_complete(self):
         libros_info = [libro.to_json() for libro in self.libros]
+        usuarios_info = [usuario.to_json() for usuario in self.usuarios]
         Prestamo_json = {
             "prestamosID": self.prestamosID,
             "usuarioID": self.usuarioID,
             "libroID": self.libroID,
             "fecha_entrega": self.fecha_entrega.strftime("%Y-%m-%d"),      
             "fecha_devolucion": self.fecha_devolucion.strftime("%Y-%m-%d"),
-            'libros': libros_info
+            'libros': libros_info,
+            "usuarios": usuarios_info,
         }
         return Prestamo_json
 
