@@ -1,6 +1,6 @@
-python -m venv .                ###
-Scripts\activate                ###Windows
-pip install -r requirements.txt ###
+#python -m venv .                ###
+#Scripts\activate                ###Windows
+#pip install -r requirements.txt ###
 
 
 python3 -m venv .                ###
