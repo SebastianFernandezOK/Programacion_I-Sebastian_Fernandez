@@ -12,12 +12,33 @@ LIBROS = {
 
 class Libros(Resource): 
     #obtener lista de los libros
-
     def get(self):
-        return LIBROS
-    
-    #insertar recurso
+        #Página inicial por defecto
+        page = 1
+        #Cantidad de elementos por página por defecto
+        per_page = 10
+        
+        #no ejecuto el .all()
+        libros = db.session.query(LibroModel)
+        
+        if request.args.get('page'):
+            page = int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page = int(request.args.get('per_page'))
+        
+        ### FILTROS ###     
+        ### FIN FILTROS ####     
+          
+        #Obtener valor paginado
+        libros = libros.paginate(page=page, per_page=per_page, error_out=True)
 
+        return jsonify({'libros': [libro.to_json() for libro in libros],
+                  'total': libros.total,
+                  'pages': libros.pages,
+                  'page': page
+                })
+   
+    #insertar recurso
     def post(self):
         libro = libro.from_json(request.get_json())
         db.session.add(libro)
@@ -25,19 +46,11 @@ class Libros(Resource):
         return libro.to_json(), 201
 
 class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso(Resource)
-    #obtener recurso
-        
+    #obtener recurso        
     def get(self, id):
         libro = db.session.query(LibroModel).get_or_404(id)
         return libro.to_json()
 
-        #Verifico que exista el libro
-       #if int(id) in LIBROS:
-            #retorno libro
-            #return LIBROS[int(id)]
-        #else:
-            #return 'Inexiste', 404
-    
     #eliminar recurso
     def delete(self, id):
         libro = db.session.query(libro).get_or_404(id)

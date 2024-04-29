@@ -1,5 +1,10 @@
 from .. import db
 
+notificaciones_usuarios = db.Table("notificaciones_usuarios",
+    db.Column("notificacionID",db.Integer,db.ForeignKey("notificaciones.notificacionID"),primary_key=True),
+    db.Column("usuarioID",db.Integer,db.ForeignKey("usuarios.usuarioID"),primary_key=True)
+    )
+
 class Notificacion(db.Model):
     __tablename__ = 'notificaciones'  # Nombre de la tabla en plural
     
