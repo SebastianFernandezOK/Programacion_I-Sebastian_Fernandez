@@ -1,10 +1,5 @@
 from .. import db
 
-libros_autores = db.Table("libros_autores",
-    db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID"),primary_key=True),
-    db.Column("autorID",db.Integer,db.ForeignKey("autores.autorID"),primary_key=True)
-    )
-
 class Autor(db.Model):
     __tablename__ = 'autores'  # Nombre de la tabla en plural
     

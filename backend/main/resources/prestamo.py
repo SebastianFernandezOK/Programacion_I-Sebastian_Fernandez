@@ -41,8 +41,11 @@ class Prestamos(Resource):
     #insertar recurso
     def post(self):
         prestamo = prestamo.from_json(request.get_json())
-        db.session.add(prestamo)
-        db.session.commit()
+        try:
+            db.session.add(prestamo)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400    
         return prestamo.to_json(), 201
 
     
@@ -54,16 +57,21 @@ class Prestamo(Resource):
 
     def delete(self, id):
         prestamo = db.session.query(prestamo).get_or_404(id)
-        db.session.delete(prestamo)
-        db.session.commit()
+        try:
+            db.session.delete(prestamo)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400
         return '', 204
-
-    
+   
     def put(self, id):
         prestamo = db.session.query(prestamo).get_or_404(id)
         data = request.get_json().items()
         for key, value in data:
             setattr(prestamo, key, value)
-        db.session.add(prestamo)
-        db.session.commit()
+        try:    
+            db.session.add(prestamo)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400    
         return prestamo.to_json() , 201

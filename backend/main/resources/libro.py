@@ -19,30 +19,44 @@ class Libros(Resource):
         per_page = 10
         
         #no ejecuto el .all()
-        libros = db.session.query(LibroModel)
-        
-        if request.args.get('page'):
-            page = int(request.args.get('page'))
+        libros = db.session.query(LibroModel)#obtener todos objetos de la tabla en la base base de datos
+
+
+        if request.args.get('page'): ##Existe el parametro "page" en la request?
+            page = int(request.args.get('page'))##Si existe, lo cargo
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
         
         ### FILTROS ###     
         ### FIN FILTROS ####     
           
-        #Obtener valor paginado
+        #Obtener valor paginado(evita que se traigan todos los registros)
         libros = libros.paginate(page=page, per_page=per_page, error_out=True)
+                                                                #Si no existe la pag
+                                                                #devuelve un error
 
         return jsonify({'libros': [libro.to_json() for libro in libros],
-                  'total': libros.total,
-                  'pages': libros.pages,
-                  'page': page
+                  'total': libros.total, #
+                  'pages': libros.pages, # Esto se tiene que enviar al backend para paginar
+                  'page': page           #
                 })
    
     #insertar recurso
     def post(self):
+        autores_ids = request.get_json().get('autores')
         libro = libro.from_json(request.get_json())
-        db.session.add(libro)
-        db.session.commit()
+
+        if autores_ids:
+            # Obtener las instancias de autores basadas en las ids recibidas
+            autores = AutorModel.query.filter(AutorModel.id.in_(autores_ids)).all()
+            # Agregar las instancias de autor a la lista de autores del libro
+            libro.autores.extend(autores) 
+                    
+        try:
+            db.session.add(libro)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400    
         return libro.to_json(), 201
 
 class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso(Resource)
@@ -54,15 +68,21 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
     #eliminar recurso
     def delete(self, id):
         libro = db.session.query(libro).get_or_404(id)
-        db.session.delete(libro)
-        db.session.commit()
-        return '', 204
+        try:
+            db.session.delete(libro)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400   
+        return usuario.to_json() , 204
     #Modificar el recurso libro
     def put(self, id):
         libro = db.session.query(libro).get_or_404(id)
         data = request.get_json().items()
         for key, value in data:
             setattr(libro, key, value)
-        db.session.add(libro)
-        db.session.commit()
+        try:
+            db.session.add(libro)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400    
         return libro.to_json() , 201

@@ -24,8 +24,11 @@ class Valoraciones(Resource):
 
     def post(self):
         reseña = reseña.from_json(request.get_json())
-        db.session.add(reseña)
-        db.session.commit()
+        try:
+            db.session.add(reseña)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400            
         return reseña.to_json(), 201
 
 
@@ -36,6 +39,9 @@ class Comentarios(Resource):
     
     def post(self):
         comentario = comentario.from_json(request.get_json())
-        db.session.add(comentario)
-        db.session.commit()
+        try:
+            db.session.add(comentario)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400    
         return comentario.to_json(), 201

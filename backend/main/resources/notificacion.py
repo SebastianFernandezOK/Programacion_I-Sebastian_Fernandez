@@ -15,8 +15,11 @@ class Notificaciones(Resource):
 
     def post(self):
         notificacion = notificacion.from_json(request.get_json())
-        db.session.add(notificacion)
-        db.session.commit()
+        try:
+            db.session.add(notificacion)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400    
         return notificacion.to_json(), 201
         
         

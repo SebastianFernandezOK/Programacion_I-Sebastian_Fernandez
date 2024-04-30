@@ -40,8 +40,18 @@ class Usuarios(Resource):
     #insertar recurso
     def post(self):
         usuario = usuario.from_json(request.get_json())
-        db.session.add(usuario)
-        db.session.commit()
+        notifcaciones_ids = request.get_json().get('notifcaciones')
+        if notifcaciones_ids:
+            # Obtener las instancias de autores basadas en las ids recibidas
+            notifcaciones = NotificacionModel.query.filter(NotificacionModel.id.in_(notifcaciones_ids)).all()
+            # Agregar las instancias de autor a la lista de autores del libro
+            usuario.notifcaciones.extend(notifcaciones) 
+
+        try:
+            db.session.add(usuario)
+            db.session.commit()
+        except:
+            return "Formato incorrecto"    
         return usuario.to_json(), 201
 
     
@@ -55,9 +65,12 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
     #eliminar recurso
     def delete(self, id):
         usuario = db.session.query(usuario).get_or_404(id)
-        db.session.delete(usuario)
-        db.session.commit()
-        return '', 204
+        try:
+            db.session.delete(usuario)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400    
+        return usuario.to_json() , 204
 
     #Modificar el recurso animal
     def put(self, id):
@@ -65,6 +78,9 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
         data = request.get_json().items()
         for key, value in data:
             setattr(usuario, key, value)
-        db.session.add(usuario)
-        db.session.commit()
+        try:
+            db.session.add(usuario)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400    
         return usuario.to_json() , 201

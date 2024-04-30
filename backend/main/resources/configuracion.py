@@ -18,6 +18,9 @@ class Configuraciones(Resource):
     #insertar recurso
     def post(self):
         configuracion = configuracion.from_json(request.get_json())
-        db.session.add(configuracion)
-        db.session.commit()
+        try:
+            db.session.add(configuracion)
+            db.session.commit()
+        except:
+            return "Formato incorrecto", 400            
         return configuracion.to_json(), 201
