@@ -19,11 +19,11 @@ class Valoraciones(Resource):
 
     def get(self):
         reseñas = db.session.query(ReseñaModel).all()
-        return jsonify([usuario.to_json() for usuario in reseñas])
+        return jsonify([reseña.to_json() for reseña in reseñas])
         #return VALORACION
 
     def post(self):
-        reseña = reseña.from_json(request.get_json())
+        reseña = ReseñaModel.from_json(request.get_json())
         try:
             db.session.add(reseña)
             db.session.commit()
@@ -35,13 +35,14 @@ class Valoraciones(Resource):
 class Comentarios(Resource):
     def get(self):
         comentarios = db.session.query(ReseñaModel).all()
-        return jsonify([comentarios.to_json() for comentario in comentarios])
+        return jsonify([comentario.to_json() for comentario in comentarios])
     
     def post(self):
-        comentario = comentario.from_json(request.get_json())
+        comentario = ReseñaModel.from_json(request.get_json())
         try:
             db.session.add(comentario)
             db.session.commit()
         except:
+            db.session.rollback()
             return "Formato incorrecto", 400    
         return comentario.to_json(), 201

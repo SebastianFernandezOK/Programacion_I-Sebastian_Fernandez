@@ -7,5 +7,5 @@ from .reseña import Reseña as ReseñaModel
 from .usuario import Usuario as UsuarioModel
 from .configuracion import Configuracion as ConfiguracionModel
 from .autor import Autor as AutorModel
-from .usuario import libros_autores as libros_autoresModel
+from .libro import libros_autores as libros_autoresModel
 from .notificacion import notificaciones_usuarios as notificaciones_usuariosModel

@@ -12,7 +12,7 @@ class Notificacion(db.Model):
     comentario = db.Column(db.String(100), nullable=False)
     usuarioID = db.Column(db.Integer, db.ForeignKey("usuarios.usuarioID"), nullable=False)##---->Clave Foranea
     # Nombre de la relación 
-    usuarios = db.relationship("Usuario", back_populates="notificacion", cascade="all, delete-orphan")
+    usuario = db.relationship("Usuario", back_populates="notificaciones")
 
     def __repr__(self):
         return '<Notificacion: %r >' % self.notificacionID

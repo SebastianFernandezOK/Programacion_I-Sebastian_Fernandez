@@ -1,6 +1,12 @@
 from .. import db
 from datetime import datetime
 
+libros_autores = db.Table("libros_autores",
+    db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID"),primary_key=True),
+    db.Column("autorID",db.Integer,db.ForeignKey("autores.autorID"),primary_key=True)
+    )     
+
+
 class Libro(db.Model):
     __tablename__ = 'libros'  # Nombre de la tabla en plural
 
@@ -8,11 +14,16 @@ class Libro(db.Model):
     titulo = db.Column(db.String(100), nullable=False)
     cantidad = db.Column(db.Integer, nullable=False)
     editorial = db.Column(db.String(100), nullable=False)
-    valoracion = db.Column(db.String(100), nullable=False)        
+    valoracion = db.Column(db.String(100), nullable=False)   
+
+    
     # nombre de la relación 
-    autores = db.relationship("Autor", back_populates="libro", cascade="all, delete-orphan")    
+    autores = db.relationship("Autor", secondary="libros_autores", back_populates="libros")
+    #autores = db.relationship("Autor", back_populates="libro", cascade="all, delete-orphan")    
     prestamos = db.relationship("Prestamo", back_populates="libro", cascade="all, delete-orphan")
     reseñas = db.relationship("Reseña", back_populates="libro", cascade="all, delete-orphan")
+
+    
 
 
     def __repr__(self):

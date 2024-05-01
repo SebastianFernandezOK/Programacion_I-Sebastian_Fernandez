@@ -7,7 +7,7 @@ class Configuracion(db.Model):
     idioma = db.Column(db.String, nullable=False)
     orden = db.Column(db.String, nullable=False)
     # Nombre de la relación 
-    usuarios = db.relationship("Usuario", back_populates="configuracion", cascade="all, delete-orphan")
+    usuario = db.relationship("Usuario", back_populates="configuracion")
 
     def __repr__(self):
         return '<Configuracion: %r >' % self.configuracionID

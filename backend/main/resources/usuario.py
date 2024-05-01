@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request
 from .. import db
-from main.models import UsuarioModel
+from main.models import UsuarioModel, NotificacionModel
 from flask import jsonify
 
 #Datos de prueba en JSON
@@ -39,19 +39,24 @@ class Usuarios(Resource):
 
     #insertar recurso
     def post(self):
-        usuario = usuario.from_json(request.get_json())
-        notifcaciones_ids = request.get_json().get('notifcaciones')
-        if notifcaciones_ids:
-            # Obtener las instancias de autores basadas en las ids recibidas
-            notifcaciones = NotificacionModel.query.filter(NotificacionModel.id.in_(notifcaciones_ids)).all()
-            # Agregar las instancias de autor a la lista de autores del libro
-            usuario.notifcaciones.extend(notifcaciones) 
+        usuario = UsuarioModel.from_json(request.get_json())
+        notificaciones_ids = request.get_json().get('notificaciones')
+
+        if notificaciones_ids:
+            # Obtener las instancias de notificaciones basadas en las ids recibidas
+            notificaciones = NotificacionModel.query.filter(NotificacionModel.id.in_(notificaciones_ids)).all()
+            # Agregar las instancias de notificacion al usuario
+            usuario.notificaciones.extend(notificaciones) 
+
+        #else:
+        #    notificaciones = []
 
         try:
             db.session.add(usuario)
             db.session.commit()
         except:
-            return "Formato incorrecto"    
+            db.session.rollback()
+            return "Formato incorrecto", 400    
         return usuario.to_json(), 201
 
     
@@ -64,23 +69,25 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
 
     #eliminar recurso
     def delete(self, id):
-        usuario = db.session.query(usuario).get_or_404(id)
+        usuario = db.session.query(UsuarioModel).get_or_404(id)
         try:
             db.session.delete(usuario)
             db.session.commit()
         except:
+            db.session.rollback()
             return "Formato incorrecto", 400    
         return usuario.to_json() , 204
 
     #Modificar el recurso animal
     def put(self, id):
-        usuario = db.session.query(usuario).get_or_404(id)
-        data = request.get_json().items()
-        for key, value in data:
+        usuario = db.session.query(UsuarioModel).get_or_404(id)
+        data = request.get_json()
+        for key, value in data.items():
             setattr(usuario, key, value)
         try:
             db.session.add(usuario)
             db.session.commit()
         except:
+            db.session.rollback()
             return "Formato incorrecto", 400    
         return usuario.to_json() , 201

@@ -5,13 +5,15 @@ class Prestamo(db.Model):
     __tablename__ = 'prestamos'  # Nombre de la tabla en plural
 
     prestamosID = db.Column(db.Integer, primary_key=True)
-    usuarioID = db.Column(db.Integer, nullable=False)
+    usuarioID = db.Column(db.Integer, db.ForeignKey('usuarios.usuarioID'), nullable=False)
     libroID = db.Column(db.Integer, db.ForeignKey("libros.libroID"), nullable=False)  # Clave Foranea
     fecha_entrega = db.Column(db.DateTime, nullable=False)
     fecha_devolucion = db.Column(db.DateTime, nullable=False)
     # nombre de la relación 
-    libro = db.relationship("Libro", back_populates="prestamos", cascade="all, delete-orphan")
-    usuarios = db.relationship("Usuario", back_populates="prestamos", cascade="all, delete-orphan")
+    libro = db.relationship("Libro", back_populates="prestamos", single_parent=True)
+    usuario = db.relationship("Usuario", back_populates="prestamos")
+
+
 
 
     def __repr__(self):

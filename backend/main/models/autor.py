@@ -8,7 +8,9 @@ class Autor(db.Model):
     autor_nombre = db.Column(db.String(100), nullable=False)
     autor_apellido = db.Column(db.String(100), nullable=False)
     # Nombre de la relación
-    libros = db.relationship("Libro", back_populates="autores", cascade="all, delete-orphan")
+    #libros = db.relationship("Libro", back_populates="autores", cascade="all, delete-orphan")
+    libros = db.relationship("Libro", secondary="libros_autores", back_populates="autores")
+
 
     def __repr__(self):
         return '<Autor: %r >' % self.autor_nombre

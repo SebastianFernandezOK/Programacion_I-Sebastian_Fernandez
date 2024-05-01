@@ -321,6 +321,102 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "configuracion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"configuracionID\": 2,\r\n    \"idioma\": \"español\",\r\n    \"orden\": \"ascendente\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:7000/configuraciones",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "7000",
+					"path": [
+						"configuraciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "configuracion",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:7000/configuraciones",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "7000",
+					"path": [
+						"configuraciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "prestamos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"prestamosID\": 1,\r\n    \"usuarioID\": 1,\r\n    \"libroID\": 1,\r\n    \"fecha_entrega\": \"2024-05-1\",\r\n    \"fecha_devolucion\": \"2024-06-01\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:7000/prestamos",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "7000",
+					"path": [
+						"prestamos"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

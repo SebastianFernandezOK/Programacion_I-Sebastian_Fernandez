@@ -40,11 +40,12 @@ class Prestamos(Resource):
 
     #insertar recurso
     def post(self):
-        prestamo = prestamo.from_json(request.get_json())
+        prestamo = PrestamoModel.from_json(request.get_json())
         try:
             db.session.add(prestamo)
             db.session.commit()
         except:
+            db.session.rollback()
             return "Formato incorrecto", 400    
         return prestamo.to_json(), 201
 
@@ -56,22 +57,24 @@ class Prestamo(Resource):
         return prestamo.to_json()
 
     def delete(self, id):
-        prestamo = db.session.query(prestamo).get_or_404(id)
+        prestamo = db.session.query(PrestamoModel).get_or_404(id)
         try:
             db.session.delete(prestamo)
             db.session.commit()
         except:
+            db.session.rollback()
             return "Formato incorrecto", 400
         return '', 204
    
     def put(self, id):
-        prestamo = db.session.query(prestamo).get_or_404(id)
-        data = request.get_json().items()
-        for key, value in data:
+        prestamo = db.session.query(PrestamoModel).get_or_404(id)
+        data = request.get_json() #obtener el diccionario completo
+        for key, value in data.items():  # Usar items() para iterar sobre las claves y valores
             setattr(prestamo, key, value)
         try:    
             db.session.add(prestamo)
             db.session.commit()
         except:
+            db.session.rollback()
             return "Formato incorrecto", 400    
         return prestamo.to_json() , 201

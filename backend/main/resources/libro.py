@@ -1,8 +1,7 @@
 from flask_restful import Resource
-from flask import request
+from flask import request, jsonify
 from .. import db
-from main.models import LibroModel
-from flask import jsonify
+from main.models import LibroModel, AutorModel
 
 #Datos de prueba en JSON
 LIBROS = {
@@ -43,20 +42,22 @@ class Libros(Resource):
    
     #insertar recurso
     def post(self):
-        autores_ids = request.get_json().get('autores')
-        libro = libro.from_json(request.get_json())
+        data = request.get_json()
+        autores_ids = data.get('autores', [])
+        libro = LibroModel.from_json(data)
 
         if autores_ids:
             # Obtener las instancias de autores basadas en las ids recibidas
             autores = AutorModel.query.filter(AutorModel.id.in_(autores_ids)).all()
             # Agregar las instancias de autor a la lista de autores del libro
-            libro.autores.extend(autores) 
-                    
+            libro.autores.extend(autores)
+            
         try:
             db.session.add(libro)
             db.session.commit()
         except:
-            return "Formato incorrecto", 400    
+            return "Formato incorrecto", 400
+
         return libro.to_json(), 201
 
 class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso(Resource)
@@ -65,24 +66,25 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
         libro = db.session.query(LibroModel).get_or_404(id)
         return libro.to_json()
 
-    #eliminar recurso
+     # Eliminar recurso
     def delete(self, id):
-        libro = db.session.query(libro).get_or_404(id)
-        try:
-            db.session.delete(libro)
-            db.session.commit()
-        except:
-            return "Formato incorrecto", 400   
-        return usuario.to_json() , 204
+        libro = db.session.query(LibroModel).get_or_404(id)
+        db.session.delete(libro)
+        db.session.commit()
+        return '', 204
+
     #Modificar el recurso libro
     def put(self, id):
-        libro = db.session.query(libro).get_or_404(id)
-        data = request.get_json().items()
-        for key, value in data:
+        libro = db.session.query(LibroModel).get_or_404(id)
+        data = request.get_json()
+
+        for key, value in data.items():
             setattr(libro, key, value)
+
         try:
             db.session.add(libro)
             db.session.commit()
         except:
-            return "Formato incorrecto", 400    
-        return libro.to_json() , 201
+            return "Formato incorrecto", 400
+
+        return libro.to_json(), 201

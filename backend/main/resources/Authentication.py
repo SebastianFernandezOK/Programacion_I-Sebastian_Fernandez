@@ -1,5 +1,7 @@
 from flask_restful import Resource
 from flask import request
+from main.models import UsuarioModel
+from .. import db
 
 USUARIOS = {
     1: {'nombre':'Sebastián', 'apellido':'Fernández'},

@@ -1,14 +1,10 @@
 from .. import db
 
-libros_autores = db.Table("libros_autores",
-    db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID"),primary_key=True),
-    db.Column("autorID",db.Integer,db.ForeignKey("autores.autorID"),primary_key=True)
-    )
-
 
 class Usuario(db.Model):
     __tablename__ = 'usuarios'  # Nombre de la tabla en plural
     
+
     usuarioID = db.Column(db.Integer, primary_key=True)
     prestamoID = db.Column(db.Integer, nullable=False)
     usuario_nombre = db.Column(db.String(100), nullable=False)
@@ -16,8 +12,9 @@ class Usuario(db.Model):
     usuario_contraseña = db.Column(db.String(100), nullable=False)
     usuario_email = db.Column(db.String(100), nullable=False)
     usuario_telefono = db.Column(db.Integer, nullable=False)
+    configuracionID = db.Column(db.Integer, db.ForeignKey('configuraciones.configuracionID'), nullable=False)
     # Nombre de la relación 
-    configuracion = db.relationship("Configuracion", back_populates="usuario", cascade="all, delete-orphan") 
+    configuracion = db.relationship("Configuracion", back_populates="usuario", cascade="all, delete-orphan", single_parent=True) 
     reseñas = db.relationship("Reseña", back_populates="usuario", cascade="all, delete-orphan") 
     notificaciones = db.relationship("Notificacion", back_populates="usuario", cascade="all, delete-orphan")
     prestamos = db.relationship("Prestamo", back_populates="usuario", cascade="all, delete-orphan")
