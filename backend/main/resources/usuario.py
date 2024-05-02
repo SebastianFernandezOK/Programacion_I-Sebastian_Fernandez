@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request
 from .. import db
-from main.models import UsuarioModel, NotificacionModel
+from main.models import UsuarioModel, NotificacionModel, PrestamoModel
 from flask import jsonify
 
 #Datos de prueba en JSON
@@ -17,7 +17,6 @@ class Usuarios(Resource):
         #Cantidad de elementos por página por defecto
         per_page = 10
         
-        #no ejecuto el .all()
         usuarios = db.session.query(UsuarioModel)
         
         if request.args.get('page'):
@@ -25,13 +24,26 @@ class Usuarios(Resource):
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
         
-        ### FILTROS ###     
+        ### FILTROS ###
+        # Filtrar por nombre 
+        if request.args.get('nombre'):
+            usuarios = usuarios.filter(UsuarioModel.usuario_nombre.like(f"%{request.args.get('nombre')}%"))       
+        # Filtrar por apellido 
+        if request.args.get('apellido'):
+            usuarios = usuarios.filter(UsuarioModel.usuario_apellido.like(f"%{request.args.get('apellido')}%"))     
+        # Filtrar por número de préstamos 
+        if request.args.get('nr_prestamos'):
+                    # Subquery para contar el número de préstamos por usuario. subconsulta que cuenta el número de préstamos por usuario
+                    subquery = db.session.query(PrestamoModel.usuarioID, func.count(PrestamoModel.prestamosID).label('total_prestamos')).group_by(PrestamoModel.usuarioID).subquery()
+                    # Join con la subquery y ordenamiento por el número de préstamos, 
+                    usuarios = usuarios.join(subquery, UsuarioModel.usuarioID == subquery.c.usuarioID).order_by(subquery.c.total_prestamos.desc())
+
         ### FIN FILTROS ####     
           
         #Obtener valor paginado
         usuarios = usuarios.paginate(page=page, per_page=per_page, error_out=True)
 
-        return jsonify({"usuarios":[usuario.to_json() for usuario in usuarios],    
+        return jsonify({"usuarios":[usuario.to_json() for usuario in usuarios.items],    
                   'total': usuarios.total,
                   'pages': usuarios.pages,
                   'page': page      
@@ -47,9 +59,6 @@ class Usuarios(Resource):
             notificaciones = NotificacionModel.query.filter(NotificacionModel.id.in_(notificaciones_ids)).all()
             # Agregar las instancias de notificacion al usuario
             usuario.notificaciones.extend(notificaciones) 
-
-        #else:
-        #    notificaciones = []
 
         try:
             db.session.add(usuario)

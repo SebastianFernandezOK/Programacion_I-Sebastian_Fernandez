@@ -26,13 +26,29 @@ class Prestamos(Resource):
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
         
-        ### FILTROS ###     
+        ### FILTROS ###
+
+        # Filtrar por fecha de entrega
+        if request.args.get('fecha_entrega'):# verifica si el parámetro está en los argumentos de la solicitud
+            try:
+                fecha_entrega = datetime.strptime(request.args.get('fecha_entrega'), "%Y-%m-%d") #convertir el texto que representa la fecha alquilado en un objeto datetime. 
+                prestamos = prestamos.filter(PrestamoModel.fecha_entrega == fecha_entrega) #selecciona los préstamos cuya fecha alquilado coincida con la fecha ingresada.
+            except ValueError:# error al intentar convertir la cadena en un objeto datetime
+                return "Formato de fecha incorrecto. Utilice el formato 'yyyy-mm-dd'.", 400 #se devuelve un mensaje de error pidiendo el formato correcto. 
+           
+        # Filtrar por fecha límite
+        if request.args.get('fecha_limite'):
+            try:
+                fecha_limite = datetime.strptime(request.args.get('fecha_limite'), "%Y-%m-%d")
+                prestamos = prestamos.filter(PrestamoModel.fecha_limite == fecha_limite)
+            except ValueError:
+                return "Formato de fecha incorrecto. Utilice el formato 'yyyy-mm-dd'.", 400
         ### FIN FILTROS ####     
           
         #Obtener valor paginado
         prestamos = prestamos.paginate(page=page, per_page=per_page, error_out=True)
 
-        return jsonify({"prestamos":[prestamo.to_json() for prestamo in prestamos],    
+        return jsonify({"prestamos":[prestamo.to_json() for prestamo in prestamos.items],    
                   'total': prestamos.total,
                   'pages': prestamos.pages,
                   'page': page      

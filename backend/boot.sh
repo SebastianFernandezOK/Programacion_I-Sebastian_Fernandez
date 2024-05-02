@@ -1,5 +1,5 @@
-#Scripts\activate ### Windows
-#python app.py    ###
+Scripts\activate ### Windows
+python app.py    ###
 
 
 boot.sh             ###   

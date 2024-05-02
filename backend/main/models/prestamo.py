@@ -5,7 +5,7 @@ class Prestamo(db.Model):
     __tablename__ = 'prestamos'  # Nombre de la tabla en plural
 
     prestamosID = db.Column(db.Integer, primary_key=True)
-    usuarioID = db.Column(db.Integer, db.ForeignKey('usuarios.usuarioID'), nullable=False)
+    usuarioID = db.Column(db.Integer, db.ForeignKey('usuarios.usuarioID'), nullable=False) # Clave Foranea
     libroID = db.Column(db.Integer, db.ForeignKey("libros.libroID"), nullable=False)  # Clave Foranea
     fecha_entrega = db.Column(db.DateTime, nullable=False)
     fecha_devolucion = db.Column(db.DateTime, nullable=False)

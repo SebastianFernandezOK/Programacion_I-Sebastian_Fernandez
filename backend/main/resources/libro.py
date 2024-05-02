@@ -26,7 +26,23 @@ class Libros(Resource):
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
         
-        ### FILTROS ###     
+        ### FILTROS ### 
+        #Filtrar por titulo
+        if request.args.get('titulo'):
+            libros = libros.filter(LibroModel.titulo.like('%' + request.args.get('titulo') + '%'))
+        if request.args.get('sortby_titulo'):
+            libros = libros.order_by(LibroModel.titulo.desc())
+        #Filtrar por editorial
+        if request.args.get('editorial'):
+            libros = libros.filter(LibroModel.editorial == request.args.get('editorial'))
+        if request.args.get('sortby_editorial'):
+            libros = libros.order_by(LibroModel.editorial.desc())
+        #Filtrar por valoración
+        if request.args.get('valoracion'):
+            libros = libros.filter(LibroModel.valoracion == request.args.get('valoracion'))
+        if request.args.get('sortby_valoracion'):
+            libros = libros.order_by(LibroModel.valoracion.desc())      
+
         ### FIN FILTROS ####     
           
         #Obtener valor paginado(evita que se traigan todos los registros)
@@ -34,31 +50,29 @@ class Libros(Resource):
                                                                 #Si no existe la pag
                                                                 #devuelve un error
 
-        return jsonify({'libros': [libro.to_json() for libro in libros],
+        return jsonify({'libros': [libro.to_json() for libro in libros.items],
                   'total': libros.total, #
                   'pages': libros.pages, # Esto se tiene que enviar al backend para paginar
                   'page': page           #
                 })
-   
-    #insertar recurso
     def post(self):
         data = request.get_json()
-        autores_ids = data.get('autores', [])
+        autores_ids = data.get('autores', [])  # Obtener los IDs de los autores del JSON o una lista vacía si no se proporcionan
         libro = LibroModel.from_json(data)
 
         if autores_ids:
-            # Obtener las instancias de autores basadas en las ids recibidas
+            # Obtener las instancias de autores basadas en las IDs recibidas
             autores = AutorModel.query.filter(AutorModel.id.in_(autores_ids)).all()
             # Agregar las instancias de autor a la lista de autores del libro
             libro.autores.extend(autores)
-            
+
         try:
             db.session.add(libro)
             db.session.commit()
         except:
             return "Formato incorrecto", 400
 
-        return libro.to_json(), 201
+        return libro.to_json(), 201 #Si la operación es exitosa, se devuelve la representación JSON del libro con el código de estado 201.
 
 class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso(Resource)
     #obtener recurso        
@@ -66,14 +80,12 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
         libro = db.session.query(LibroModel).get_or_404(id)
         return libro.to_json()
 
-     # Eliminar recurso
     def delete(self, id):
         libro = db.session.query(LibroModel).get_or_404(id)
         db.session.delete(libro)
         db.session.commit()
         return '', 204
 
-    #Modificar el recurso libro
     def put(self, id):
         libro = db.session.query(LibroModel).get_or_404(id)
         data = request.get_json()
@@ -85,6 +97,7 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
             db.session.add(libro)
             db.session.commit()
         except:
+            db.session.rollback()
             return "Formato incorrecto", 400
 
         return libro.to_json(), 201
