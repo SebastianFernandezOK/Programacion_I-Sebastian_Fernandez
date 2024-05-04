@@ -1,4 +1,4 @@
-Scripts\activate ### Windows
+#Scripts\activate ### Windows
 python app.py    ###
 
 

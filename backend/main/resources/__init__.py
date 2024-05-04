@@ -1,5 +1,3 @@
-from .animal import Animal as AnimalResources
-from .animal import Animales as AnimalesResources
 from .usuario import Usuarios as UsuariosResources
 from .usuario import Usuario as UsuarioResources
 from .libro import Libros as LibrosResources

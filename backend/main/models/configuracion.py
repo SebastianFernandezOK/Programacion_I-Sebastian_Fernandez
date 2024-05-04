@@ -6,8 +6,11 @@ class Configuracion(db.Model):
     configuracionID = db.Column(db.Integer, primary_key=True,  autoincrement=True)
     idioma = db.Column(db.String, nullable=False)
     orden = db.Column(db.String, nullable=False)
-    # Nombre de la relación 
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.usuarioID'))#--->Clave Foranea
+    #relación 1:1(usuario-padre)
     usuario = db.relationship("Usuario", back_populates="configuracion")
+   
+
 
     def __repr__(self):
         return '<Configuracion: %r >' % self.configuracionID

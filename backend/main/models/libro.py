@@ -1,26 +1,27 @@
 from .. import db
 from datetime import datetime
 
-libros_autores = db.Table("libros_autores",
-    db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID"),primary_key=True),
-    db.Column("autorID",db.Integer,db.ForeignKey("autores.autorID"),primary_key=True)
-    )     
-
+   
+#libros_prestamos = db.Table("libros_prestamos",
+#    db.Column('id', db.Integer, primary_key=True, unique=True),
+#    db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID"),primary_key=True),
+#    db.Column("prestamosID",db.Integer,db.ForeignKey("prestamos.prestamoID"),primary_key=True)
+#    )     
 
 class Libro(db.Model):
+
     __tablename__ = 'libros'  # Nombre de la tabla en plural
 
     libroID = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(100), nullable=False)
     cantidad = db.Column(db.Integer, nullable=False)
     editorial = db.Column(db.String(100), nullable=False)
-    valoracion = db.Column(db.String(100), nullable=False)   
-
-    # nombre de la relación 
-    autores = db.relationship("Autor", secondary="libros_autores", back_populates="libros")
-    #autores = db.relationship("Autor", back_populates="libro", cascade="all, delete-orphan")    
-    prestamos = db.relationship("Prestamo", back_populates="libro", cascade="all, delete-orphan")
-    reseñas = db.relationship("Reseña", back_populates="libro", cascade="all, delete-orphan")
+    #relacion 1:1(Libro es padre)
+    prestamos = db.relationship("Prestamo", uselist=False, back_populates="libros", cascade="all, delete-orphan") 
+    #relacion 1:N(Libro es padre)
+    reseñas =  db.relationship('Reseña', back_populates='libro', cascade='all, delete-orphan')
+    #relacion N:M(Libro es padre)
+    #autores = db.relationship("Autor", secondary="libros_autores", back_populates="libros")
 
     def __repr__(self):
         return '<Libro: %r  >' % (self.libroID)
@@ -32,7 +33,6 @@ class Libro(db.Model):
             'titulo': self.titulo,
             "cantidad": self.cantidad,
             'editorial': self.editorial,
-            'valoracion': self.valoracion,
         }
         return Libro_json
 
@@ -46,7 +46,6 @@ class Libro(db.Model):
             'titulo': self.titulo,
             "cantidad": self.cantidad,
             'editorial': self.editorial,
-            'valoracion': self.valoracion,
             'prestamos': prestamos_info,
             "autores": autores_info,
             "reseñas": reseñas_info,
@@ -68,9 +67,7 @@ class Libro(db.Model):
         titulo = libro_json.get('titulo')
         cantidad = libro_json.get('cantidad')
         editorial = libro_json.get('editorial')
-        valoracion = libro_json.get('valoracion')
         return Libro(libroID=libroID,
                     titulo=titulo,
                     cantidad=cantidad,
-                    editorial=editorial, 
-                    valoracion=valoracion)
+                    editorial=editorial)

@@ -31,10 +31,6 @@ def create_app():
 
     import main.resources as resources
 
-    api.add_resource(resources.AnimalesResources, '/animales')
-
-    api.add_resource(resources.AnimalResources, '/animales/<id>')
-
     api.add_resource(resources.UsuariosResources, '/usuarios')
 
     api.add_resource(resources.UsuarioResources, '/usuario/<id>')

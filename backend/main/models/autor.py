@@ -1,5 +1,11 @@
 from .. import db
 
+libros_autores = db.Table("libros_autores",
+    db.Column('id', db.Integer, primary_key=True, unique=True, autoincrement=True),
+    db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID"),primary_key=True),
+    db.Column("autorID",db.Integer,db.ForeignKey("autores.autorID"),primary_key=True)
+    )  
+
 class Autor(db.Model):
     __tablename__ = 'autores'  # Nombre de la tabla en plural
     
@@ -8,9 +14,8 @@ class Autor(db.Model):
     autor_nombre = db.Column(db.String(100), nullable=False)
     autor_apellido = db.Column(db.String(100), nullable=False)
     # Nombre de la relación
-    #libros = db.relationship("Libro", back_populates="autores", cascade="all, delete-orphan")
-    libros = db.relationship("Libro", secondary="libros_autores", back_populates="autores")
-
+    #relacion N:M(Libro es padre)
+    libros = db.relationship("Libro", secondary=libros_autores, backref=db.backref('autores', lazy='dynamic'))
 
     def __repr__(self):
         return '<Autor: %r >' % self.autor_nombre
