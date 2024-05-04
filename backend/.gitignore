@@ -6,3 +6,5 @@ pyvenv.cfg
 .env
 /boot.bat
 /install.bat
+
+*__pycache__*

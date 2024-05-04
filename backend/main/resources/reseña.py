@@ -28,6 +28,7 @@ class Valoraciones(Resource):
             db.session.add(reseña)
             db.session.commit()
         except:
+            db.session.rollback()
             return "Formato incorrecto", 400            
         return reseña.to_json(), 201
 
@@ -42,7 +43,7 @@ class Comentarios(Resource):
         try:
             db.session.add(comentario)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
-            return "Formato incorrecto", 400    
+            return f"Error al agregar la configuración: {str(e)}", 400
         return comentario.to_json(), 201

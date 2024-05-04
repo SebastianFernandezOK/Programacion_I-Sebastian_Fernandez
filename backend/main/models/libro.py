@@ -16,15 +16,11 @@ class Libro(db.Model):
     editorial = db.Column(db.String(100), nullable=False)
     valoracion = db.Column(db.String(100), nullable=False)   
 
-    
     # nombre de la relación 
     autores = db.relationship("Autor", secondary="libros_autores", back_populates="libros")
     #autores = db.relationship("Autor", back_populates="libro", cascade="all, delete-orphan")    
     prestamos = db.relationship("Prestamo", back_populates="libro", cascade="all, delete-orphan")
     reseñas = db.relationship("Reseña", back_populates="libro", cascade="all, delete-orphan")
-
-    
-
 
     def __repr__(self):
         return '<Libro: %r  >' % (self.libroID)

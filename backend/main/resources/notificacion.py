@@ -31,6 +31,7 @@ class Notificaciones(Resource):
         if request.args.get('usuario_id'):
             usuario_id = int(request.args.get('usuario_id'))
             notificaciones = notificaciones.filter_by(usuarioID=usuario_id) #se filtran las notificaciones que pertenecen al usuario con el id proporcionado.
+            
         #Filtro por nombre_usuario:
         if request.args.get('nombre_usuario'):
             nombre_usuario = request.args.get('nombre_usuario')

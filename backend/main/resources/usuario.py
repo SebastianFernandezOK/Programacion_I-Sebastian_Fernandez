@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from flask import request
 from .. import db
+from sqlalchemy import func
 from main.models import UsuarioModel, NotificacionModel, PrestamoModel
 from flask import jsonify
 
@@ -56,22 +57,22 @@ class Usuarios(Resource):
 
         if notificaciones_ids:
             # Obtener las instancias de notificaciones basadas en las ids recibidas
-            notificaciones = NotificacionModel.query.filter(NotificacionModel.id.in_(notificaciones_ids)).all()
+            notificaciones = NotificacionModel.query.filter(NotificacionModel.notificacionID.in_(notificaciones_ids)).all()
             # Agregar las instancias de notificacion al usuario
             usuario.notificaciones.extend(notificaciones) 
 
         try:
             db.session.add(usuario)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
-            return "Formato incorrecto", 400    
+            return f"Error al agregar la configuración: {str(e)}", 400
         return usuario.to_json(), 201
 
     
 class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)
-    #obtener recurso
-        
+    
+    #obtener recurso 
     def get(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
         return usuario.to_json()
@@ -82,10 +83,10 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
         try:
             db.session.delete(usuario)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
-            return "Formato incorrecto", 400    
-        return usuario.to_json() , 204
+            return f"Error al borrar el usuario: {str(e)}", 400
+        return usuario.to_json(), 201
 
     #Modificar el recurso animal
     def put(self, id):
@@ -96,7 +97,7 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
         try:
             db.session.add(usuario)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
-            return "Formato incorrecto", 400    
-        return usuario.to_json() , 201
+            return f"Error al agregar al usuario: {str(e)}", 400
+        return usuario.to_json(), 201

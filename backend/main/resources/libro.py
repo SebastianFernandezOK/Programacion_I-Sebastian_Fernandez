@@ -42,7 +42,6 @@ class Libros(Resource):
             libros = libros.filter(LibroModel.valoracion == request.args.get('valoracion'))
         if request.args.get('sortby_valoracion'):
             libros = libros.order_by(LibroModel.valoracion.desc())      
-
         ### FIN FILTROS ####     
           
         #Obtener valor paginado(evita que se traigan todos los registros)
@@ -50,11 +49,12 @@ class Libros(Resource):
                                                                 #Si no existe la pag
                                                                 #devuelve un error
 
-        return jsonify({'libros': [libro.to_json() for libro in libros.items],
+        return jsonify({'libros': [libro.to_json() for libro in libros],
                   'total': libros.total, #
                   'pages': libros.pages, # Esto se tiene que enviar al backend para paginar
                   'page': page           #
                 })
+
     def post(self):
         data = request.get_json()
         autores_ids = data.get('autores', [])  # Obtener los IDs de los autores del JSON o una lista vacía si no se proporcionan
@@ -62,15 +62,17 @@ class Libros(Resource):
 
         if autores_ids:
             # Obtener las instancias de autores basadas en las IDs recibidas
-            autores = AutorModel.query.filter(AutorModel.id.in_(autores_ids)).all()
+            autores = AutorModel.query.filter(AutorModel.autorID.in_(autores_ids)).all()
             # Agregar las instancias de autor a la lista de autores del libro
             libro.autores.extend(autores)
 
         try:
             db.session.add(libro)
             db.session.commit()
-        except:
-            return "Formato incorrecto", 400
+        except Exception as e:
+            db.session.rollback()
+            return f"Error al agregar la configuración: {str(e)}", 400
+        return configuracion.to_json(), 201
 
         return libro.to_json(), 201 #Si la operación es exitosa, se devuelve la representación JSON del libro con el código de estado 201.
 
@@ -96,8 +98,7 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
         try:
             db.session.add(libro)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
-            return "Formato incorrecto", 400
-
+            return f"Error al agregar la configuración: {str(e)}", 400
         return libro.to_json(), 201

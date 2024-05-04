@@ -29,7 +29,7 @@ class Prestamos(Resource):
         ### FILTROS ###
 
         # Filtrar por fecha de entrega
-        if request.args.get('fecha_entrega'):# verifica si el parámetro está en los argumentos de la solicitud
+        if request.args.get('fecha_entrega'):#verifica si el parámetro está en los argumentos de la solicitud
             try:
                 fecha_entrega = datetime.strptime(request.args.get('fecha_entrega'), "%Y-%m-%d") #convertir el texto que representa la fecha alquilado en un objeto datetime. 
                 prestamos = prestamos.filter(PrestamoModel.fecha_entrega == fecha_entrega) #selecciona los préstamos cuya fecha alquilado coincida con la fecha ingresada.
@@ -77,10 +77,10 @@ class Prestamo(Resource):
         try:
             db.session.delete(prestamo)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
-            return "Formato incorrecto", 400
-        return '', 204
+            return f"Error al agregar la configuración: {str(e)}", 400
+        return prestamo.to_json(), 201
    
     def put(self, id):
         prestamo = db.session.query(PrestamoModel).get_or_404(id)

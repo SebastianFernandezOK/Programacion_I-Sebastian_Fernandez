@@ -21,7 +21,15 @@ class Configuraciones(Resource):
         try:
             db.session.add(configuracion)
             db.session.commit()
-        except:
-            return "Formato incorrecto", 400            
+        except Exception as e:
+            db.session.rollback()
+            return f"Error al agregar la configuración: {str(e)}", 400
         return configuracion.to_json(), 201
+
+
+
+
+        #except:
+            #return "Formato incorrecto", 400            
+        
         
