@@ -8,7 +8,7 @@ class Configuracion(db.Model):
     orden = db.Column(db.String, nullable=False)
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.usuarioID'))#--->Clave Foranea
     #relación 1:1(usuario-padre)
-    usuario = db.relationship("Usuario", back_populates="configuracion")
+    usuario = db.relationship("Usuario", back_populates="configuraciones")
    
 
 

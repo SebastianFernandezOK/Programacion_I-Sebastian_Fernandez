@@ -1,49 +1,53 @@
 from flask_restful import Resource
-from flask import request
-from .. import db
+from flask import request, jsonify
 from main.models import ReseñaModel
-from flask import jsonify
+from .. import db
 
-VALORACION = {
-    1: {'valoracion':'5 estrellas'}
-    
-}
-
-COMENTARIOS = {
-    1: {'comentario':'buen libro'} 
-}
-
-
-
-class Valoraciones(Resource):
-
+class Reseñas(Resource):
     def get(self):
         reseñas = db.session.query(ReseñaModel).all()
         return jsonify([reseña.to_json() for reseña in reseñas])
-        #return VALORACION
-
-    def post(self):
-        reseña = ReseñaModel.from_json(request.get_json())
-        try:
-            db.session.add(reseña)
-            db.session.commit()
-        except:
-            db.session.rollback()
-            return "Formato incorrecto", 400            
-        return reseña.to_json(), 201
-
-
-class Comentarios(Resource):
-    def get(self):
-        comentarios = db.session.query(ReseñaModel).all()
-        return jsonify([comentario.to_json() for comentario in comentarios])
     
     def post(self):
-        comentario = ReseñaModel.from_json(request.get_json())
+            reseña= ReseñaModel.from_json(request.get_json())
+            try:
+                db.session.add(reseña)  # Agregar la reseña a la sesión
+                db.session.commit()  # Guardar la reseña en la base de datos
+            except ValueError as e:
+                return str(e), 400  # Devolver un mensaje de error si hay un problema con el JSON de la reseña
+            except Exception as e:
+                db.session.rollback()  # Deshacer cualquier cambio en la sesión de la base de datos
+                return f"Error al agregar la reseña: {str(e)}", 500  # Devolver un mensaje de error genérico
+            return reseña.to_json(), 201  # Devolver la reseña como JSON con código de estado 201 (creado)
+
+class Reseña(Resource):
+    def get(self, id):   
+        reseña = db.session.query(ReseñaModel).get_or_404(id)
+        return reseña.to_json()
+    
+    def delete(self, id):
+        reseña = db.session.query(ReseñaModel).get_or_404(id)
         try:
-            db.session.add(comentario)
+            db.session.delete(reseña)
+            db.session.commit()
+            return {"message": "Eliminado correctamente"}, 204
+        except Exception as e:
+            db.session.rollback()
+            return f"Error al borrar la reseña: {str(e)}", 400
+        return reseña.to_json(), 201
+
+    def put(self, id):
+        reseña = db.session.query(ReseñaModel).get_or_404(id)
+        data = request.get_json()
+        for key, value in data.items():
+            setattr(reseña, key, value)
+        try:
+            db.session.delete(reseña)
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return f"Error al agregar la configuración: {str(e)}", 400
-        return comentario.to_json(), 201
+            return f"Error al agregar la reseña: {str(e)}", 400
+        return reseña.to_json(), 201
+
+
+

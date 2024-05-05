@@ -11,7 +11,7 @@ class Usuario(db.Model):
     usuario_email = db.Column(db.String(100), nullable=False)
     usuario_telefono = db.Column(db.Integer, nullable=False)
     #relacion 1:1(Usuario es padre)
-    configuracion = db.relationship("Configuracion", uselist=False, back_populates="usuario", cascade="all, delete-orphan")
+    configuraciones = db.relationship("Configuracion", uselist=False, back_populates="usuario", cascade="all, delete-orphan")
     #relacion 1:1(Usuario es padre)
     reseñas = db.relationship("Reseña", uselist=False, back_populates="usuario", cascade="all, delete-orphan") 
     #relacion 1:N(Usuario es padre)
@@ -35,10 +35,10 @@ class Usuario(db.Model):
         return usuario_json
 
     def to_json_complete(self):
-        configuraciones_info = [configuracion.to_json() for configuracion in self.configuraciones]
-        reseñas_info = [reseña.to_json() for reseña in self.reseñas]
         notificaciones_info = [notificacion.to_json() for notificacion in self.notificaciones]
-        prestamos_info = self.prestamos
+        configuracion_info =  self.configuraciones
+        reseña_info =  self.reseñas
+        prestamo_info = self.prestamos
         Usuario_json = {
             "usuarioID": self.usuarioID,
             "usuario_nombre": self.usuario_nombre,
@@ -46,10 +46,10 @@ class Usuario(db.Model):
             "usuario_contraseña": self.usuario_contraseña,
             "usuario_email": self.usuario_email,
             "usuario_telefono": self.usuario_telefono,
-            "configuraciones": configuraciones_info,
-            "reseñas": reseñas_info,
+            "configuracion": configuracion_info,
+            "reseña": reseña_info,
             "notificaciones": notificaciones_info,
-            'prestamos': prestamos_info,
+            'prestamo': prestamo_info,
         }
         return Usuario_json
 
@@ -68,10 +68,9 @@ class Usuario(db.Model):
         usuario_contraseña = usuario_json.get('usuario_contraseña')
         usuario_email = usuario_json.get('usuario_email')
         usuario_telefono = usuario_json.get('usuario_telefono')
-        prestamoID = usuario_json.get('prestamoID')  # Obtener prestamoID del JSON
         return Usuario(usuario_nombre=usuario_nombre,
                         usuario_apellido=usuario_apellido,
                         usuario_contraseña=usuario_contraseña,
                         usuario_email=usuario_email,
                         usuario_telefono=usuario_telefono,
-                        prestamoID=prestamoID) 
+                       ) 

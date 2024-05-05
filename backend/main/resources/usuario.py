@@ -66,7 +66,7 @@ class Usuarios(Resource):
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return f"Error al agregar la configuración: {str(e)}", 400
+            return f"Error al agregar el usuario: {str(e)}", 400
         return usuario.to_json(), 201
 
     
@@ -83,6 +83,7 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
         try:
             db.session.delete(usuario)
             db.session.commit()
+            return {"message": "Eliminado correctamente"}, 204
         except Exception as e:
             db.session.rollback()
             return f"Error al borrar el usuario: {str(e)}", 400

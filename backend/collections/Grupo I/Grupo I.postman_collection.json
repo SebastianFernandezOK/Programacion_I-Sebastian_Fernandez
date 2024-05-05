@@ -4,7 +4,7 @@
 		"name": "Grupo I",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33933722",
-		"_collection_link": "https://orange-station-461742.postman.co/workspace/Grupo-I-Workspace~1cb8db81-f0a4-488a-8ae0-011d769aeff0/collection/33933722-9e8453bc-d6d5-4327-9065-0af8d8d54e2e?action=share&source=collection_link&creator=33933722"
+		"_collection_link": "https://grupo-i.postman.co/workspace/Grupo-I-Workspace~1cb8db81-f0a4-488a-8ae0-011d769aeff0/collection/33933722-9e8453bc-d6d5-4327-9065-0af8d8d54e2e?action=share&source=collection_link&creator=33933722"
 	},
 	"item": [
 		{
@@ -254,12 +254,24 @@
 			"name": "reseña",
 			"item": [
 				{
-					"name": "get-valoraciones",
+					"name": "get-reseñas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/valoraciones",
+							"raw": "http://127.0.0.1:7000/reseñas",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -269,14 +281,14 @@
 							],
 							"port": "7000",
 							"path": [
-								"valoraciones"
+								"reseñas"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "post-valoraciones",
+					"name": "post-reseñas",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -307,12 +319,12 @@
 					"response": []
 				},
 				{
-					"name": "get-comentarios",
+					"name": "get-reseña",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/Comentarios",
+							"raw": "http://127.0.0.1:7000/reseña",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -322,16 +334,16 @@
 							],
 							"port": "7000",
 							"path": [
-								"Comentarios"
+								"reseña"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "post-comentarios",
+					"name": "del-reseña",
 					"request": {
-						"method": "POST",
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -343,7 +355,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/Comentarios",
+							"raw": "http://127.0.0.1:7000/reseña",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -353,7 +365,38 @@
 							],
 							"port": "7000",
 							"path": [
-								"Comentarios"
+								"reseña"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put-reseña",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"valoracion\":5,\n    \"comentario\":\"si\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/reseña",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"reseña"
 							]
 						}
 					},
@@ -478,6 +521,55 @@
 							"port": "7000",
 							"path": [
 								"configuraciones"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notificacion",
+			"item": [
+				{
+					"name": "get-notificacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/notificacion",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"notificacion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-notificacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/notificacion",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"notificacion"
 							]
 						}
 					},

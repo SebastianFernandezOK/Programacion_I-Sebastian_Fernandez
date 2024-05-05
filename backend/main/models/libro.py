@@ -2,11 +2,11 @@ from .. import db
 from datetime import datetime
 
    
-#libros_prestamos = db.Table("libros_prestamos",
-#    db.Column('id', db.Integer, primary_key=True, unique=True),
-#    db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID"),primary_key=True),
-#    db.Column("prestamosID",db.Integer,db.ForeignKey("prestamos.prestamoID"),primary_key=True)
-#    )     
+libros_prestamos = db.Table("libros_prestamos",
+    db.Column('id', db.Integer, primary_key=True, unique=True),
+    db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID"),primary_key=True),
+    db.Column("prestamosID",db.Integer,db.ForeignKey("prestamos.prestamoID"),primary_key=True)
+    )     
 
 class Libro(db.Model):
 
@@ -16,8 +16,9 @@ class Libro(db.Model):
     titulo = db.Column(db.String(100), nullable=False)
     cantidad = db.Column(db.Integer, nullable=False)
     editorial = db.Column(db.String(100), nullable=False)
-    #relacion 1:1(Libro es padre)
-    prestamos = db.relationship("Prestamo", uselist=False, back_populates="libros", cascade="all, delete-orphan") 
+    #relacion N:M(Libro es padre)
+    prestamos = db.relationship('Prestamo', secondary=libros_prestamos, backref=db.backref('libros', lazy='dynamic'))
+    #prestamos = db.relationship("Prestamo", uselist=False, back_populates="libros", cascade="all, delete-orphan") 
     #relacion 1:N(Libro es padre)
     reseñas =  db.relationship('Reseña', back_populates='libro', cascade='all, delete-orphan')
     #relacion N:M(Libro es padre)

@@ -71,7 +71,7 @@ class Libros(Resource):
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return f"Error al agregar la configuración: {str(e)}", 400
+            return f"Error al agregar el libro: {str(e)}", 400
         return configuracion.to_json(), 201
 
         return libro.to_json(), 201 #Si la operación es exitosa, se devuelve la representación JSON del libro con el código de estado 201.
@@ -84,21 +84,24 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
 
     def delete(self, id):
         libro = db.session.query(LibroModel).get_or_404(id)
-        db.session.delete(libro)
-        db.session.commit()
-        return '', 204
+        try:
+            db.session.delete(libro)
+            db.session.commit()
+            return {"message": "Eliminado correctamente"}, 200
+        except Exception as e:
+            db.session.rollback()
+            return f"Error al borrar el libro: {str(e)}", 400
+        return libro.to_json(), 201
 
     def put(self, id):
         libro = db.session.query(LibroModel).get_or_404(id)
         data = request.get_json()
-
         for key, value in data.items():
             setattr(libro, key, value)
-
         try:
             db.session.add(libro)
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return f"Error al agregar la configuración: {str(e)}", 400
+            return f"Error al agregar el libro: {str(e)}", 400
         return libro.to_json(), 201

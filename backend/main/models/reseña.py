@@ -20,8 +20,6 @@ class Reseña(db.Model):
     def to_json(self):
         Reseña_json = {
             "reseñaID": self.reseñaID,
-            "usuarioID": self.usuarioID,
-            "libroID": self.libroID,
             "valoracion": self.valoracion,
             "comentario": self.comentario,
         }
@@ -43,7 +41,6 @@ class Reseña(db.Model):
     def to_json_short(self):
         Reseña_json = {
             "reseñaID": self.reseñaID,
-            "libroID": self.libroID,
             "valoracion": self.valoracion,
         }
         return Reseña_json

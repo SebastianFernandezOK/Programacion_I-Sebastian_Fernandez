@@ -8,7 +8,7 @@ notificaciones_usuarios = db.Table("notificaciones_usuarios",
 class Notificacion(db.Model):
     __tablename__ = 'notificaciones'  # Nombre de la tabla en plural
     
-    notificacionID = db.Column(db.Integer, primary_key=True)
+    notificacionID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     comentario = db.Column(db.String(100), nullable=False)
     usuarioID = db.Column(db.Integer, db.ForeignKey("usuarios.usuarioID"), nullable=False)##---->Clave Foranea
     #relacion 1:N(Usuario es padre)
@@ -21,7 +21,6 @@ class Notificacion(db.Model):
     def to_json(self):
         Notificacion_json = {
             "notificacionID": self.notificacionID,
-            "usuarioID":self.usuarioID,
             "comentario":str(self.comentario),
         }
         return Notificacion_json
@@ -39,7 +38,6 @@ class Notificacion(db.Model):
     def to_json_short(self):
         Notificacion_json = {
             "notificacionID": self.notificacionID,
-            "usuarioID": self.usuarioID,
         }
         return Notificacion_json
 

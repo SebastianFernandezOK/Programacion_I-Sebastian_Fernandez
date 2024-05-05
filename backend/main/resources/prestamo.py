@@ -48,7 +48,7 @@ class Prestamos(Resource):
         #Obtener valor paginado
         prestamos = prestamos.paginate(page=page, per_page=per_page, error_out=True)
 
-        return jsonify({"prestamos":[prestamo.to_json() for prestamo in prestamos.items],    
+        return jsonify({"prestamos":[prestamo.to_json() for prestamo in prestamos],    
                   'total': prestamos.total,
                   'pages': prestamos.pages,
                   'page': page      
@@ -77,6 +77,7 @@ class Prestamo(Resource):
         try:
             db.session.delete(prestamo)
             db.session.commit()
+            return {"message": "Eliminado correctamente"}, 204
         except Exception as e:
             db.session.rollback()
             return f"Error al agregar la configuración: {str(e)}", 400

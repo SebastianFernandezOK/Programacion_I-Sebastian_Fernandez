@@ -8,5 +8,5 @@ from .prestamo import Prestamos as PrestamosResources
 from .prestamo import Prestamo as PrestamoResources
 from .notificacion import Notificaciones as NotificacionesResources
 from .configuracion import Configuraciones as ConfiguracionesResources
-from .reseña import Valoraciones as ValoracionesResources
-from .reseña import Comentarios  as ComentariosResources
+from .reseña import Reseña as ReseñaResources
+from .reseña import Reseñas as ReseñasResources

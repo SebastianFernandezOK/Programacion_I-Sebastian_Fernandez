@@ -45,15 +45,15 @@ def create_app():
 
     api.add_resource(resources.PrestamosResources, '/prestamos')
 
-    api.add_resource(resources.PrestamoResources, '/prestamos/<id>')
+    api.add_resource(resources.PrestamoResources, '/prestamo/<id>')
 
     api.add_resource(resources.NotificacionesResources, '/notificaciones')
 
     api.add_resource(resources.ConfiguracionesResources, '/configuraciones')
 
-    api.add_resource(resources.ValoracionesResources, '/valoraciones')
+    api.add_resource(resources.ReseñasResources, '/reseñas')
 
-    api.add_resource(resources.ComentariosResources, '/Comentarios')
+    api.add_resource(resources.ReseñaResources, '/reseña/<id>')
 
     api.init_app(app)
     return app
