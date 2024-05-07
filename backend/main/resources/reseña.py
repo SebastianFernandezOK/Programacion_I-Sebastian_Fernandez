@@ -23,7 +23,7 @@ class Reseñas(Resource):
 class Reseña(Resource):
     def get(self, id):   
         reseña = db.session.query(ReseñaModel).get_or_404(id)
-        return reseña.to_json()
+        return reseña.to_json_complete()
     
     def delete(self, id):
         reseña = db.session.query(ReseñaModel).get_or_404(id)
@@ -42,7 +42,7 @@ class Reseña(Resource):
         for key, value in data.items():
             setattr(reseña, key, value)
         try:
-            db.session.delete(reseña)
+            db.session.add(reseña)
             db.session.commit()
         except Exception as e:
             db.session.rollback()

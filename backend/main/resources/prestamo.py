@@ -3,6 +3,7 @@ from flask import request
 from .. import db
 from main.models import PrestamoModel
 from flask import jsonify
+from datetime import datetime
 
 
 PRESTAMOS = {
@@ -60,9 +61,9 @@ class Prestamos(Resource):
         try:
             db.session.add(prestamo)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
-            return "Formato incorrecto", 400    
+            return f"Error al agregar el prestamo {str(e)}", 400
         return prestamo.to_json(), 201
 
     
@@ -91,7 +92,7 @@ class Prestamo(Resource):
         try:    
             db.session.add(prestamo)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
-            return "Formato incorrecto", 400    
+            return f"Error al agregar la configuración: {str(e)}", 400   
         return prestamo.to_json() , 201

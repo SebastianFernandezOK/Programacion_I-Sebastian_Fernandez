@@ -38,10 +38,10 @@ class Libros(Resource):
         if request.args.get('sortby_editorial'):
             libros = libros.order_by(LibroModel.editorial.desc())
         #Filtrar por valoración
-        if request.args.get('valoracion'):
-            libros = libros.filter(LibroModel.valoracion == request.args.get('valoracion'))
-        if request.args.get('sortby_valoracion'):
-            libros = libros.order_by(LibroModel.valoracion.desc())      
+        if request.args.get('reseña'):
+            libros = libros.filter(LibroModel.reseña == request.args.get('reseña'))
+        if request.args.get('sortby_reseña'):
+            libros = libros.order_by(LibroModel.reseña.desc())      
         ### FIN FILTROS ####     
           
         #Obtener valor paginado(evita que se traigan todos los registros)
@@ -72,7 +72,6 @@ class Libros(Resource):
         except Exception as e:
             db.session.rollback()
             return f"Error al agregar el libro: {str(e)}", 400
-        return configuracion.to_json(), 201
 
         return libro.to_json(), 201 #Si la operación es exitosa, se devuelve la representación JSON del libro con el código de estado 201.
 

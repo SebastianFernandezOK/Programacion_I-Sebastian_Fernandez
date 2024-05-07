@@ -1,5 +1,5 @@
-from .. import db
 from datetime import datetime
+from .. import db
 
 
 class Prestamo(db.Model):
@@ -28,12 +28,12 @@ class Prestamo(db.Model):
         return Prestamo_json
 
     def to_json_complete(self):
-        self.usuario = db.session.query(UsuarioModel).get_or_404(self.usuarioIDd)
+        usuario_info = self.usuario.to_json()
         libro_info =  [libro.to_json() for libro in self.libros]
 
         Prestamo_json = {
             "prestamosID": self.prestamoID,
-            "usuario": usuario,
+            "usuario": usuario_info,
             "libro": libro_info,
             "fecha_entrega": self.fecha_entrega.strftime("%Y-%m-%d"),      
             "fecha_devolucion": self.fecha_devolucion.strftime("%Y-%m-%d"),

@@ -28,20 +28,20 @@ class Notificaciones(Resource):
 
         ### FILTROS ###
         #Filtro por usuario_id
-        if request.args.get('usuario_id'):
-            usuario_id = int(request.args.get('usuario_id'))
-            notificaciones = notificaciones.filter_by(usuarioID=usuario_id) #se filtran las notificaciones que pertenecen al usuario con el id proporcionado.
+        if request.args.get('usuarioID'):
+            usuarioID = int(request.args.get('usuarioID'))
+            notificaciones = notificaciones.filter_by(usuarioID=usuarioID) #se filtran las notificaciones que pertenecen al usuario con el id proporcionado.
             
-        #Filtro por nombre_usuario:
-        if request.args.get('nombre_usuario'):
-            nombre_usuario = request.args.get('nombre_usuario')
+        #Filtro por usuario_nombre:
+        if request.args.get('usuario_nombre'):
+            usuario_nombre = request.args.get('usuario_nombre')
             # Obtener el ID del usuario a partir del nombre
-            usuario = db.session.query(UsuarioModel).filter_by(usuario_nombre=nombre_usuario).first() #consulta en la DB para encontrar el usuario con ese nombre 
+            usuario = db.session.query(UsuarioModel).filter_by(usuario_nombre=usuario_nombre).first() #consulta en la DB para encontrar el usuario con ese nombre 
             if usuario:
-                notificaciones = notificaciones.filter_by(usuario_id=usuario.usuarioID)#se filtran las notificaciones que pertenecen al usuario con el id proporcionado.
+                notificaciones = notificaciones.filter_by(usuarioID=usuario.usuarioID)#se filtran las notificaciones que pertenecen al usuario con el id proporcionado.
             else:
                 # Si no se encuentra el usuario, retornar una lista vacía
-                return jsonify({"notificaciones": [], "message": f"No se encontró un usuario con el nombre {nombre_usuario}"}), 404
+                return jsonify({"notificaciones": [], "message": f"No se encontró un usuario con el nombre {usuario_nombre}"}), 404
         ### FIN FILTROS ####     
 
 
