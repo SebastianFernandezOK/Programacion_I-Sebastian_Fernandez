@@ -3,7 +3,6 @@ from datetime import datetime
 
    
 libros_prestamos = db.Table("libros_prestamos",
-    db.Column('id', db.Integer, primary_key=True, unique=True),
     db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID"),primary_key=True),
     db.Column("prestamosID",db.Integer,db.ForeignKey("prestamos.prestamoID"),primary_key=True)
     )     
