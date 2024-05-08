@@ -26,22 +26,25 @@ class Libros(Resource):
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
         
+        params = request.args
         ### FILTROS ### 
         #Filtrar por titulo
         if request.args.get('titulo'):
             libros = libros.filter(LibroModel.titulo.like('%' + request.args.get('titulo') + '%'))
-        if request.args.get('sortby_titulo'):
+      
+        if 'sortby_titulo' in params:
+            # Ordenar por título de forma descendente
             libros = libros.order_by(LibroModel.titulo.desc())
         #Filtrar por editorial
         if request.args.get('editorial'):
             libros = libros.filter(LibroModel.editorial == request.args.get('editorial'))
-        if request.args.get('sortby_editorial'):
+        if 'sortby_editorial' in params:
             libros = libros.order_by(LibroModel.editorial.desc())
         #Filtrar por valoración
-        if request.args.get('reseña'):
-            libros = libros.filter(LibroModel.reseña == request.args.get('reseña'))
-        if request.args.get('sortby_reseña'):
-            libros = libros.order_by(LibroModel.reseña.desc())      
+        if request.args.get('cantidad'):
+            libros = libros.filter(LibroModel.cantidad == request.args.get('cantidad'))
+        if 'sortby_cantidad' in params:
+            libros = libros.order_by(LibroModel.cantidad.asc())      
         ### FIN FILTROS ####     
           
         #Obtener valor paginado(evita que se traigan todos los registros)

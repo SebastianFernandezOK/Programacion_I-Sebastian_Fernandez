@@ -38,10 +38,10 @@ class Prestamos(Resource):
                 return "Formato de fecha incorrecto. Utilice el formato 'yyyy-mm-dd'.", 400 #se devuelve un mensaje de error pidiendo el formato correcto. 
            
         # Filtrar por fecha límite
-        if request.args.get('fecha_limite'):
+        if request.args.get('fecha_devolucion'):
             try:
-                fecha_limite = datetime.strptime(request.args.get('fecha_limite'), "%Y-%m-%d")
-                prestamos = prestamos.filter(PrestamoModel.fecha_limite == fecha_limite)
+                fecha_devolucion = datetime.strptime(request.args.get('fecha_devolucion'), "%Y-%m-%d")
+                prestamos = prestamos.filter(PrestamoModel.fecha_devolucion == fecha_devolucion)
             except ValueError:
                 return "Formato de fecha incorrecto. Utilice el formato 'yyyy-mm-dd'.", 400
         ### FIN FILTROS ####     
