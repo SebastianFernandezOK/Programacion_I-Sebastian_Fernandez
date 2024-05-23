@@ -1,3 +1,9 @@
 export PORT = 7000
-export DATABASE_PATH = C:\Users\Augusto\Documents\Programacion_I-Sebastian_Fernandez\backend\DB
+
+#Database configuration
+export DATABASE_PATH = C:\Users\MegaTecnologia\Documents\Programacion_I-Sebastian_Fernandez\backend\DB
 export DATABASE_NAME = biblioteca.db
+
+#JWT configuration
+export JWT_SECRET_KEY = 'clave-secreta-de-la-app'
+export JWT_ACCESS_TOKEN_EXPIRES = 3600#Segundos

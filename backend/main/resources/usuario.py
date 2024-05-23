@@ -4,6 +4,8 @@ from .. import db
 from sqlalchemy import func
 from main.models import UsuarioModel, NotificacionModel, PrestamoModel
 from flask import jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from main.auth.decorators import role_required
 
 #Datos de prueba en JSON
 USUARIOS = {
@@ -11,7 +13,8 @@ USUARIOS = {
     2: {'nombre':'Augusto', 'apellido':'Giuffrida'}
 }
 
-class Usuarios(Resource): 
+class Usuarios(Resource):
+    @role_required(roles = ["admin"]) 
     def get(self):
         #Página inicial por defecto
         page = 1
@@ -77,11 +80,18 @@ class Usuarios(Resource):
 class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)
     
     #obtener recurso 
+    @jwt_required(optional=True)
     def get(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
-        return usuario.to_json()
+        current_identity = get_jwt_identity()
+        if current_identity:
+            return usuario.to_json_complete()
+        else:
+            return usuario.to_json()
+        return usuario.to_json_short()
 
     #eliminar recurso
+    @role_required(roles = ["admin","users"])
     def delete(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
         try:
@@ -93,7 +103,8 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
             return f"Error al borrar el usuario: {str(e)}", 400
         return usuario.to_json(), 201
 
-    #Modificar el recurso animal
+    #Modificar el recurso usuario
+    @jwt_required()
     def put(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
         data = request.get_json()

@@ -1,5 +1,6 @@
 from .. import db
-
+#Importamos de python 2 funciones
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Usuario(db.Model):
     __tablename__ = 'usuarios'  # Nombre de la tabla en plural
@@ -8,8 +9,9 @@ class Usuario(db.Model):
     usuario_nombre = db.Column(db.String(100), nullable=False)
     usuario_apellido = db.Column(db.String(100), nullable=False)
     usuario_contraseña = db.Column(db.String(100), nullable=False)
-    usuario_email = db.Column(db.String(100), nullable=False)
+    usuario_email = db.Column(db.String(100), nullable=False, unique=True)
     usuario_telefono = db.Column(db.Integer, nullable=False)
+    rol = db.Column(db.String(10), nullable=False, server_default="users")
     #relacion 1:1(Usuario es padre)
     configuraciones = db.relationship("Configuracion", uselist=False, back_populates="usuario", cascade="all, delete-orphan")
     #relacion 1:1(Usuario es padre)
@@ -19,9 +21,22 @@ class Usuario(db.Model):
     #relacion 1:1(Usuario es padre)
     prestamos = db.relationship("Prestamo",uselist=False, back_populates="usuario", cascade="all, delete-orphan")
 
+
+    @property
+    def plain_password(self):
+        raise AttributeError('Password cant be read')
+    #Setter de la contraseña toma un valor en texto plano
+    # calcula el hash y lo guarda en el atributo password
+    
+    @plain_password.setter
+    def plain_password(self, password):
+        self.password = generate_password_hash(password)
+    #Método que compara una contraseña en texto plano con el hash guardado en la db
+    def validate_pass(self,password):
+        return check_password_hash(self.password, password)
+
     def __repr__(self):
         return '<Usuario: %r %r %r >' % (self.usuarioID, self.usuario_nombre, self.usuario_contraseña)
-    
     
     def to_json(self):
         usuario_json = {
@@ -70,7 +85,7 @@ class Usuario(db.Model):
         usuario_telefono = usuario_json.get('usuario_telefono')
         return Usuario(usuario_nombre=usuario_nombre,
                         usuario_apellido=usuario_apellido,
-                        usuario_contraseña=usuario_contraseña,
+                        plain_password=usuario_contraseña,
                         usuario_email=usuario_email,
                         usuario_telefono=usuario_telefono,
                        ) 
