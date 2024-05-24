@@ -30,10 +30,10 @@ class Usuario(db.Model):
     
     @plain_password.setter
     def plain_password(self, password):
-        self.password = generate_password_hash(password)
+        self.usuario_contraseña = generate_password_hash(password)
     #Método que compara una contraseña en texto plano con el hash guardado en la db
     def validate_pass(self,password):
-        return check_password_hash(self.password, password)
+        return check_password_hash(self.usuario_contraseña, password)
 
     def __repr__(self):
         return '<Usuario: %r %r %r >' % (self.usuarioID, self.usuario_nombre, self.usuario_contraseña)
@@ -83,9 +83,11 @@ class Usuario(db.Model):
         usuario_contraseña = usuario_json.get('usuario_contraseña')
         usuario_email = usuario_json.get('usuario_email')
         usuario_telefono = usuario_json.get('usuario_telefono')
+        rol = usuario_json.get('rol')
         return Usuario(usuario_nombre=usuario_nombre,
                         usuario_apellido=usuario_apellido,
                         plain_password=usuario_contraseña,
                         usuario_email=usuario_email,
                         usuario_telefono=usuario_telefono,
+                        rol=rol
                        ) 

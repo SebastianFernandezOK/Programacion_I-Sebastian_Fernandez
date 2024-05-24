@@ -12,7 +12,7 @@ def login():
     #Busca al usuario en la db por mail
     usuario = db.session.query(UsuarioModel).filter(UsuarioModel.usuario_email == request.get_json().get("usuario_email")).first_or_404()
     #Valida la contraseña
-    if usuario.validate_pass(request.get_json().get("password")):
+    if usuario.validate_pass(request.get_json().get("usuario_contraseña")):
         #Genera un nuevo token
         #Pasa el objeto usuario como identidad
         access_token = create_access_token(identity=usuario)

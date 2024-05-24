@@ -14,7 +14,21 @@
 					"name": "get-usuarios",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/usuarios",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"usuarios"
+							]
+						}
 					},
 					"response": []
 				},
@@ -25,7 +39,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuario_nombre\" : \"pepe\",\r\n    \"usuario_apellido\":\"perez\",\r\n    \"usuario_contraseña\": \"123\",\r\n    \"usuario_email\":\"pepe@gmail.com\",\r\n    \"usuario_telefono\":\"4321\"\r\n}",
+							"raw": "{\r\n    \"usuario_nombre\" : \"juan\",\r\n    \"usuario_apellido\":\"gomez\",\r\n    \"usuario_contraseña\": \"123488678\",\r\n    \"usuario_email\":\"juan@gmail.com\",\r\n    \"usuario_telefono\":\"45521\",\r\n    \"rol\":\"user\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -52,8 +66,33 @@
 				{
 					"name": "get-usuario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNjU4NTQwMSwianRpIjoiNzYwMDhmOTUtMTI2ZC00ZWFhLWJmOGMtYjdhMTZkZDU1Yjg5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MywibmJmIjoxNzE2NTg1NDAxLCJjc3JmIjoiZjY5ODY5ZWEtYmZlNy00OTk3LTljYWEtZWYwZGI1MzI3OGY0IiwiZXhwIjoxNzE2NTg5MDAxLCJyb2wiOiJ1c2VyIiwiaWQiOjMsImVtYWlsIjoicGFuY2hvQGdtYWlsLmNvbSJ9.oTA1WilRrN95TvBPYG3UM1qh04u0QHQl2gRE8jj8D-E",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/usuario/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"usuario",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
@@ -87,7 +126,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuario_nombre\" : \"pepe\",\r\n    \"usuario_apellido\":\"perez\",\r\n    \"usuario_contraseña\": \"123\",\r\n    \"usuario_email\":\"pepe@gmail.com\",\r\n    \"usuario_telefono\":\"4321\"\r\n}",
+							"raw": "{\r\n    \"usuario_nombre\" : \"pepe1\",\r\n    \"usuario_apellido\":\"perez\",\r\n    \"usuario_contraseña\": \"123\",\r\n    \"usuario_email\":\"pepe@gmail.com\",\r\n    \"usuario_telefono\":\"4321\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -294,7 +333,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"valoracion\":5,\n    \"comentario\":\"si\"\n}",
+							"raw": "{\n    \"valoracion\":5,\n    \"comentario\":\"si\",\n    \"libroID\":1,\n    \"usuarioID\":1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -302,7 +341,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/valoraciones",
+							"raw": "http://127.0.0.1:7000/reseñas",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -312,7 +351,7 @@
 							],
 							"port": "7000",
 							"path": [
-								"valoraciones"
+								"reseñas"
 							]
 						}
 					},
@@ -324,7 +363,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/reseña",
+							"raw": "http://127.0.0.1:7000/reseña/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -334,7 +373,8 @@
 							],
 							"port": "7000",
 							"path": [
-								"reseña"
+								"reseña",
+								"1"
 							]
 						}
 					},
@@ -355,7 +395,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/reseña",
+							"raw": "http://127.0.0.1:7000/reseña/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -365,7 +405,8 @@
 							],
 							"port": "7000",
 							"path": [
-								"reseña"
+								"reseña",
+								"1"
 							]
 						}
 					},
@@ -378,7 +419,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"valoracion\":5,\n    \"comentario\":\"si\"\n}",
+							"raw": "{\n    \"valoracion\":22222,\n    \"comentario\":\"NOOOOOO\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -386,7 +427,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/reseña",
+							"raw": "http://127.0.0.1:7000/reseña/6",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -396,7 +437,8 @@
 							],
 							"port": "7000",
 							"path": [
-								"reseña"
+								"reseña",
+								"6"
 							]
 						}
 					},
@@ -411,7 +453,21 @@
 					"name": "get-prestamos",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/prestamos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"prestamos"
+							]
+						}
 					},
 					"response": []
 				},
@@ -420,6 +476,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fecha_entrega\":\"2024-03-01\",\n    \"fecha_devolucion\":\"2024-03-03\",\n    \"usuarioID\":1,\n    \"libroID\":1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://127.0.0.1:7000/prestamos",
 							"protocol": "http",
@@ -441,7 +506,22 @@
 					"name": "get-prestamo",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/prestamo/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"prestamo",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -473,6 +553,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"prestamosID\": 3,\n    \"fecha_entrega\": \"2023-02-01\",\n    \"fecha_devolucion\": \"2024-03-03\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://127.0.0.1:7000/prestamo/1",
 							"protocol": "http",
@@ -500,7 +589,21 @@
 					"name": "get-config",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/configuraciones",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"configuraciones"
+							]
+						}
 					},
 					"response": []
 				},
@@ -509,6 +612,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idioma\":\"ingles\",\n    \"orden\":\"sssss\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://127.0.0.1:7000/configuraciones",
 							"protocol": "http",
@@ -537,7 +649,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/notificacion",
+							"raw": "http://127.0.0.1:7000/notificacion/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -547,7 +659,8 @@
 							],
 							"port": "7000",
 							"path": [
-								"notificacion"
+								"notificacion",
+								"1"
 							]
 						}
 					},
@@ -558,8 +671,17 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comentario\":\"zzzz\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/notificacion",
+							"raw": "http://127.0.0.1:7000/notificacion/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -569,7 +691,8 @@
 							],
 							"port": "7000",
 							"path": [
-								"notificacion"
+								"notificacion",
+								"1"
 							]
 						}
 					},
@@ -619,6 +742,75 @@
 							"port": "7000",
 							"path": [
 								"Login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Post-login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"usuario_contraseña\": \"123488678\",\n    \"usuario_email\": \"pancho@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/auth/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post-register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"usuario_nombre\" : \"pancho\",\n    \"usuario_apellido\":\"gomez\",\n    \"usuario_contraseña\": \"123488678\",\n    \"usuario_email\":\"pancho@gmail.com\",\n    \"usuario_telefono\":\"45521\",\n    \"rol\":\"user\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/auth/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"auth",
+								"register"
 							]
 						}
 					},
