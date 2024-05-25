@@ -82,7 +82,7 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
     #obtener recurso        
     def get(self, id):
         libro = db.session.query(LibroModel).get_or_404(id)
-        return libro.to_json()
+        return libro.to_json_complete()
 
     def delete(self, id):
         libro = db.session.query(LibroModel).get_or_404(id)

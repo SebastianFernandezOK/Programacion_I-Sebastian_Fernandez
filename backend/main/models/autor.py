@@ -10,7 +10,6 @@ class Autor(db.Model):
     __tablename__ = 'autores'  # Nombre de la tabla en plural
     
     autorID = db.Column(db.Integer, primary_key=True)
-    libroID = db.Column(db.Integer, db.ForeignKey("libros.libroID"), nullable=False)  # Clave Foranea
     autor_nombre = db.Column(db.String(100), nullable=False)
     autor_apellido = db.Column(db.String(100), nullable=False)
     # Nombre de la relación
@@ -23,7 +22,6 @@ class Autor(db.Model):
     def to_json(self):
         autor_json = {
             "autorID": self.autorID,
-            "libroID": self.libroID,
             "autor_nombre": self.autor_nombre,
             "autor_apellido": self.autor_apellido,
         }
@@ -52,11 +50,9 @@ class Autor(db.Model):
     # Convertir JSON a objeto
     def from_json(autor_json):
         autorID = autor_json.get('autorID')
-        libroID = autor_json.get('libroID')
         autor_nombre = autor_json.get('autor_nombre')
         autor_apellido = autor_json.get('autor_apellido')
         return Autor(autorID=autorID,
-                    libroID=libroID, 
                     autor_nombre=autor_nombre, 
                     autor_apellido=autor_apellido
                     )

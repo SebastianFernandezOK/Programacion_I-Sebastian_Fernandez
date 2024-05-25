@@ -13,7 +13,8 @@ class Prestamo(db.Model):
     #relacion 1:1(Usuario es padre)
     usuario = db.relationship("Usuario", back_populates="prestamos",uselist=False,single_parent=True)
     #relacion N:M(Libro es padre)
-    #libro = db.relationship("Libro", back_populates="prestamos", single_parent=True)
+    libro = db.relationship("Libro", back_populates="prestamos")
+    
 
     def __repr__(self):
         return '<Prestamo: %r >' % (self.prestamoID)
@@ -21,24 +22,24 @@ class Prestamo(db.Model):
     # Convertir objeto en JSON   
     def to_json(self):
         Prestamo_json = {
-            "prestamosID": self.prestamoID,
+            "prestamoID": self.prestamoID,
             "fecha_entrega": self.fecha_entrega.strftime("%Y-%m-%d"),      
             "fecha_devolucion": self.fecha_devolucion.strftime("%Y-%m-%d"),
         }
         return Prestamo_json
 
     def to_json_complete(self):
-        usuario_info = self.usuario.to_json()
-        libro_info =  [libro.to_json() for libro in self.libros]
+        usuario = self.usuario.to_json_short()
+        libro = self.libro.to_json_short()
 
-        Prestamo_json = {
-            "prestamosID": self.prestamoID,
-            "usuario": usuario_info,
-            "libro": libro_info,
-            "fecha_entrega": self.fecha_entrega.strftime("%Y-%m-%d"),      
+        prestamo_json = {
+            "prestamoID": self.prestamoID,
+            "usuario": usuario,
+            "libro": libro,
+            "fecha_entrega": self.fecha_entrega.strftime("%Y-%m-%d"),
             "fecha_devolucion": self.fecha_devolucion.strftime("%Y-%m-%d"),
         }
-        return Prestamo_json
+        return prestamo_json
 
     def to_json_short(self):
         Prestamo_json = {

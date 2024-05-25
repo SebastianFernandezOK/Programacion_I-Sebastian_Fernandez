@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Status: [Development]
 
+## [0.0.3] - 2024-05-25
+### Added
+- Autor recurso
+
+### To do
+Agregar datos a la DB
+
+### Fixed
+- Se arreglo la mayoria de los metodos json_complete para que se muestren las relaciones netre tablas en Postman
+
+### Known Issues
+- Agregar el filtrado en Postman
+- El metodo post de autores no funciona
+- Arreglar la de tabla de usuario para que se muestren sus relaciones entre tablas en el Postman
+- Corregir todas las respuestas en caso de error, debe devolver un json
+
 ## [0.0.2] - 2024-05-23
 ### Added
 - .env variables JWT
@@ -14,7 +30,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Se modifico el recurso y modelo usuario para hashear la contraseña 
 
 ### Known Issues
-
 - Agregar relacion de muchos a muchos con prestamos y libros
 - Agregar el filtrado en Postman
 - Arreglar los json_complete para que se muestren las relaciones entre tablas en el Postman
@@ -23,7 +38,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [0.0.1] - 2024-05-7
 
 ### Known Issues
-
 - Agregar relacion de muchos a muchos con prestamos y libros
 - Agregar el filtrado en Postman
 - Arreglar los json_complete para que se muestren las relaciones entre tablas en el Postman

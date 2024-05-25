@@ -51,9 +51,8 @@ class Usuario(db.Model):
 
     def to_json_complete(self):
         notificaciones_info = [notificacion.to_json() for notificacion in self.notificaciones]
-        configuracion_info =  self.configuraciones
-        reseña_info =  self.reseñas
-        prestamo_info = self.prestamos
+        reseña =  self.reseña.to_json_short()
+        prestamo = self.prestamo.to_json_short()
         Usuario_json = {
             "usuarioID": self.usuarioID,
             "usuario_nombre": self.usuario_nombre,
@@ -61,10 +60,9 @@ class Usuario(db.Model):
             "usuario_contraseña": self.usuario_contraseña,
             "usuario_email": self.usuario_email,
             "usuario_telefono": self.usuario_telefono,
-            "configuracion": configuracion_info,
-            "reseña": reseña_info,
+            "reseña": reseña,
             "notificaciones": notificaciones_info,
-            'prestamo': prestamo_info,
+            'prestamo': prestamo
         }
         return Usuario_json
 

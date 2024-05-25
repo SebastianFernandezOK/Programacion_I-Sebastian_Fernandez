@@ -71,7 +71,7 @@ class Prestamo(Resource):
 
     def get(self, id):
         prestamo = db.session.query(PrestamoModel).get_or_404(id)
-        return prestamo.to_json()
+        return prestamo.to_json_complete()
 
     def delete(self, id):
         prestamo = db.session.query(PrestamoModel).get_or_404(id)
@@ -81,18 +81,22 @@ class Prestamo(Resource):
             return {"message": "Eliminado correctamente"}, 204
         except Exception as e:
             db.session.rollback()
-            return f"Error al agregar la configuración: {str(e)}", 400
+            return f"Error al agregar el prestamo: {str(e)}", 400
         return prestamo.to_json(), 201
    
     def put(self, id):
-        prestamo = db.session.query(PrestamoModel).get_or_404(id)
-        data = request.get_json() #obtener el diccionario completo
-        for key, value in data.items():  # Usar items() para iterar sobre las claves y valores
-            setattr(prestamo, key, value)
-        try:    
-            db.session.add(prestamo)
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            return f"Error al agregar la configuración: {str(e)}", 400   
-        return prestamo.to_json() , 201
+            prestamo = db.session.query(PrestamoModel).get_or_404(id)
+            data = request.get_json()
+            for key, value in data.items():
+                if key in ['fecha_entrega', 'fecha_devolucion']:
+                    try:
+                        value = datetime.strptime(value, '%Y-%m-%d')  # Convertir la cadena en objeto datetime
+                    except ValueError:
+                        return f"Formato incorrecto de fecha {key}, debe ser YYYY-MM-DD", 400
+                setattr(prestamo, key, value)
+            try:
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                return f"Error al actualizar el préstamo: {str(e)}", 400
+            return prestamo.to_json_complete(), 200

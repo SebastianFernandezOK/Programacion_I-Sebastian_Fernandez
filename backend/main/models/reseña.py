@@ -26,8 +26,8 @@ class Reseña(db.Model):
         return Reseña_json
 
     def to_json_complete(self):
-        usuario_info = self.usuario.to_json()
-        libro_info = self.libro.to_json()
+        usuario_info = self.usuario.to_json_short()
+        libro_info = self.libro.to_json_short()
         Reseña_json = {
             "reseñaID": self.reseñaID,
             "valoracion": self.valoracion,
