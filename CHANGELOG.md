@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Status: [Development]
 
+## [0.0.3] - 2024-05-30
+### Added
+- Se añadio el Envío de mail (TP/)
+
+### To do
+-Agregar datos a la DB
+
+### Fixed
+- Se arreglaron alguns todas las respuestas en caso de error
+
+### Known Issues
+- Agregar el filtrado en Postman
+- El metodo post de autores no funciona
+- Arreglar la de tabla de usuario para que se muestren sus relaciones entre tablas en el Postman
+- Corregir todas las respuestas en caso de error, debe devolver un json
+- Arreglar el envio de email
+
+
 ## [0.0.3] - 2024-05-25
 ### Added
 - Autor recurso

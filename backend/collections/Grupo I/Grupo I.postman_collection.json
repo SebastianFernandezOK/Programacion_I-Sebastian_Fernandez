@@ -99,10 +99,20 @@
 				{
 					"name": "Del-usuario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNzA4MTQ0MCwianRpIjoiNzI4YWM4MTAtNThkYS00YTA5LThmZWYtZTJmNGI0MTcxNDNkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTAsIm5iZiI6MTcxNzA4MTQ0MCwiY3NyZiI6IjY1OTNmZTQwLWI1NzctNDBjNS04ZjcyLWYwNjU5OTI0M2Y4OSIsImV4cCI6MTcxNzA4NTA0MCwicm9sIjoiYWRtaW4iLCJpZCI6MTAsImVtYWlsIjoianVhbjFAZ21haWwuY29tIn0.CNvVygQowNh1HodaXZDSgV-Ze9Gpsq2GGE2Rr6CGEIw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/usuario/2",
+							"raw": "http://127.0.0.1:7000/usuario/3",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -113,7 +123,7 @@
 							"port": "7000",
 							"path": [
 								"usuario",
-								"2"
+								"3"
 							]
 						}
 					},
@@ -185,7 +195,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"titulo\":\"Libro1\",\n    \"cantidad\":2,\n    \"editorial\":\"Editorial1\"\n}",
+							"raw": "{\n    \"titulo\":\"Libro7\",\n    \"cantidad\":5,\n    \"editorial\":\"Editorial6\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -215,7 +225,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/libro/1",
+							"raw": "http://127.0.0.1:7000/libro/3",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -226,7 +236,7 @@
 							"port": "7000",
 							"path": [
 								"libro",
-								"1"
+								"3"
 							]
 						}
 					},
@@ -238,7 +248,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/libro/1",
+							"raw": "http://127.0.0.1:7000/libro/3",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -249,7 +259,7 @@
 							"port": "7000",
 							"path": [
 								"libro",
-								"1"
+								"3"
 							]
 						}
 					},
@@ -262,7 +272,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"titulo\":\"Libro2\",\n    \"cantidad\":3,\n    \"editorial\":\"Editorial2\"\n}",
+							"raw": "{\n    \"titulo\":\"Libro6677\",\n    \"cantidad\":787,\n    \"editorial\":\"Editorial566\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -419,7 +429,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"valoracion\":22222,\n    \"comentario\":\"NOOOOOO\"\n}",
+							"raw": "{\n    \"valoracion\":5,\n    \"comentario\":\"si\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -427,7 +437,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/reseña/6",
+							"raw": "http://127.0.0.1:7000/reseña/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -438,7 +448,7 @@
 							"port": "7000",
 							"path": [
 								"reseña",
-								"6"
+								"1"
 							]
 						}
 					},
@@ -550,6 +560,142 @@
 				},
 				{
 					"name": "put-prestamo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fecha_entrega\": \"2024-05-01\",\n  \"fecha_devolucion\": \"2024-05-15\",\n  \"usuarioID\": 1,\n  \"libroID\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/prestamo/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"prestamo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "autor",
+			"item": [
+				{
+					"name": "get-autores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/autores",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"autores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-autores",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"autor_nombre\": \"Gabriel\",\n    \"autor_apellido\": \"Garcia Marquez\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/autores",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"autores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-autor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/autores/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"autores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Del-autor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/prestamo/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"prestamo",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put-autor",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -701,55 +847,6 @@
 			]
 		},
 		{
-			"name": "Authentication",
-			"item": [
-				{
-					"name": "post-SignIn",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:7000/SignIn",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "7000",
-							"path": [
-								"SignIn"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "post-Login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:7000/Login",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "7000",
-							"path": [
-								"Login"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Auth",
 			"item": [
 				{
@@ -759,7 +856,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"usuario_contraseña\": \"123488678\",\n    \"usuario_email\": \"pancho@gmail.com\"\n}",
+							"raw": "{\n    \"usuario_contraseña\": \"123464768\",\n    \"usuario_email\":\"juan1@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -791,7 +888,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"usuario_nombre\" : \"pancho\",\n    \"usuario_apellido\":\"gomez\",\n    \"usuario_contraseña\": \"123488678\",\n    \"usuario_email\":\"pancho@gmail.com\",\n    \"usuario_telefono\":\"45521\",\n    \"rol\":\"user\"\n}",
+							"raw": "{\n    \"usuario_nombre\" : \"pipa\",\n    \"usuario_apellido\":\"pipa\",\n    \"usuario_contraseña\": \"123424768\",\n    \"usuario_email\":\"pi@gmail.com\",\n    \"usuario_telefono\":\"47131\",\n    \"rol\":\"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
