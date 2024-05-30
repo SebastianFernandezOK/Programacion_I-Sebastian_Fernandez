@@ -51,8 +51,14 @@ class Usuario(db.Model):
 
     def to_json_complete(self):
         notificaciones_info = [notificacion.to_json() for notificacion in self.notificaciones]
-        reseña =  self.reseña.to_json_short()
-        prestamo = self.prestamo.to_json_short()
+        try:
+            reseña =  self.reseñas.to_json_short()
+        except:
+            reseña = ""    
+        try:
+            prestamo = self.prestamo.to_json_short()
+        except:
+            prestamo = ""    
         Usuario_json = {
             "usuarioID": self.usuarioID,
             "usuario_nombre": self.usuario_nombre,

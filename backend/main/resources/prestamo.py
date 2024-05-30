@@ -78,11 +78,11 @@ class Prestamo(Resource):
         try:
             db.session.delete(prestamo)
             db.session.commit()
-            return {"message": "Eliminado correctamente"}, 204
+            return {"message": "Eliminado correctamente"}, 200
         except Exception as e:
             db.session.rollback()
-            return f"Error al agregar el prestamo: {str(e)}", 400
-        return prestamo.to_json(), 201
+            return f"Error al eliminar el prestamo: {str(e)}", 400
+
    
     def put(self, id):
             prestamo = db.session.query(PrestamoModel).get_or_404(id)

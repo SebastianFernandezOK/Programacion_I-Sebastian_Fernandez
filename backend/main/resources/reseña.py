@@ -30,11 +30,10 @@ class Reseña(Resource):
         try:
             db.session.delete(reseña)
             db.session.commit()
-            return {"message": "Eliminado correctamente"}, 204
+            return {"message": "Eliminado correctamente"}, 200
         except Exception as e:
             db.session.rollback()
             return f"Error al borrar la reseña: {str(e)}", 400
-        return reseña.to_json(), 201
 
     def put(self, id):
         reseña = db.session.query(ReseñaModel).get_or_404(id)
@@ -47,7 +46,7 @@ class Reseña(Resource):
         except Exception as e:
             db.session.rollback()
             return f"Error al agregar la reseña: {str(e)}", 400
-        return reseña.to_json(), 201
+   
 
 
 

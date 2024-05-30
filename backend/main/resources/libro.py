@@ -93,7 +93,7 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
         except Exception as e:
             db.session.rollback()
             return f"Error al borrar el libro: {str(e)}", 400
-        return libro.to_json(), 201
+
 
     def put(self, id):
         libro = db.session.query(LibroModel).get_or_404(id)

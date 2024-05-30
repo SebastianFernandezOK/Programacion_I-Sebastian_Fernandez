@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Autor recurso
 
 ### To do
-Agregar datos a la DB
+-Agregar datos a la DB
 
 ### Fixed
 - Se arreglo la mayoria de los metodos json_complete para que se muestren las relaciones netre tablas en Postman

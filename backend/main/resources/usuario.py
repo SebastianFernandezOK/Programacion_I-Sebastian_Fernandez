@@ -14,6 +14,7 @@ USUARIOS = {
 }
 
 class Usuarios(Resource):
+    @jwt_required()
     @role_required(roles = ["admin"]) 
     def get(self):
         #Página inicial por defecto
@@ -88,10 +89,11 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
             return usuario.to_json_complete()
         else:
             return usuario.to_json()
-        return usuario.to_json_short()
+
 
     #eliminar recurso
-    @role_required(roles = ["admin","users"])
+    @jwt_required()
+    @role_required(roles = ["admin","user"])
     def delete(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
         try:
@@ -100,8 +102,7 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
             return {"message": "Eliminado correctamente"}, 204
         except Exception as e:
             db.session.rollback()
-            return f"Error al borrar el usuario: {str(e)}", 400
-        return usuario.to_json(), 201
+            return jsonify({"msg": f"Error al borrar el usuario: {str(e)}"}), 400
 
     #Modificar el recurso usuario
     @jwt_required()
@@ -116,4 +117,3 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
         except Exception as e:
             db.session.rollback()
             return f"Error al agregar al usuario: {str(e)}", 400
-        return usuario.to_json(), 201

@@ -37,15 +37,14 @@ def create_app():
             db.create_all()
 
     import main.resources as resources
+    # Registrar Blueprints y recursos
+    import main.auth  as auth_blueprint
 
     api.add_resource(resources.UsuariosResources, '/usuarios')
     api.add_resource(resources.UsuarioResources, '/usuario/<id>')
 
     api.add_resource(resources.LibrosResources, '/libros')
     api.add_resource(resources.LibroResources, '/libro/<id>')
-
-    api.add_resource(resources.SignInResources, '/signin')
-    api.add_resource(resources.LoginResources, '/login')
 
     api.add_resource(resources.PrestamosResources, '/prestamos')
     api.add_resource(resources.PrestamoResources, '/prestamo/<id>')
@@ -72,5 +71,5 @@ def create_app():
     #Importar blueprint
     app.register_blueprint(routes.auth) ##Forma de organizar una aplicacion web con modulos en flask
 
-    #Por ultimo retornamos la aplicacion iniializado
+    #Por ultimo retornamos la aplicacion inicializado
     return app
