@@ -22,6 +22,6 @@ fi
 
 
 # Windows
-python -m venv .
-Scripts\activate
-pip install -r requirements.txt
+#python -m venv .
+#Scripts\activate
+#pip install -r requirements.txt

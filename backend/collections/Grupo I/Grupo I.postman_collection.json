@@ -13,6 +13,16 @@
 				{
 					"name": "get-usuarios",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNzE3MjUxNywianRpIjoiMDM3Zjc2NmMtMGZiNS00MjU4LTk1MjUtYmIzMTJkNGZkMjRkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTcsIm5iZiI6MTcxNzE3MjUxNywiY3NyZiI6ImI4MjA2OTE1LTkwODctNGQzYi1hNzIwLTQyMGI0NDg1NzdiOCIsImV4cCI6MTcxNzE3NjExNywicm9sIjoiYWRtaW4iLCJpZCI6MTcsImVtYWlsIjoicGlAZ21haWwuY29tIn0.g4FdxZm1IkRzOtFyMx2B9ychP6m5DBPl4xrwgatVZic",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -71,7 +81,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNjU4NTQwMSwianRpIjoiNzYwMDhmOTUtMTI2ZC00ZWFhLWJmOGMtYjdhMTZkZDU1Yjg5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MywibmJmIjoxNzE2NTg1NDAxLCJjc3JmIjoiZjY5ODY5ZWEtYmZlNy00OTk3LTljYWEtZWYwZGI1MzI3OGY0IiwiZXhwIjoxNzE2NTg5MDAxLCJyb2wiOiJ1c2VyIiwiaWQiOjMsImVtYWlsIjoicGFuY2hvQGdtYWlsLmNvbSJ9.oTA1WilRrN95TvBPYG3UM1qh04u0QHQl2gRE8jj8D-E",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNzE3MjUxNywianRpIjoiMDM3Zjc2NmMtMGZiNS00MjU4LTk1MjUtYmIzMTJkNGZkMjRkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTcsIm5iZiI6MTcxNzE3MjUxNywiY3NyZiI6ImI4MjA2OTE1LTkwODctNGQzYi1hNzIwLTQyMGI0NDg1NzdiOCIsImV4cCI6MTcxNzE3NjExNywicm9sIjoiYWRtaW4iLCJpZCI6MTcsImVtYWlsIjoicGlAZ21haWwuY29tIn0.g4FdxZm1IkRzOtFyMx2B9ychP6m5DBPl4xrwgatVZic",
 									"type": "string"
 								}
 							]
@@ -79,7 +89,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/usuario/2",
+							"raw": "http://127.0.0.1:7000/usuario/12",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -90,7 +100,7 @@
 							"port": "7000",
 							"path": [
 								"usuario",
-								"2"
+								"12"
 							]
 						}
 					},
@@ -654,7 +664,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/autores/1",
+							"raw": "http://127.0.0.1:7000/autor/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -664,7 +674,7 @@
 							],
 							"port": "7000",
 							"path": [
-								"autores",
+								"autor",
 								"1"
 							]
 						}
@@ -677,7 +687,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/prestamo/2",
+							"raw": "http://127.0.0.1:7000/autor/2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -687,7 +697,7 @@
 							],
 							"port": "7000",
 							"path": [
-								"prestamo",
+								"autor",
 								"2"
 							]
 						}
@@ -709,7 +719,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/prestamo/1",
+							"raw": "http://127.0.0.1:7000/autor/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -719,7 +729,7 @@
 							],
 							"port": "7000",
 							"path": [
-								"prestamo",
+								"autor",
 								"1"
 							]
 						}
@@ -856,7 +866,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"usuario_contraseña\": \"123464768\",\n    \"usuario_email\":\"juan1@gmail.com\"\n}",
+							"raw": "{\n    \"usuario_contraseña\": \"123424768\",\n    \"usuario_email\":\"pi@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -888,7 +898,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"usuario_nombre\" : \"pipa\",\n    \"usuario_apellido\":\"pipa\",\n    \"usuario_contraseña\": \"123424768\",\n    \"usuario_email\":\"pi@gmail.com\",\n    \"usuario_telefono\":\"47131\",\n    \"rol\":\"admin\"\n}",
+							"raw": "{\n    \"usuario_nombre\" : \"Augusto\",\n    \"usuario_apellido\":\"Giuffrida\",\n    \"usuario_contraseña\": \"12345288\",\n    \"usuario_email\":\"a.giuffrida@alumno.um.edu.ar\",\n    \"usuario_telefono\":\"47131\",\n    \"rol\":\"user\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
