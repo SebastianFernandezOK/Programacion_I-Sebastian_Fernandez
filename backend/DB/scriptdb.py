@@ -53,11 +53,11 @@ for i in range(1, 31):  # Genera datos para 30 autores
     libroID = 1000 + i  # ID de libro generado anteriormente
     autor_nombre = f'Autor Nombre {i}'
     autor_apellido = f'Autor Apellido {i}'
-    datos_autores.append((autorID, libroID, autor_nombre, autor_apellido))
+    datos_autores.append((autorID,  autor_nombre, autor_apellido))
 
 # Insertar datos en la tabla "autores"
 cur.executemany('''
-    INSERT INTO autores (autorID, libroID, autor_nombre, autor_apellido) VALUES (?, ?, ?, ?)
+    INSERT INTO autores (autorID,  autor_nombre, autor_apellido) VALUES (?, ?, ?)
 ''', datos_autores)
 
 # Generar automáticamente los datos para la tabla "configuraciones"
@@ -140,17 +140,17 @@ cur.executemany('''
     INSERT INTO libros_autores (libroID, autorID) VALUES (?, ?)
 ''', datos_libros_autores)
 
-# Generar automáticamente los datos para la tabla "libros_prestamos"
-datos_libros_prestamos = []
-for i in range(1, 31):  # Genera datos para 30 libros_prestamos
-    libroID = 1000 + i  # ID de libro generado anteriormente
-    prestamosID = 100 + i  # ID de préstamo generado anteriormente
-    datos_libros_prestamos.append((libroID, prestamosID))
+ # Generar automáticamente los datos para la tabla "libros_prestamos"
+# datos_libros_prestamos = []
+# for i in range(1, 31):  # Genera datos para 30 libros_prestamos
+#     libroID = 1000 + i  # ID de libro generado anteriormente
+#     prestamosID = 100 + i  # ID de préstamo generado anteriormente
+#     datos_libros_prestamos.append((libroID, prestamosID))
 
-# Insertar datos en la tabla "libros_prestamos"
-cur.executemany('''
-    INSERT INTO libros_prestamos (libroID, prestamosID) VALUES (?, ?)
-''', datos_libros_prestamos)
+# # Insertar datos en la tabla "libros_prestamos"
+# cur.executemany('''
+#     INSERT INTO libros_prestamos (libroID, prestamosID) VALUES (?, ?)
+# ''', datos_libros_prestamos)
 
 
 # Guardar los cambios
