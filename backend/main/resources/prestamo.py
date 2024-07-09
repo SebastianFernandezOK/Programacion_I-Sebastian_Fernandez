@@ -63,7 +63,7 @@ class Prestamos(Resource):
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return f"Error al agregar el prestamo {str(e)}", 400
+            return {"message": "Error al agregar el prestamo"}, 400         
         return prestamo.to_json(), 201
 
     
@@ -81,7 +81,7 @@ class Prestamo(Resource):
             return {"message": "Eliminado correctamente"}, 200
         except Exception as e:
             db.session.rollback()
-            return f"Error al eliminar el prestamo: {str(e)}", 400
+            return {"message": "Error al eliminar el prestamo"}, 400
 
    
     def put(self, id):
@@ -92,11 +92,12 @@ class Prestamo(Resource):
                     try:
                         value = datetime.strptime(value, '%Y-%m-%d')  # Convertir la cadena en objeto datetime
                     except ValueError:
-                        return f"Formato incorrecto de fecha {key}, debe ser YYYY-MM-DD", 400
+                        return {"message": "Formato incorrecto de fecha {key}, debe ser YYYY-MM-DD"}, 400      
                 setattr(prestamo, key, value)
             try:
                 db.session.commit()
             except Exception as e:
                 db.session.rollback()
-                return f"Error al actualizar el préstamo: {str(e)}", 400
+                return {"message": "Error al actualizar el préstamo"}, 400
             return prestamo.to_json_complete(), 200
+

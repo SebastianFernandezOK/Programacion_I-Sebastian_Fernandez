@@ -72,9 +72,9 @@ class Usuarios(Resource):
         try:
             db.session.add(usuario)
             db.session.commit()
-        except Exception as e:
+        except:
             db.session.rollback()
-            return f"Error al agregar el usuario: {str(e)}", 400
+            return {"message": "Error al agregar el usuario"}, 400
         return usuario.to_json(), 201
 
     
@@ -100,9 +100,9 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
             db.session.delete(usuario)
             db.session.commit()
             return {"message": "Eliminado correctamente"}, 204
-        except Exception as e:
+        except:
             db.session.rollback()
-            return jsonify({"msg": f"Error al borrar el usuario: {str(e)}"}), 400
+            return {"message": "Error al borrar al usuario"}, 400
 
     #Modificar el recurso usuario
     @jwt_required()
@@ -114,6 +114,6 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
         try:
             db.session.add(usuario)
             db.session.commit()
-        except Exception as e:
+        except:
             db.session.rollback()
-            return f"Error al agregar al usuario: {str(e)}", 400
+            return {"message": "Error al agregar al usuario"}, 400

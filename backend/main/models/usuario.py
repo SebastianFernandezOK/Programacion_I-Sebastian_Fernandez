@@ -56,7 +56,7 @@ class Usuario(db.Model):
         except:
             reseña = ""    
         try:
-            prestamo = self.prestamo.to_json_short()
+            prestamo = self.prestamos.to_json_short()
         except:
             prestamo = ""    
         Usuario_json = {

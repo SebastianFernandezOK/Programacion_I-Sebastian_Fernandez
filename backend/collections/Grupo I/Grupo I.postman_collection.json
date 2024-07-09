@@ -18,7 +18,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNzE3MjUxNywianRpIjoiMDM3Zjc2NmMtMGZiNS00MjU4LTk1MjUtYmIzMTJkNGZkMjRkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTcsIm5iZiI6MTcxNzE3MjUxNywiY3NyZiI6ImI4MjA2OTE1LTkwODctNGQzYi1hNzIwLTQyMGI0NDg1NzdiOCIsImV4cCI6MTcxNzE3NjExNywicm9sIjoiYWRtaW4iLCJpZCI6MTcsImVtYWlsIjoicGlAZ21haWwuY29tIn0.g4FdxZm1IkRzOtFyMx2B9ychP6m5DBPl4xrwgatVZic",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMDUzNjUyNSwianRpIjoiNWU2OWNmOGMtYWM3Zi00ZjgzLThmOTMtZWFkYjgwYzI5NjEwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzMsIm5iZiI6MTcyMDUzNjUyNSwiY3NyZiI6IjlhMDM1NjMyLTc1ZDgtNDMxYy05YzQ5LTBiMjBmOWQ0NGY5YiIsInJvbCI6InVzZXIiLCJpZCI6MzMsImVtYWlsIjoiZ2l1ZmZyaWRhQGFsdW1uby51bS5lZHUuYXIifQ.jy2JitC-6tKv-Fw_exbIbgJ8c_snZs5jJfmNvG8RfSI",
 									"type": "string"
 								}
 							]
@@ -75,21 +75,33 @@
 				},
 				{
 					"name": "get-usuario",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNzE3MjUxNywianRpIjoiMDM3Zjc2NmMtMGZiNS00MjU4LTk1MjUtYmIzMTJkNGZkMjRkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTcsIm5iZiI6MTcxNzE3MjUxNywiY3NyZiI6ImI4MjA2OTE1LTkwODctNGQzYi1hNzIwLTQyMGI0NDg1NzdiOCIsImV4cCI6MTcxNzE3NjExNywicm9sIjoiYWRtaW4iLCJpZCI6MTcsImVtYWlsIjoicGlAZ21haWwuY29tIn0.g4FdxZm1IkRzOtFyMx2B9ychP6m5DBPl4xrwgatVZic",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMDUzNjUyNSwianRpIjoiNWU2OWNmOGMtYWM3Zi00ZjgzLThmOTMtZWFkYjgwYzI5NjEwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzMsIm5iZiI6MTcyMDUzNjUyNSwiY3NyZiI6IjlhMDM1NjMyLTc1ZDgtNDMxYy05YzQ5LTBiMjBmOWQ0NGY5YiIsInJvbCI6InVzZXIiLCJpZCI6MzMsImVtYWlsIjoiZ2l1ZmZyaWRhQGFsdW1uby51bS5lZHUuYXIifQ.jy2JitC-6tKv-Fw_exbIbgJ8c_snZs5jJfmNvG8RfSI",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/usuario/12",
+							"raw": "http://127.0.0.1:7000/usuario/10",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -100,7 +112,7 @@
 							"port": "7000",
 							"path": [
 								"usuario",
-								"12"
+								"10"
 							]
 						}
 					},
@@ -182,7 +194,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/libros",
+							"raw": "http://127.0.0.1:7000/libros?titulo=Libro6677",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -193,6 +205,12 @@
 							"port": "7000",
 							"path": [
 								"libros"
+							],
+							"query": [
+								{
+									"key": "titulo",
+									"value": "Libro6677"
+								}
 							]
 						}
 					},
@@ -383,7 +401,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/reseña/1",
+							"raw": "http://127.0.0.1:7000/reseña/10",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -394,7 +412,7 @@
 							"port": "7000",
 							"path": [
 								"reseña",
-								"1"
+								"10"
 							]
 						}
 					},
@@ -498,7 +516,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"fecha_entrega\":\"2024-03-01\",\n    \"fecha_devolucion\":\"2024-03-03\",\n    \"usuarioID\":1,\n    \"libroID\":1\n}\n",
+							"raw": "{\n    \"fecha_entrega\":\"2024-03-01\",\n    \"fecha_devolucion\":\"2024-03-03\",\n    \"usuarioID\":10,\n    \"libroID\":1010\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -528,7 +546,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/prestamo/1",
+							"raw": "http://127.0.0.1:7000/prestamo/31",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -539,7 +557,7 @@
 							"port": "7000",
 							"path": [
 								"prestamo",
-								"1"
+								"31"
 							]
 						}
 					},
@@ -866,7 +884,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"usuario_contraseña\": \"123424768\",\n    \"usuario_email\":\"pi@gmail.com\"\n}",
+							"raw": "{\n    \"usuario_contraseña\": \"12345288\",\n    \"usuario_email\":\"giuffrida@alumno.um.edu.ar\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -898,7 +916,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"usuario_nombre\" : \"Augusto\",\n    \"usuario_apellido\":\"Giuffrida\",\n    \"usuario_contraseña\": \"12345288\",\n    \"usuario_email\":\"a.giuffrida@alumno.um.edu.ar\",\n    \"usuario_telefono\":\"47131\",\n    \"rol\":\"user\"\n}",
+							"raw": "{\n    \"usuario_nombre\" : \"Augusto\",\n    \"usuario_apellido\":\"Giuffrida\",\n    \"usuario_contraseña\": \"12345288\",\n    \"usuario_email\":\"giuffrida@alumno.um.edu.ar\",\n    \"usuario_telefono\":\"47131\",\n    \"rol\":\"user\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

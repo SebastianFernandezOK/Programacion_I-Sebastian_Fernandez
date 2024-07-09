@@ -15,7 +15,7 @@ class Autores(Resource):
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return f"Error al agregar el autor: {str(e)}", 400
+            return {"message": "Error al agregar el autor"}, 400          
         return autor.to_json(), 201
 
 class Autor(Resource):
@@ -31,7 +31,7 @@ class Autor(Resource):
             return {"message": "Autor eliminado correctamente"}, 204
         except Exception as e:
             db.session.rollback()
-            return f"Error al borrar el autor: {str(e)}", 400
+            return {"message": "Error al borrar el autor"}, 400
 
     def put(self, id):
         autor = db.session.query(AutorModel).get_or_404(id)
@@ -42,5 +42,6 @@ class Autor(Resource):
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return f"Error al actualizar el autor: {str(e)}", 400
+            return {"message": "Error al actualizar el autor"}, 400
         return autor.to_json(), 200
+

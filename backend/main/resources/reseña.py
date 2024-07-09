@@ -13,12 +13,11 @@ class Reseñas(Resource):
             try:
                 db.session.add(reseña)  # Agregar la reseña a la sesión
                 db.session.commit()  # Guardar la reseña en la base de datos
-            except ValueError as e:
-                return str(e), 400  # Devolver un mensaje de error si hay un problema con el JSON de la reseña
-            except Exception as e:
+            except:
                 db.session.rollback()  # Deshacer cualquier cambio en la sesión de la base de datos
-                return f"Error al agregar la reseña: {str(e)}", 500  # Devolver un mensaje de error genérico
+                return {"message": "Error al mostrar la reseña"}, 500  # Devolver un mensaje de error genérico
             return reseña.to_json(), 201  # Devolver la reseña como JSON con código de estado 201 (creado)
+        
 
 class Reseña(Resource):
     def get(self, id):   
@@ -31,9 +30,9 @@ class Reseña(Resource):
             db.session.delete(reseña)
             db.session.commit()
             return {"message": "Eliminado correctamente"}, 200
-        except Exception as e:
+        except:
             db.session.rollback()
-            return f"Error al borrar la reseña: {str(e)}", 400
+            return {"message": "Error al borrar la reseña"}, 400
 
     def put(self, id):
         reseña = db.session.query(ReseñaModel).get_or_404(id)
@@ -43,9 +42,9 @@ class Reseña(Resource):
         try:
             db.session.add(reseña)
             db.session.commit()
-        except Exception as e:
+        except:
             db.session.rollback()
-            return f"Error al agregar la reseña: {str(e)}", 400
+            return {"message": "Error al agregar la reseña"}, 400
    
 
 

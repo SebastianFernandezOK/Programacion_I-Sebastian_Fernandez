@@ -60,11 +60,9 @@ class Notificaciones(Resource):
         try:
             db.session.add(notificacion)
             db.session.commit()
-
-        except Exception as error: # captura cualquier excepción que ocurra durante la ejecución del código en el bloque try,
+        except: # captura cualquier excepción que ocurra durante la ejecución del código en el bloque try,
             db.session.rollback()  #realiza un rollback de la sesión y luego devuelve el mensaje de error junto con el código de estado 400.      
-            return str(error), 400 # Esto garantiza que cualquier cambio no se guarde en la base de datos si ocurre un error.
-                                   
+            return {"message": "Error al agregar la notificacion"}, 400 # Esto garantiza que cualquier cambio no se guarde en la base de datos si ocurre un error.
         return notificacion.to_json(), 201
         
         

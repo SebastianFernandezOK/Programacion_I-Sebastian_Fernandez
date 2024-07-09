@@ -68,14 +68,12 @@ class Libros(Resource):
             autores = AutorModel.query.filter(AutorModel.autorID.in_(autores_ids)).all()
             # Agregar las instancias de autor a la lista de autores del libro
             libro.autores.extend(autores)
-
         try:
             db.session.add(libro)
             db.session.commit()
-        except Exception as e:
+        except:
             db.session.rollback()
-            return f"Error al agregar el libro: {str(e)}", 400
-
+            return {"message": "Error al agregar el libro"}, 400
         return libro.to_json(), 201 #Si la operación es exitosa, se devuelve la representación JSON del libro con el código de estado 201.
 
 class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso(Resource)
@@ -90,9 +88,9 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
             db.session.delete(libro)
             db.session.commit()
             return {"message": "Eliminado correctamente"}, 200
-        except Exception as e:
+        except:
             db.session.rollback()
-            return f"Error al borrar el libro: {str(e)}", 400
+            return {"message": "Error al borrar el libro"}, 400
 
 
     def put(self, id):
@@ -105,5 +103,6 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return f"Error al agregar el libro: {str(e)}", 400
+            return {"message": "Error al agregar el libro"}, 400
         return libro.to_json(), 201
+

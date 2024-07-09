@@ -23,9 +23,9 @@ class Configuraciones(Resource):
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return f"Error al agregar la configuración: {str(e)}", 400
+            return {"message": "Error a agregar la configuración"}, 400
         return configuracion.to_json(), 201
-
+ 
 
 
 

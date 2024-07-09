@@ -4,4 +4,4 @@ python3 app.py
 
 # Windows script
 #Scripts\activate
-# python app.py
+python app.py
