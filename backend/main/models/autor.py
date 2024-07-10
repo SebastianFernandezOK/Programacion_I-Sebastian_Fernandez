@@ -1,7 +1,6 @@
 from .. import db
 
 libros_autores = db.Table("libros_autores",
-    
     db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID"),primary_key=True),
     db.Column("autorID",db.Integer,db.ForeignKey("autores.autorID"),primary_key=True)
     )  
@@ -28,12 +27,12 @@ class Autor(db.Model):
         return autor_json
 
     def to_json_complete(self):
-        libros_info = [libro.to_json() for libro in self.libros]
+        libros = [libro.to_json_short() for libro in self.libros]
         autor_json = {
             "autorID": self.autorID,
             "autor_nombre": self.autor_nombre,
             "autor_apellido": self.autor_apellido,
-            "libros": libros_info
+            "libros": libros
         }
         return autor_json
 

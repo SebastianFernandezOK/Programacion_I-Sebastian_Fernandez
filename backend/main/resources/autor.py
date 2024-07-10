@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import request, jsonify
-from main.models import AutorModel  # Asegúrate de importar el modelo correcto
+from main.models import AutorModel  
 from .. import db
 
 class Autores(Resource):

@@ -1,7 +1,8 @@
 from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
-from main.models import LibroModel, AutorModel
+from main.models import LibroModel, AutorModel, PrestamoModel
+from sqlalchemy import func, desc, asc
 
 #Datos de prueba en JSON
 LIBROS = {
@@ -25,26 +26,32 @@ class Libros(Resource):
             page = int(request.args.get('page'))##Si existe, lo cargo
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
-        
         params = request.args
+
         ### FILTROS ### 
         #Filtrar por titulo
         if request.args.get('titulo'):
             libros = libros.filter(LibroModel.titulo.like('%' + request.args.get('titulo') + '%'))
-      
         if 'sortby_titulo' in params:
             # Ordenar por título de forma descendente
             libros = libros.order_by(LibroModel.titulo.desc())
+
         #Filtrar por editorial
         if request.args.get('editorial'):
             libros = libros.filter(LibroModel.editorial == request.args.get('editorial'))
         if 'sortby_editorial' in params:
             libros = libros.order_by(LibroModel.editorial.desc())
-        #Filtrar por valoración
-        if request.args.get('cantidad'):
-            libros = libros.filter(LibroModel.cantidad == request.args.get('cantidad'))
-        if 'sortby_cantidad' in params:
-            libros = libros.order_by(LibroModel.cantidad.asc())      
+
+        #Filtrar por id
+        if request.args.get('id'):
+            libros = libros.filter(LibroModel.libroID.like('%' + request.args.get('id') + '%'))
+        
+        #Sortby_prestamos
+        if request.args.get('sortby_prestamos'):
+            if request.args.get('sortby_prestamos') == "asc":
+                libros=libros.outerjoin(LibroModel.prestamos).group_by(LibroModel.libroID).order_by(func.count(PrestamoModel.prestamoID).asc())
+            if request.args.get('sortby_prestamos') == "desc":
+                libros=libros.outerjoin(LibroModel.prestamos).group_by(LibroModel.libroID).order_by(func.count(PrestamoModel.prestamoID).desc())  
         ### FIN FILTROS ####     
           
         #Obtener valor paginado(evita que se traigan todos los registros)
@@ -52,7 +59,7 @@ class Libros(Resource):
                                                                 #Si no existe la pag
                                                                 #devuelve un error
 
-        return jsonify({'libros': [libro.to_json() for libro in libros],
+        return jsonify({'libros': [libro.to_json_complete() for libro in libros],
                   'total': libros.total, #
                   'pages': libros.pages, # Esto se tiene que enviar al backend para paginar
                   'page': page           #

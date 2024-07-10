@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Status: [Development]
 
+## [0.0.4] - 2024-07-10
+
+### To do
+- Agregar el rol de usuario
+
+### Fixed
+- Agregar el filtrado en Postman
+
+### Known Issues
+- ~~Agregar el filtrado en Postman~~
+- La relacion entre libros y autores no funciona
+
 ## [0.0.4] - 2024-07-09
 
 ### Fixed

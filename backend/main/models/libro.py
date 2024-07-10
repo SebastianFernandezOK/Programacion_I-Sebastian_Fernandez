@@ -34,7 +34,7 @@ class Libro(db.Model):
     # Convertir objeto en JSON completo con lista de prestamos y reseñas
     def to_json_complete(self):
         prestamos = [prestamo.to_json_short() for prestamo in self.prestamos]
-        autores = [autor.to_json_short() for autor in self.autores]
+        autores = [autor.to_json() for autor in self.autores]
         reseñas = [reseña.to_json_short() for reseña in self.reseñas]
 
         Libro_json = {

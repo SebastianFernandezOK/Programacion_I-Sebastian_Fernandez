@@ -34,7 +34,7 @@ class Prestamos(Resource):
             try:
                 fecha_entrega = datetime.strptime(request.args.get('fecha_entrega'), "%Y-%m-%d") #convertir el texto que representa la fecha alquilado en un objeto datetime. 
                 prestamos = prestamos.filter(PrestamoModel.fecha_entrega == fecha_entrega) #selecciona los préstamos cuya fecha alquilado coincida con la fecha ingresada.
-            except ValueError:# error al intentar convertir la cadena en un objeto datetime
+            except:# error al intentar convertir la cadena en un objeto datetime
                 return "Formato de fecha incorrecto. Utilice el formato 'yyyy-mm-dd'.", 400 #se devuelve un mensaje de error pidiendo el formato correcto. 
            
         # Filtrar por fecha límite
@@ -42,7 +42,7 @@ class Prestamos(Resource):
             try:
                 fecha_devolucion = datetime.strptime(request.args.get('fecha_devolucion'), "%Y-%m-%d")
                 prestamos = prestamos.filter(PrestamoModel.fecha_devolucion == fecha_devolucion)
-            except ValueError:
+            except:
                 return "Formato de fecha incorrecto. Utilice el formato 'yyyy-mm-dd'.", 400
         ### FIN FILTROS ####     
           
