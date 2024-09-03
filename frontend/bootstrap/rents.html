@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rented Books</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .library-text {
+            font-family: 'Inika', serif;
+            font-weight: bold;
+            font-size: 32px;
+        }
+        .page-title {
+            font-family: 'Inika', serif;
+            font-weight: bold;
+            font-size: 24px;
+            text-align: left; /* Align title to the left */
+        }
+        .book-card {
+            display: flex;
+            align-items: flex-start; /* Align items at the start */
+            border: 1px solid #ddd; /* Add border to the card */
+            border-radius: 15px; /* Rounded corners */
+            overflow: hidden; /* Ensure content stays within rounded corners */
+            margin-bottom: 1.5rem;
+            background: #fff; /* White background for the card */
+            padding: 10px; /* Add padding to the card */
+        }
+        .book-image {
+            width: 150px; /* Fixed width for image */
+            height: 200px; /* Fixed height for image */
+            object-fit: cover; /* Cover image */
+            border-radius: 8px; /* Rounded corners for the image */
+            border: 1px solid #ddd; /* Border around image */
+        }
+        .book-info {
+            padding: 15px;
+            flex: 1; /* Take up remaining space */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Space between elements */
+            border: 1px solid #ddd; /* Border around info section */
+            border-radius: 8px; /* Rounded corners for info section */
+            margin-left: 10px; /* Space between image and info */
+        }
+        .book-title {
+            font-family: 'Inika', serif;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .book-author {
+            font-family: 'Inika', serif;
+            font-weight: normal;
+            font-size: 14px;
+            color: #6c757d; /* Author color */
+        }
+        .days-left {
+            font-family: 'Inika', serif;
+            font-weight: normal;
+            font-size: 14px;
+            color: #1E1E1E; /* Text color */
+        }
+        .renew-button {
+            align-self: flex-end; /* Align button to the right */
+            font-family: 'Inika', serif;
+            font-weight: bold;
+            font-size: 14px;
+            color: red; /* Button text color */
+            border: 1px solid red; /* Button border color */
+            background: none; /* Transparent background */
+            cursor: pointer; /* Pointer cursor on hover */
+            border-radius: 8px; /* Rounded corners for button */
+            padding: 5px 10px; /* Padding inside the button */
+        }
+        .renew-button:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+        }
+        .back-link {
+            font-family: 'Inika', serif;
+            font-weight: bold;
+            font-size: 11px;
+            color: #1E1E1E; /* Text color */
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<div class="container d-flex justify-content-center align-items-start pt-5">
+    <div class="card p-4 shadow-sm" style="width: 100%; max-width: 800px;">
+        
+        <!-- Header -->
+        <div class="header-container">
+            <a href="index.html" class="back-link">Back to Home</a>
+            <img src="Ellipse 1.png" alt="Logo" class="logo">
+        </div>
+
+        <!-- Page Title -->
+        <h3 class="page-title mb-4">Rented Books</h3>
+
+        <!-- Book List -->
+        <div class="row">
+            <!-- Example Book Card -->
+            <div class="col-12 mb-3">
+                <div class="book-card">
+                    <img src="images (3).jfif" alt="Book Image" class="book-image">
+                    <div class="book-info">
+                        <div>
+                            <h5 class="book-title">Book Title 1</h5>
+                            <p class="book-author">Author Name</p>
+                            <p class="days-left">Days left: 5</p>
+                        </div>
+                        <button class="renew-button">Renew</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat Book Card for each book -->
+            <div class="col-12 mb-3">
+                <div class="book-card">
+                    <img src="images (2).jfif" alt="Book Image" class="book-image">
+                    <div class="book-info">
+                        <div>
+                            <h5 class="book-title">Book Title 2</h5>
+                            <p class="book-author">Author Name</p>
+                            <p class="days-left">Days left: 12</p>
+                        </div>
+                        <button class="renew-button">Renew</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more book cards as needed -->
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
