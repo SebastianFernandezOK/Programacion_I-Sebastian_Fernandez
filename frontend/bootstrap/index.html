@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,235 +11,261 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Incluye Iconos de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Estilos personalizados para scrollbars -->
     <style>
-        body {
-            background-color: #1a1a1a; /* Fondo oscuro */
-            color: #fff; /* Texto blanco */
-            font-family: 'Inika', serif;
+        /* Estilos para la barra de desplazamiento horizontal */
+        .content-area {
+            overflow-y: auto; /* Permite el desplazamiento vertical */
+            height: calc(100vh - 80px); /* Ajusta el alto para que sea el espacio entre las barras de navegación */
         }
-        .search-bar {
-            background-color: #2E2D2D;
-            border-radius: 30px;
-            padding: 10px 20px;
-            border: 1px solid #444; /* Agregado un borde */
-            width: 100%;
-            color: #fff;
+        .overflow-auto::-webkit-scrollbar {
+            height: 8px; /* Altura de la barra de desplazamiento horizontal */
         }
-        .book-card {
-            display: flex;
-            justify-content: center; /* Centra la imagen horizontalmente */
-            align-items: center; /* Centra la imagen verticalmente */
-            margin-bottom: 15px; /* Reduce el espacio inferior entre los libros */
-            padding: 5px; /* Añade un padding pequeño para que haya un poco de separación */
-            flex: 0 0 auto; /* Evita que las tarjetas se redimensionen automáticamente */
-            width: 150px; /* Ajusta según el tamaño deseado de las tarjetas */
-            max-width: 150px;
+
+        .overflow-auto::-webkit-scrollbar-track {
+            background: #222222; /* Fondo oscuro y transparente para horizontal */
         }
-        .book-card img {
-            max-width: 100%;  /* La imagen ocupa el ancho máximo del contenedor */
-            height: auto;   /* Mantiene la relación de aspecto */
-            object-fit: contain;
-            border-radius: 10px;
+
+        .overflow-auto::-webkit-scrollbar-thumb {
+            background-color: #4E4E4E; /* Color claro y transparente para horizontal */
+            border-radius: 10px; /* Bordes redondeados */
         }
-        .bottom-nav {
-            background-color: #1a1a1a !important; /* Fondo oscuro */
-            border-top: 1px solid #262626;
-            border-radius: 15px 15px 0 0; /* Bordes curvos */
-            margin: 0 10px; /* Añade un margen para separar los bordes de la pantalla */
-            padding: 10px 0; /* Asegura que tenga suficiente espacio */
+
+        /* Estilos para la barra de desplazamiento vertical */
+        .overflow-auto::-webkit-scrollbar {
+            width: 8px; /* Ancho de la barra de desplazamiento vertical */
         }
-        .horizontal-scroll-container {
-            overflow-x: auto; /* Permite desplazamiento horizontal */
-            white-space: nowrap; /* Evita que los elementos se ajusten a nuevas líneas */
-            padding: 10px 0; /* Espaciado adicional alrededor */
-            display: flex;
-            gap: 10px; /* Espacio entre los elementos */
+
+        .overflow-auto::-webkit-scrollbar-track {
+            background: #222222; /* Fondo oscuro y transparente para vertical */
         }
-        /* Añadido margen en la parte inferior de las filas para evitar problemas de desbordamiento */
-        .row {
-            margin-bottom: 20px;
+
+        .overflow-auto::-webkit-scrollbar-thumb {
+            background-color: #4E4E4E; /* Color claro y transparente para vertical */
+            border-radius: 10px; /* Bordes redondeados */
+        }
+
+        /* Estilos para Firefox y otros navegadores que usan scrollbar-color */
+        .overflow-auto {
+            scrollbar-color: #4E4E4E #222222;
+            scrollbar-width: thin;
+        }
+
+        /* Estilos adicionales para asegurar que las barras se vean iguales */
+        .overflow-auto {
+            overflow: auto; /* Asegura que las barras de desplazamiento se muestren */
         }
     </style>
 </head>
-<body>
+
+<body class="text-white" style="font-family: 'Inika', serif; background-color: #222222;">
+
     <!-- Barra de navegación superior -->
     <nav class="navbar navbar-light bg-light px-3">
         <a class="navbar-brand font-weight-bold" href="#">Biblioteca</a>
     </nav>
-
+    
     <!-- Contenido principal -->
-    <div class="container mt-4">
-        <!-- Campo de búsqueda -->
-        <div class="row mb-3">
-            <div class="col">
-                <input type="text" class="form-control search-bar" placeholder="Buscar por título, autor, etc.">
-            </div>
-        </div>
+    <div class="container mt-4 mb-5">
 
-        <!-- Sección de destacados -->
-        <div class="row">
-            <div class="col">
-                <h5>Top disponibles <a href="#" class="text-white-50 float-right">Ver todos</a></h5>
-            </div>
+    <!-- Campo de búsqueda -->
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" class="form-control search-bar" 
+                   style="background-color: #3d3d3d; border: none; color: #CCCCCC;  border-radius: 20px;" 
+                   placeholder="Buscar por título, autor, etc.">
         </div>
-        <!-- Contenedor con desplazamiento horizontal -->
-        <div class="row">
-            <div class="col">
-                <div class="horizontal-scroll-container">
-                    <!-- Ejemplos de libros -->
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
+    </div>
+
+
+        <!-- Sección: Top disponibles -->
+        <div class="container-sm mt-4">
+            <div class="row">
+                <div class="col">
+                    <h5>Top disponibles<a href="#" class="text-white-50 float-right"><small>Ver todos</small></a></h5>
                 </div>
             </div>
-        </div>
-        <!-- Sección de Thrillers -->
-        <div class="row">
-            <div class="col">
-                <h5>Thrillers <a href="#" class="text-white-50 float-right">Ver todos</a></h5>
-            </div>
-        </div>
-        <!-- Contenedor con desplazamiento horizontal -->
-        <div class="row">
-            <div class="col">
-                <div class="horizontal-scroll-container">
-                    <!-- Ejemplos de libros -->
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
+            <!-- Contenedor con desplazamiento horizontal -->
+            <div class="row">
+                <div class="col">
+                    <div class="overflow-auto" style="white-space: nowrap;">
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <!-- Añadir más libros según sea necesario -->
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Sección de Ciencia Ficción -->
-        <div class="row">
-            <div class="col">
-                <h5>Ciencia Ficción <a href="#" class="text-white-50 float-right">Ver todos</a></h5>
+        <!-- Sección: Thrillers -->
+        <div class="container-sm mt-2">
+            <div class="row">
+                <div class="col">
+                    <h5>Thrillers<a href="#" class="text-white-50 float-right"><small>Ver todos</small></a></h5>
+                </div>
             </div>
-        </div>
-        <!-- Contenedor con desplazamiento horizontal -->
-        <div class="row">
-            <div class="col">
-                <div class="horizontal-scroll-container">
-                    <!-- Ejemplos de libros -->
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
+            <!-- Contenedor con desplazamiento horizontal -->
+            <div class="row">
+                <div class="col">
+                    <div class="overflow-auto" style="white-space: nowrap;">
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Sección de Policiales -->
-        <div class="row">
-            <div class="col">
-                <h5>Policiales <a href="#" class="text-white-50 float-right">Ver todos</a></h5>
+        <!-- Sección: Ciencia Ficción -->
+        <div class="container-sm mt-2">
+            <div class="row">
+                <div class="col">
+                    <h5>Ciencia Ficción<a href="#" class="text-white-50 float-right"><small>Ver todos</small></a></h5>
+                </div>
+            </div>
+            <!-- Contenedor con desplazamiento horizontal -->
+            <div class="row">
+                <div class="col">
+                    <div class="overflow-auto" style="white-space: nowrap;">
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- Contenedor con desplazamiento horizontal -->
-        <div class="row">
-            <div class="col">
-                <div class="horizontal-scroll-container">
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
-                    </div>
-                    <div class="book-card mx-2">
-                        <img src="image.jpg" alt="Libro 1">
+
+        <!-- Sección: Policiales -->
+        <div class="container-sm mt-2">
+            <div class="row">
+                <div class="col">
+                    <h5>Policiales<a href="#" class="text-white-50 float-right"><small>Ver todos</small></a></h5>
+                </div>
+            </div>
+            <!-- Contenedor con desplazamiento horizontal -->
+            <div class="row">
+                <div class="col">
+                    <div class="overflow-auto" style="white-space: nowrap;">
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
+                        <div class="d-inline-block mx-2" style="width: 150px;">
+                            <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Barra de navegación inferior -->
-    <nav class="navbar navbar-dark fixed-bottom bottom-nav">
-        <div class="container d-flex justify-content-around">
-            <a href="#" class="text-white"><i class="bi bi-house-fill"></i></a>
-            <a href="#" class="text-white"><i class="bi bi-search"></i></a>
-            <a href="#" class="text-white"><i class="bi bi-basket-fill"></i></a>
-            <a href="#" class="text-white"><i class="bi bi-person-fill"></i></a>
-        </div>
-    </nav>
-    <!-- Incluye Bootstrap JS y dependencias -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Barra de navegación inferior -->
+<nav class="navbar navbar-dark fixed-bottom" style="background-color: #222222; height: 40px;">
+    <div class="container d-flex justify-content-around align-items-center" style="height: 100%;">
+        <a href="#" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-house-fill"></i></a>
+        <a href="#" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-search"></i></a>
+        <a href="#" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-basket-fill"></i></a>
+        <a href="#" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-person-fill"></i></a>
+    </div>
+</nav>
+
+<!-- Incluye Bootstrap JS y dependencias -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
