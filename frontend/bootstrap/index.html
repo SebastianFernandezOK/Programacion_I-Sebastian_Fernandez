@@ -42,10 +42,12 @@
             display: flex;
             flex-wrap: nowrap; /* Asegura que los libros no se muevan a la siguiente línea */
             align-items: flex-start; /* Alinea los libros en la parte superior para evitar solapamientos */
+            gap: 1rem; 
         }
 
         /* Estilo para cada libro */
         .book-item {
+            flex: 0 0 auto; /* Asegura que los ítems no se expandan ni se contraigan */
             width: 150px;
             margin-right: 30px; /* Espacio entre los libros */
             text-align: center; /* Centra el texto dentro del contenedor del libro */
@@ -74,44 +76,89 @@
         .book-item div {
             margin-top: 5px;
         }
+
+        /* Estilos para el campo de búsqueda */
+        .search-bar {
+            background-color: #3d3d3d;
+            border: none;
+            color: #CCCCCC;
+            border-radius: 20px;
+            padding: 12px 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border: 1px solid #ffffff;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Estilo específico para la barra de navegación inferior */
+        .navbar-bottom {
+            background-color: #222222;
+            height: 40px; 
+            border-top: 1px solid #4E4E4E; /* Añadir un borde superior sutil */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Añadir sombra sutil */
+        }
+
+        .navbar-bottom .container {
+            height: 100%;
+        }
+
+        .navbar-bottom a {
+            color: #FFFFFF;
+            font-size: 1.2rem;
+            transition: color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+        }
+
+        .navbar-bottom a:hover {
+            transform: scale(1.1); /* Aumentar tamaño en hover */
+        }
+
+
     </style>
 </head>
-
 <body class="text-white" style="font-family: 'Inika', serif; background-color: #222222;">
 
     <!-- Navbar -->
     <nav class="navbar navbar-light bg-light px-3">
-        <a class="navbar-brand font-weight-bold" href="#">Biblioteca</a>
-        <!-- Right Aligned Buttons -->
+        <a class="navbar-brand font-weight-bold text-black" href="#">Biblioteca</a>
         <div class="d-flex">
-            <a href="login.html" class="btn btn-dark me-3" style="border-radius: 20px; margin-right: 15px;">Login</a>
-            <a href="register.html" class="btn btn-dark ms-3" style="border-radius: 20px; margin-left: 15px;">Register</a>
+            <a href="login.html" class="btn btn-outline-dark me-3" style="border-radius: 20px; margin-right: 15px;">
+                <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
+            <a href="register.html" class="btn btn-outline-dark ms-3" style="border-radius: 20px; margin-left: 15px;">
+                <i class="bi bi-pencil-square"></i> Register
+            </a>
         </div>
     </nav>
 
     <!-- Contenido principal -->
     <div class="container mt-4 mb-5">
-
         <!-- Campo de búsqueda -->
         <div class="row mb-3">
             <div class="col">
                 <input type="text" class="form-control search-bar"
-                    style="background-color: #3d3d3d; border: none; color: #CCCCCC; border-radius: 20px;"
                     placeholder="Buscar por título, autor, etc.">
             </div>
         </div>
 
         <!-- Sección: Top disponibles -->
-        <div class="container-sm mt-4 mb-4">
-            <div class="row">
+        <div class="container mt-4 mb-5">
+            <!-- Título y botón "Ver todos" -->
+            <div class="row mb-3 align-items-center">
                 <div class="col">
-                    <h5>Top disponibles<a href="#" class="text-white-50 float-right"><small>Ver todos</small></a></h5>
+                    <h5 class="mb-0">Top disponibles</h5>
+                </div>
+                <div class="col-auto">
+                    <a href="#" class="btn btn-outline-light btn-sm">Ver todos</a>
                 </div>
             </div>
-            <!-- Contenedor con desplazamiento horizontal -->
-            <div class="scroll-container">
+
+             <!-- Contenedor con desplazamiento horizontal -->
+             <div class="scroll-container">
                 <div class="book-container">
-                    <!-- Ejemplos de libros -->
                     <!-- Libros existentes -->
                     <div class="book-item">
                         <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
@@ -163,49 +210,26 @@
                             <p class="book-author">Autor del Libro 7</p>
                         </div>
                     </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Libro 8" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título del Libro 8</h6>
-                            <p class="book-author">Autor del Libro 8</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Libro 9" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título del Libro 9</h6>
-                            <p class="book-author">Autor del Libro 9</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Libro 10" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título del Libro 10</h6>
-                            <p class="book-author">Autor del Libro 10</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Libro 11" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título del Libro 11</h6>
-                            <p class="book-author">Autor del Libro 11</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
+
         <!-- Sección: Ciencia Ficción -->
-        <div class="container-sm mt-2 mb-4">
-            <div class="row">
+        <div class="container mt-4 mb-5">
+            <!-- Título y botón "Ver todos" -->
+            <div class="row mb-3 align-items-center">
                 <div class="col">
-                    <h5>Ciencia Ficción<a href="#" class="text-white-50 float-right"><small>Ver todos</small></a></h5>
+                    <h5 class="mb-0">Ciencia Ficción</h5>
+                </div>
+                <div class="col-auto">
+                    <a href="#" class="btn btn-outline-light btn-sm">Ver todos</a>
                 </div>
             </div>
+
             <!-- Contenedor con desplazamiento horizontal -->
             <div class="scroll-container">
                 <div class="book-container">
-                    <!-- Ejemplos de libros -->
                     <!-- Libros existentes -->
                     <div class="book-item">
                         <img src="image.jpg" alt="Ciencia Ficción 1" class="img-fluid rounded" style="max-width: 100%;">
@@ -257,45 +281,22 @@
                             <p class="book-author">Autor de Ciencia Ficción 7</p>
                         </div>
                     </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Ciencia Ficción 8" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Ciencia Ficción 8</h6>
-                            <p class="book-author">Autor de Ciencia Ficción 8</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Ciencia Ficción 9" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Ciencia Ficción 9</h6>
-                            <p class="book-author">Autor de Ciencia Ficción 9</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Ciencia Ficción 10" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Ciencia Ficción 10</h6>
-                            <p class="book-author">Autor de Ciencia Ficción 10</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Ciencia Ficción 11" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Ciencia Ficción 11</h6>
-                            <p class="book-author">Autor de Ciencia Ficción 11</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Sección: Romance -->
-        <div class="container-sm mt-2 mb-4">
-            <div class="row">
+        <div class="container mt-4 mb-5">
+            <!-- Título y botón "Ver todos" -->
+            <div class="row mb-3 align-items-center">
                 <div class="col">
-                    <h5>Romance<a href="#" class="text-white-50 float-right"><small>Ver todos</small></a></h5>
+                    <h5 class="mb-0">Romance</h5>
+                </div>
+                <div class="col-auto">
+                    <a href="#" class="btn btn-outline-light btn-sm">Ver todos</a>
                 </div>
             </div>
+
             <!-- Contenedor con desplazamiento horizontal -->
             <div class="scroll-container">
                 <div class="book-container">
@@ -351,45 +352,22 @@
                             <p class="book-author">Autor de Romance 7</p>
                         </div>
                     </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Romance 8" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Romance 8</h6>
-                            <p class="book-author">Autor de Romance 8</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Romance 9" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Romance 9</h6>
-                            <p class="book-author">Autor de Romance 9</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Romance 10" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Romance 10</h6>
-                            <p class="book-author">Autor de Romance 10</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Romance 11" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Romance 11</h6>
-                            <p class="book-author">Autor de Romance 11</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Sección: Ficción -->
-        <div class="container-sm mt-2 mb-4">
-            <div class="row">
+        <div class="container mt-4 mb-5">
+            <!-- Título y botón "Ver todos" -->
+            <div class="row mb-3 align-items-center">
                 <div class="col">
-                    <h5>Ficción<a href="#" class="text-white-50 float-right"><small>Ver todos</small></a></h5>
+                    <h5 class="mb-0">Ficción</h5>
+                </div>
+                <div class="col-auto">
+                    <a href="#" class="btn btn-outline-light btn-sm">Ver todos</a>
                 </div>
             </div>
+
             <!-- Contenedor con desplazamiento horizontal -->
             <div class="scroll-container">
                 <div class="book-container">
@@ -445,39 +423,33 @@
                             <p class="book-author">Autor de Ficción 7</p>
                         </div>
                     </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Ficción 8" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Ficción 8</h6>
-                            <p class="book-author">Autor de Ficción 8</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Ficción 9" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Ficción 9</h6>
-                            <p class="book-author">Autor de Ficción 9</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Ficción 10" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Ficción 10</h6>
-                            <p class="book-author">Autor de Ficción 10</p>
-                        </div>
-                    </div>
-                    <div class="book-item">
-                        <img src="image.jpg" alt="Ficción 11" class="img-fluid rounded" style="max-width: 100%;">
-                        <div class="mt-2">
-                            <h6 class="book-title">Título de Ficción 11</h6>
-                            <p class="book-author">Autor de Ficción 11</p>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+    <!-- Efecto hover para las tarjetas de libros -->
+    <style>
+        .book-item img {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-item img:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
+        }
+    </style>
+
+
+    <!-- Barra de navegación inferior -->
+    <nav class="navbar navbar-light fixed-bottom navbar-bottom">
+        <div class="container d-flex justify-content-around align-items-center" style="height: 100%;">
+            <a href="notificacions.html" class="text-white" style="font-size: 1.2rem;"><i class="bi-bell-fill"></i></a>
+            <a href="rents.html" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-basket-fill"></i></a>
+            <a href="configuration.html" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-gear"></i></a>
+            <a href="profile.html" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-person-fill"></i></a>
+        </div>
+    </nav>
 
     <!-- Incluye Bootstrap JS y dependencias -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
