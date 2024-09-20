@@ -11,15 +11,71 @@
     <!-- Incluye Iconos de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
+<style>
+    body {
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Degradado */
+        font-family: 'Inika', serif;
+    }
+    .logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #1E1E1E;
+        transition: transform 0.3s ease;
+    }
+    .logo:hover {
+        transform: scale(1.1);
+    }
+    .loan-card {
+        display: flex;
+        align-items: flex-start; /* Align items at the start */
+        border: 1px solid #ddd; /* Add border to the card */
+        border-radius: 15px; /* Rounded corners */
+        overflow: hidden; /* Ensure content stays within rounded corners */
+        background: #fff; /* White background for the card */
+        padding: 10px; /* Add padding to the card */
+    }
+    .book-image {
+        width: 150px; /* Fixed width for image */
+        height: 200px; /* Fixed height for image */
+        object-fit: cover; /* Cover image */
+        border-radius: 8px; /* Rounded corners for the image */
+        border: 1px solid #ddd; /* Border around image */
+    }
+    button[type="submit"] {
+            background: linear-gradient(135deg, #1E1E1E, #343a40);
+            color: #ffffff;
+            border-radius: 15px;
+            width: 126px;
+            height: 39px;
+            font-size: 14px;
+            margin: 0 auto;
+            display: block;
+            border: none;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #343a40, #1E1E1E);
+            transform: scale(1.05);
+        }
+        button[type="submit"]:active {
+            background: linear-gradient(135deg, #343a40, #1E1E1E);
+            transform: scale(0.98);
+        }
+
+</style>
 <body class="bg-light text-dark" style="font-family: 'Inika', serif;">
 
 <div class="container d-flex justify-content-center align-items-start pt-5">
     <div class="card p-4 shadow-sm" style="width: 100%; max-width: 600px;">
         
         <!-- Header -->
-        <div class="d-flex justify-content-between align-items-start mb-4">
-            <a href="index.html" class="fw-bold text-decoration-none" style="font-size: 11px;">Back to Home</a>
-            <img src="Ellipse 1.png" alt="Logo" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="index.html" class="text-dark d-flex align-items-center" style="font-weight: bold;">
+                <i class="bi bi-arrow-left me-2"></i> Volver a inicio
+            </a>
+            <img src="Ellipse 1.png" alt="Logo" class="rounded-circle" style="width: 50px; height: 50px;">
         </div>
 
         <!-- Page Title -->
@@ -49,23 +105,17 @@
             </div>
 
             <!-- Save Button -->
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn" style="background-color: #1E1E1E; color: #ffffff; border: none; border-radius: 15px; width: 126px; height: 39px; font-size: 14px;">Save Changes</button>
+            <div class="text-center">
+                <button type="submit" class="btn" style="color: #ffffff; border-radius: 15px; width: 126px; height: 39px; font-size: 14px; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: background 0.3s ease, transform 0.3s ease;">
+                    <i class="bi bi-save" style="margin-right: 5px;"></i>
+                    Guardar
+                </button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- Barra de navegación inferior -->
-<nav class="navbar navbar-dark fixed-bottom" style="background-color: #222222; height: 40px;">
-    <div class="container d-flex justify-content-around align-items-center" style="height: 100%;">
-        <a href="index.html" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-house-fill"></i></a>
-        <a href="notificacions.html" class="text-white" style="font-size: 1.2rem;"><i class="bi-bell-fill"></i></a>
-        <a href="rents.html" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-basket-fill"></i></a>
-        <a href="configuration.html" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-gear"></i></a>
-        <a href="profile.html" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-person-fill"></i></a>
-    </div>
-</nav>
+
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
