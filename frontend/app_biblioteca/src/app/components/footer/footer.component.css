@@ -1,0 +1,21 @@
+/* Estilo específico para la barra de navegación inferior */
+.navbar-bottom {
+    background-color: #222222;
+    height: 40px; 
+    border-top: 1px solid #4E4E4E; /* Añadir un borde superior sutil */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Añadir sombra sutil */
+}
+
+.navbar-bottom .container {
+    height: 100%;
+}
+
+.navbar-bottom a {
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    transition: color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+.navbar-bottom a:hover {
+    transform: scale(1.1); /* Aumentar tamaño en hover */
+}

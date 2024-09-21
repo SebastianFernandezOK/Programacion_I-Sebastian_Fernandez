@@ -1,0 +1,28 @@
+button[type="submit"] {
+    background: linear-gradient(135deg, #1E1E1E, #343a40);
+    transition: background 0.3s ease;
+}
+button[type="submit"]:hover {
+    background: linear-gradient(135deg, #343a40, #1E1E1E);
+}
+.navbar {
+    background-color: #222222;
+    height: 40px;
+}
+.navbar .container {
+    height: 100%;
+}
+.navbar a {
+    font-size: 1.2rem;
+}
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #1E1E1E;
+    transition: transform 0.3s ease;
+}
+.logo:hover {
+    transform: scale(1.1);
+}
