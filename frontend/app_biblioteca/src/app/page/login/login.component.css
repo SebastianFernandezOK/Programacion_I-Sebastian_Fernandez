@@ -1,47 +1,66 @@
+/* Ajustar el estilo del body */
 body {
     background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Degradado */
     font-family: 'Inika', serif;
 }
+
+/* Estilos para la tarjeta */
 .card {
     border-radius: 20px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     padding: 2rem;
 }
+
+/* Ajustar el estilo de los inputs y sus etiquetas */
 .form-control {
-    padding: 1rem 1.25rem;
+    padding: 0.5rem 1.25rem 0.5rem 2.5rem; /* Más espacio para evitar el solapamiento */
     border: 1px solid #ced4da;
+    border-radius: 15px;
     transition: border-color 0.3s ease;
 }
+
 .form-control:focus {
     border-color: #1E1E1E;
     box-shadow: 0 0 0 0.2rem rgba(30, 30, 30, 0.25);
 }
 
-a {
-    color: #1E1E1E;
-    transition: color 0.3s ease;
-}
-a:hover {
-    color: #343a40;
+/* Ajustar la posición de la etiqueta y el icono */
+.position-relative {
+    position: relative;
 }
 
+.form-control-label {
+    position: absolute;
+    top: -10px; /* Ajustar para que la etiqueta no se solape */
+    left: 45px;
+    font-size: 14px;
+    background-color: #fff;
+    padding: 0 4px;
+    color: #6c757d;
+    transition: top 0.3s, font-size 0.3s;
+}
+
+/* Estilos para los íconos dentro de los campos */
+.form-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+/* Botones de envío */
 button[type="submit"] {
     background: linear-gradient(135deg, #1E1E1E, #343a40);
-    color: #ffffff;
-    border-radius: 15px;
-    width: 126px;
-    height: 39px;
-    font-size: 14px;
-    margin: 0 auto;
-    display: block;
-    border: none;
     transition: background 0.3s ease, transform 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    color: #ffffff;
+    padding: 10px 20px;
+    width: 100%;
+    margin-top: 20px;
 }
+
 button[type="submit"]:hover {
     background: linear-gradient(135deg, #343a40, #1E1E1E);
-    transform: scale(1.05);
-}
-button[type="submit"]:active {
-    background: linear-gradient(135deg, #343a40, #1E1E1E);
-    transform: scale(0.98);
 }
