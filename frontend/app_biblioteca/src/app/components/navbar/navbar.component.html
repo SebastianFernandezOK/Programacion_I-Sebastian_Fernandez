@@ -1,15 +1,40 @@
 <nav class="navbar navbar-light bg-light px-3">
+    <!-- Left section: Biblioteca title -->
     <a class="navbar-brand font-weight-bold text-black" href="#">Biblioteca</a>
-    <a routerLink ="/notifications" href="#" class="text-black" style="font-size: 1.2rem;"><i class="bi-bell-fill"></i></a>
-        <a routerLink ="/rents" href="#" class="text-black" style="font-size: 1.2rem;"><i class="bi bi-basket-fill"></i></a>
-        <a routerLink ="/configuration" href="#" class="text-black" style="font-size: 1.2rem;"><i class="bi bi-gear"></i></a>
-        <a routerLink ="/profile" href="#" class="text-black" style="font-size: 1.2rem;"><i class="bi bi-person-fill"></i></a>
+
+    <!-- Right next to the title: Usuarios and Préstamos buttons -->
     <div class="d-flex">
-        <a routerLink ="/login" href="#" class="btn btn-outline-dark me-3" style="border-radius: 20px; margin-right: 15px;">
-            <i class="bi bi-box-arrow-in-right"></i> Login
+        <a routerLink="/users" href="#" class="btn btn-outline-dark me-3" style="border-radius: 20px; margin-right: 15px;">
+            <i class="bi bi-people-fill"></i> Usuarios
         </a>
-        <a routerLink ="/register" href="#" class="btn btn-outline-dark ms-3" style="border-radius: 20px; margin-left: 15px;">
-            <i class="bi bi-pencil-square"></i> Register
+        <a routerLink="/librarian-rents" href="#" class="btn btn-outline-dark ms-3 me-3" style="border-radius: 20px; margin-left: 15px;">
+            <i class="bi bi-journal-bookmark-fill"></i> Préstamos
         </a>
     </div>
-  </nav>
+
+    <!-- Right section: Login, Register, and Dropdown Menu -->
+    <div class="d-flex ms-auto">
+        <a routerLink="/login" href="#" class="btn btn-outline-dark me-3" style="border-radius: 20px; margin-right: 15px;">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+        </a>
+        <a routerLink="/register" href="#" class="btn btn-outline-dark ms-3 me-3" style="border-radius: 20px; margin-left: 15px;">
+            <i class="bi bi-pencil-square"></i> Register
+        </a>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown">
+            <button class="btn btn-outline-dark" style="border-radius: 20px; margin-right: 15px;" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-list"></i> Menú
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu" style="max-width: 250px;">
+                <li><a class="dropdown-item" routerLink="/notifications"><i class="bi-bell-fill me-2"></i> Notificaciones</a></li>
+                <li><a class="dropdown-item" routerLink="/rents"><i class="bi bi-basket-fill me-2"></i> Alquileres</a></li>
+                <li><a class="dropdown-item" routerLink="/configuration"><i class="bi bi-gear me-2"></i> Configuración</a></li>
+                <li><a class="dropdown-item" routerLink="/profile"><i class="bi bi-person-fill me-2"></i> Perfil</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Divider line -->
+    <hr style="width: 100%; height: 1px; background-color: #646464; margin-top: 10px;">
+</nav>

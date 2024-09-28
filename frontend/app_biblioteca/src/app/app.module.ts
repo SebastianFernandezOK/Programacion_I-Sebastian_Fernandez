@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import { LibrarianRentsComponent } from './page/librarian-rents/librarian-rents.
 import { ConfigurationComponent } from './page/configuration/configuration.component';
 import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.component';
 import { HeaderComponent } from './components/header/header.component';
+import { SeeUserComponent } from './components/users/see-user/see-user.component';
 
 @NgModule({
   declarations: [
@@ -34,11 +36,13 @@ import { HeaderComponent } from './components/header/header.component';
     LibrarianRentsComponent,
     ConfigurationComponent,
     ForgotPasswordComponent,
-    HeaderComponent
+    HeaderComponent,
+    SeeUserComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
