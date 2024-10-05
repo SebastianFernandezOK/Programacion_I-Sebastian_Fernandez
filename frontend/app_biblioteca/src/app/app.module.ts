@@ -19,6 +19,7 @@ import { ConfigurationComponent } from './page/configuration/configuration.compo
 import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SeeUserComponent } from './components/users/see-user/see-user.component';
+import { SeeRentsComponent } from './components/rents/see-rents/see-rents.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SeeUserComponent } from './components/users/see-user/see-user.component
     ConfigurationComponent,
     ForgotPasswordComponent,
     HeaderComponent,
-    SeeUserComponent
+    SeeUserComponent,
+    SeeRentsComponent
   ],
   imports: [
     BrowserModule,
