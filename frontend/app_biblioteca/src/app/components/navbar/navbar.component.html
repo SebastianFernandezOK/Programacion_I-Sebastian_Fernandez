@@ -4,29 +4,33 @@
 
     <!-- Right next to the title: Usuarios and Préstamos buttons -->
     <div class="d-flex">
-        <a routerLink="/users" href="#" class="btn btn-outline-dark me-3" style="border-radius: 20px; margin-right: 15px;">
+        <a routerLink="/users" href="#" *ngIf="isToken" class="btn btn-outline-dark me-3" style="border-radius: 20px; margin-right: 15px;">
             <i class="bi bi-people-fill"></i> Usuarios
         </a>
-        <a routerLink="/librarian-rents" href="#" class="btn btn-outline-dark ms-3 me-3" style="border-radius: 20px; margin-left: 15px;">
+        <a routerLink="/librarian-rents" href="#" *ngIf="isToken" class="btn btn-outline-dark ms-3 me-3" style="border-radius: 20px; margin-left: 15px;">
             <i class="bi bi-journal-bookmark-fill"></i> Préstamos
         </a>
     </div>
 
     <!-- Right section: Login, Register, and Dropdown Menu -->
     <div class="d-flex ms-auto">
-        <a routerLink="/login" href="#" class="btn btn-outline-dark me-3" style="border-radius: 20px; margin-right: 15px;">
-            <i class="bi bi-box-arrow-in-right"></i> Login
+        <a routerLink="/login" href="#" *ngIf="!isToken" class="btn btn-outline-dark me-3" style="border-radius: 20px; margin-right: 15px;">
+            <i  class="bi bi-box-arrow-in-right"></i> Login
         </a>
-        <a routerLink="/register" href="#" class="btn btn-outline-dark ms-3 me-3" style="border-radius: 20px; margin-left: 15px;">
-            <i class="bi bi-pencil-square"></i> Register
+        <a  href="#" *ngIf="isToken" class="btn btn-outline-dark me-3" (click)="cerrarSesion()" style="border-radius: 20px; margin-right: 15px;">
+            <i  class="bi bi-box-arrow-in-right"></i> Cerrar sesión
         </a>
+        <a routerLink="/register" href="#" *ngIf="!isToken" class="btn btn-outline-dark ms-3 me-3" style="border-radius: 20px; margin-left: 15px;">
+            <i  class="bi bi-pencil-square"></i> Register
+        </a>
+        
 
         <!-- Dropdown Menu -->
         <div class="dropdown">
-            <button class="btn btn-outline-dark" style="border-radius: 20px; margin-right: 15px;" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+            <button *ngIf="isToken" class="btn btn-outline-dark" style="border-radius: 20px; margin-right: 15px;" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-list"></i> Menú
             </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu" style="max-width: 250px;">
+            <ul  class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu" style="max-width: 250px;">
                 <li><a class="dropdown-item" routerLink="/notifications"><i class="bi-bell-fill me-2"></i> Notificaciones</a></li>
                 <li><a class="dropdown-item" routerLink="/rents"><i class="bi bi-basket-fill me-2"></i> Alquileres</a></li>
                 <li><a class="dropdown-item" routerLink="/configuration"><i class="bi bi-gear me-2"></i> Configuración</a></li>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +20,7 @@ import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.
 import { HeaderComponent } from './components/header/header.component';
 import { SeeUserComponent } from './components/users/see-user/see-user.component';
 import { SeeRentsComponent } from './components/rents/see-rents/see-rents.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,9 @@ import { SeeRentsComponent } from './components/rents/see-rents/see-rents.compon
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

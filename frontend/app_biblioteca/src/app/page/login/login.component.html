@@ -10,29 +10,31 @@
 
         <!-- Formulario de Inicio de Sesión -->
         <h3 style="font-weight: bold; font-size: 24px; color: #1E1E1E;">Iniciar Sesión</h3>
-        <form>
+        <form [formGroup]="loginForm">
             <!-- Campo de correo electrónico -->
             <div class="mb-3 position-relative">
                 <i class="bi bi-envelope form-icon"></i>
                 <label for="email" class="form-control-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico" required>
+                <input type="email" class="form-control" formControlName="usuario_email" id="email" placeholder="Ingresa tu correo electrónico" required>
             </div>
 
             <!-- Campo de contraseña -->
             <div class="mb-3 position-relative">
                 <i class="bi bi-lock form-icon"></i>
                 <label for="password" class="form-control-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required>
+                <input type="password" class="form-control" formControlName="usuario_contraseña" id="password" placeholder="Ingresa tu contraseña" required>
             </div>
 
             <!-- Botón de envío -->
             <div class="text-center">
-                <button type="submit" class="btn">
-                    <i class="bi bi-arrow-right-circle" style="margin-right: 5px;"></i>
+                <button type="button" (click)="sumbit()" class="btn">
+                    <a class="bi bi-arrow-right-circle" style="margin-right: 5px;"></a>
                     Iniciar Sesión
-                </button>
+                </button> 
             </div>
         </form>
+       
+        
 
         <!-- Enlaces del Pie de Página -->
         <div class="d-flex justify-content-between mt-3">
