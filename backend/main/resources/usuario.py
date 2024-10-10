@@ -93,7 +93,7 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
 
     #eliminar recurso
     @jwt_required()
-    @role_required(roles = ["admin","user"])
+    @role_required(roles = ["admin","user","librarian"])
     def delete(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
         try:
