@@ -139,7 +139,22 @@
     
 }
 
-
 .btn-pedir:hover {
     background: linear-gradient(135deg, #343a40, #1E1E1E);
 }
+
+
+.input-group-text {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 1px solid #6c757d; /* Borde gris oscuro */
+    border-right: none; /* Sin borde a la derecha */
+    border-radius: 20px 0 0 20px; /* Redondeado solo en la esquina izquierda */
+  }
+  
+  .form-control.search-bar {
+    border: 1px solid #6c757d; /* Borde gris oscuro */
+    border-left: none; /* Sin borde a la izquierda */
+    border-radius: 0 20px 20px 0; /* Redondeado solo en la esquina derecha */
+  }
+  
+  

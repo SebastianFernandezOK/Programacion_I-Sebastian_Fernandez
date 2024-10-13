@@ -21,6 +21,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SeeUserComponent } from './components/users/see-user/see-user.component';
 import { SeeRentsComponent } from './components/rents/see-rents/see-rents.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BookComponent } from './components/book/book.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { HttpClientModule } from '@angular/common/http';
     ForgotPasswordComponent,
     HeaderComponent,
     SeeUserComponent,
-    SeeRentsComponent
+    SeeRentsComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,

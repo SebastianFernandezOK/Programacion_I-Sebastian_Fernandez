@@ -1,66 +1,23 @@
-/* Estilo específico para la barra de navegación inferior */
-.navbar-bottom {
-    background-color: #222222;
-    height: 40px; 
-    border-top: 1px solid #4E4E4E; /* Añadir un borde superior sutil */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Añadir sombra sutil */
-    position: relative; /* Asegura que el footer se posicione según el flujo normal del documento */
-    bottom: 0; /* Mantiene el footer al final de su contenedor */
-    left: 0; /* Alinea el footer a la izquierda */
-    width: 100%; /* Asegura que el footer ocupe el ancho completo */
-    border-radius: 10px;
+footer {
+    background-color: #f8f9fa; /* Color de fondo */
+    color: #343a40; /* Color del texto */
 }
 
-/* Ajustes para la altura del contenedor */
-.navbar-bottom .container {
-    height: 100%; /* Asegura que el contenedor del footer ocupe el 100% de la altura */
+.footer-section h5 {
+    font-weight: bold;
+    margin-bottom: 15px;
 }
 
-/* Estilo para los enlaces en el footer */
-.navbar-bottom a {
-    color: #FFFFFF;
-    font-size: 1.2rem;
-    transition: color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-.navbar-bottom a:hover {
-    transform: scale(1.1); /* Aumentar tamaño en hover */
+.footer-section a {
+    text-decoration: none; /* Sin subrayado */
+    color: #007bff; /* Color de enlaces */
 }
 
-/* Asegura que el contenido principal no se superponga al footer */
-.content {
-    padding-bottom: 50px; /* Ajusta el padding según la altura de tu footer */
-}
-/* Estilo específico para la barra de navegación inferior */
-.navbar-bottom {
-    background-color: #222222;
-    height: 40px; 
-    border-top: 1px solid #4E4E4E; /* Añadir un borde superior sutil */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Añadir sombra sutil */
-    position: relative; /* Asegura que el footer se posicione según el flujo normal del documento */
-    bottom: 0; /* Mantiene el footer al final de su contenedor */
-    left: 0; /* Alinea el footer a la izquierda */
-    width: 100%; /* Asegura que el footer ocupe el ancho completo */
-    border-radius: 10px;
-}
-
-/* Ajustes para la altura del contenedor */
-.navbar-bottom .container {
-    height: 100%; /* Asegura que el contenedor del footer ocupe el 100% de la altura */
-}
-
-/* Estilo para los enlaces en el footer */
-.navbar-bottom a {
-    color: #FFFFFF;
-    font-size: 1.2rem;
-    transition: color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
-}
-
-.navbar-bottom a:hover {
-    transform: scale(1.1); /* Aumentar tamaño en hover */
-}
-
-/* Asegura que el contenido principal no se superponga al footer */
-.content {
-    padding-bottom: 50px; /* Ajusta el padding según la altura de tu footer */
+.footer-section a:hover {
+    text-decoration: underline; /* Subrayar en hover */
 }

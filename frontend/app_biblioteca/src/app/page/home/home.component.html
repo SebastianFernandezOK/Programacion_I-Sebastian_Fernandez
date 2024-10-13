@@ -1,342 +1,37 @@
-<!-- Navbar -->
-<app-navbar></app-navbar>
+<header>
+  <!-- Barra de navegación -->
+  <app-navbar></app-navbar>
 
-<!-- Contenido principal -->
-<div class="container mt-4 mb-5">
-    <!-- Campo de búsqueda -->
-    <div class="row mb-3">
-        <div class="col">
-            <input type="text" class="form-control search-bar"
-                placeholder="Buscar por título, autor, etc.">
-        </div>
+  <!-- Barra de búsqueda -->
+  <div class="container mt-3 mb-3">
+    <div class="input-group">
+      <span class="input-group-text bg-white border border-secondary border-end-0" style="border-radius: 20px 0 0 20px;">
+        <i class="bi bi-search"></i>
+      </span>
+      <input type="text" class="form-control border border-secondary border-start-0 search-bar" 
+             placeholder="Buscar por título, autor, etc." 
+             [(ngModel)]="searchQuery" 
+             (input)="filterBooks()" 
+             style="border-radius: 0 20px 20px 0;">
     </div>
+  </div>
+</header>
 
-    <!-- Sección: Top disponibles -->
-    <div class="container mt-4 mb-5">
-        <!-- Título y botón "Ver todos" -->
-        <div class="row mb-3 align-items-center">
-            <div class="col">
-                <h5 class="mb-0">Top disponibles</h5>
-            </div>
-            <div class="col-auto">
-                <a href="#" class="btn btn-outline-light btn-sm">Ver todos</a>
-            </div>
-        </div>
-
-         <!-- Contenedor con desplazamiento horizontal -->
-         <div class="scroll-container">
-            <div class="book-container">
-                <!-- Libros existentes -->
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 1</h6>
-                        <p class="book-author">Autor del Libro 1</p>
-                        <p class="books-remaining">Libros restantes: 5</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 2</h6>
-                        <p class="book-author">Autor del Libro 2</p>
-                        <p class="books-remaining">Libros restantes: 2</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 3</h6>
-                        <p class="book-author">Autor del Libro 3</p>
-                        <p class="books-remaining">Libros restantes: 4</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 4" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 4</h6>
-                        <p class="book-author">Autor del Libro 4</p>
-                        <p class="books-remaining">Libros restantes: 1</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 5" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 5</h6>
-                        <p class="book-author">Autor del Libro 5</p>
-                        <p class="books-remaining">Libros restantes: 3</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 6" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 6</h6>
-                        <p class="book-author">Autor del Libro 6</p>
-                        <p class="books-remaining">Libros restantes: 2</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 7" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 7</h6>
-                        <p class="book-author">Autor del Libro 7</p>
-                        <p class="books-remaining">Libros restantes: 5</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 8" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 8</h6>
-                        <p class="book-author">Autor del Libro 8</p>
-                        <p class="books-remaining">Libros restantes: 0</p>
-                        <button class="btn btn-pedir mt-2" >Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 9" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 9</h6>
-                        <p class="book-author">Autor del Libro 9</p>
-                        <p class="books-remaining">Libros restantes: 4</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 10" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 10</h6>
-                        <p class="book-author">Autor del Libro 10</p>
-                        <p class="books-remaining">Libros restantes: 6</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<main class="container mt-4 mb-5">
+  <!-- Grid de libros -->
+  <div class="row">
+    <!-- Se itera sobre los libros filtrados -->
+    <div class="col-12 col-sm-6 col-lg-4 mb-4" *ngFor="let book of filteredBooks">
+      <app-book
+        [title]="book.title"
+        [author]="book.author"
+        [gender]="book.gender"
+        [quantity]="book.quantity"
+        [review]="book.review"  
+        [image]="book.image">
+      </app-book>
     </div>
-    <!-- Sección: Top disponibles -->
-    <div class="container mt-4 mb-5">
-        <!-- Título y botón "Ver todos" -->
-        <div class="row mb-3 align-items-center">
-            <div class="col">
-                <h5 class="mb-0">Misterio</h5>
-            </div>
-            <div class="col-auto">
-                <a href="#" class="btn btn-outline-light btn-sm">Ver todos</a>
-            </div>
-        </div>
+  </div>
+</main>
 
-         <!-- Contenedor con desplazamiento horizontal -->
-         <div class="scroll-container">
-            <div class="book-container">
-                <!-- Libros existentes -->
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 1</h6>
-                        <p class="book-author">Autor del Libro 1</p>
-                        <p class="books-remaining">Libros restantes: 5</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 2</h6>
-                        <p class="book-author">Autor del Libro 2</p>
-                        <p class="books-remaining">Libros restantes: 2</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 3</h6>
-                        <p class="book-author">Autor del Libro 3</p>
-                        <p class="books-remaining">Libros restantes: 4</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 4" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 4</h6>
-                        <p class="book-author">Autor del Libro 4</p>
-                        <p class="books-remaining">Libros restantes: 1</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 5" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 5</h6>
-                        <p class="book-author">Autor del Libro 5</p>
-                        <p class="books-remaining">Libros restantes: 3</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 6" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 6</h6>
-                        <p class="book-author">Autor del Libro 6</p>
-                        <p class="books-remaining">Libros restantes: 2</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 7" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 7</h6>
-                        <p class="book-author">Autor del Libro 7</p>
-                        <p class="books-remaining">Libros restantes: 5</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 8" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 8</h6>
-                        <p class="book-author">Autor del Libro 8</p>
-                        <p class="books-remaining">Libros restantes: 0</p>
-                        <button class="btn btn-pedir mt-2" >Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 9" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 9</h6>
-                        <p class="book-author">Autor del Libro 9</p>
-                        <p class="books-remaining">Libros restantes: 4</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 10" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 10</h6>
-                        <p class="book-author">Autor del Libro 10</p>
-                        <p class="books-remaining">Libros restantes: 6</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Sección: Top disponibles -->
-    <div class="container mt-4 mb-5">
-        <!-- Título y botón "Ver todos" -->
-        <div class="row mb-3 align-items-center">
-            <div class="col">
-                <h5 class="mb-0">Fantasía</h5>
-            </div>
-            <div class="col-auto">
-                <a href="#" class="btn btn-outline-light btn-sm">Ver todos</a>
-            </div>
-        </div>
 
-         <!-- Contenedor con desplazamiento horizontal -->
-         <div class="scroll-container">
-            <div class="book-container">
-                <!-- Libros existentes -->
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 1" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 1</h6>
-                        <p class="book-author">Autor del Libro 1</p>
-                        <p class="books-remaining">Libros restantes: 5</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 2" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 2</h6>
-                        <p class="book-author">Autor del Libro 2</p>
-                        <p class="books-remaining">Libros restantes: 2</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 3" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 3</h6>
-                        <p class="book-author">Autor del Libro 3</p>
-                        <p class="books-remaining">Libros restantes: 4</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 4" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 4</h6>
-                        <p class="book-author">Autor del Libro 4</p>
-                        <p class="books-remaining">Libros restantes: 1</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 5" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 5</h6>
-                        <p class="book-author">Autor del Libro 5</p>
-                        <p class="books-remaining">Libros restantes: 3</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 6" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 6</h6>
-                        <p class="book-author">Autor del Libro 6</p>
-                        <p class="books-remaining">Libros restantes: 2</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 7" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 7</h6>
-                        <p class="book-author">Autor del Libro 7</p>
-                        <p class="books-remaining">Libros restantes: 5</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 8" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 8</h6>
-                        <p class="book-author">Autor del Libro 8</p>
-                        <p class="books-remaining">Libros restantes: 0</p>
-                        <button class="btn btn-pedir mt-2" >Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 9" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 9</h6>
-                        <p class="book-author">Autor del Libro 9</p>
-                        <p class="books-remaining">Libros restantes: 4</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-                <div class="book-item">
-                    <img src="image.jpg" alt="Libro 10" class="img-fluid rounded" style="max-width: 100%;">
-                    <div class="mt-2">
-                        <h6 class="book-title">Título del Libro 10</h6>
-                        <p class="book-author">Autor del Libro 10</p>
-                        <p class="books-remaining">Libros restantes: 6</p>
-                        <button class="btn btn-pedir mt-2">Pedir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
