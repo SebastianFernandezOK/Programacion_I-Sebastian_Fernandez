@@ -3,7 +3,7 @@
     <div *ngFor="let user of users" class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
         <img [src]="user.photo" alt="User Photo" class="user-image rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
         <div class="user-info">
-            <strong>{{ user.nombre }} {{ user.apellido }}</strong><br>
+            <strong>{{ user.usuario_nombre }} {{ user.apellido }}</strong><br>
             <span>{{ user.email }}<br>Teléfono: {{ user.telefono }}</span><br>
             <span class="user-role text-secondary">{{ user.rol }}</span>
         </div>
