@@ -5,10 +5,10 @@ declare var window: any; // Esto es para usar Bootstrap Modal con JavaScript
 
 interface User {
   usuarioID: number;
-  nombre: string;
-  apellido: string;
-  email: string;
-  telefono: number;
+  usuario_nombre: string;
+  usuario_apellido: string;
+  usuario_email: string;
+  usuario_telefono: number;
   rol: string;
   photo: string; // Suponiendo que sigues usando una foto
 }
@@ -115,10 +115,10 @@ export class SeeUserComponent {
   users: User[] = []
   selectedUser: User = {
     usuarioID: 0,
-    nombre: '',
-    apellido: '',
-    email: '',
-    telefono: 0,
+    usuario_nombre: '',
+    usuario_apellido: '',
+    usuario_email: '',
+    usuario_telefono: 0,
     rol: '',
     photo: ''
   };
@@ -133,7 +133,7 @@ export class SeeUserComponent {
   ngOnInit() {
     this.usuariosService.getUsers().subscribe((rta:any) => {
       console.log('usuarios api: ',rta);
-      this.users = rta.animales || [];
+      this.users = rta.usuarios || [];
       this.editUserModal = new window.bootstrap.Modal(
         document.getElementById('editUserModal')
       );
