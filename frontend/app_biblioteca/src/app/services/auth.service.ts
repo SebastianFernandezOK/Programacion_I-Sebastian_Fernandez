@@ -21,6 +21,11 @@ export class AuthService {
 
     return this.httpClient.post(this.url+'/auth/login', dataLogin).pipe(take(1));
   }
+  
+  register(dataRegister: any): Observable<any> {
+    return this.httpClient.post(this.url + '/auth/register', dataRegister).pipe(take(1));
+  }
+
   logout(){
     localStorage.removeItem("token");
     this.router.navigateByUrl("home");

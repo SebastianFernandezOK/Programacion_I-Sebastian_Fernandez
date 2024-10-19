@@ -30,19 +30,28 @@ def login():
 #Método de registro
 @auth.route('/register', methods=['POST'])
 def register():
-    #Obtener usuario
-    usuario = UsuarioModel.from_json(request.get_json())
-    #Verificar si el mail ya existe en la db, scalar() para saber la cantidad de ese usuario_email
-    exists = db.session.query(UsuarioModel).filter(UsuarioModel.usuario_email == usuario.usuario_email).scalar() is not None
+    # Get the JSON data and create the user object
+    usuario_data = request.get_json()
+    usuario = UsuarioModel.from_json(usuario_data)
+    
+    # Log the incoming email for debugging
+    print(f"Attempting to register email: {usuario.usuario_email}")
+    
+    # Check if the email already exists in the DB
+    exists = db.session.query(UsuarioModel).filter(db.func.lower(UsuarioModel.usuario_email) == usuario.usuario_email.lower()).scalar() is not None
+    print(f"Email exists: {exists}")
+    
     if exists:
-        return 'Duplicated mail', 409
-    else:
-        try:
-            #Agregar usuario a DB
-            db.session.add(usuario)
-            db.session.commit()
-            send = sendMail([usuario.usuario_email],"Welcome!",'register',usuario = usuario)
-        except Exception as error:
-            db.session.rollback()
-            return str(error), 409
-        return usuario.to_json() , 201
+        return jsonify({'error': 'Duplicated email'}), 409
+    
+    try:
+        # Add user to DB
+        db.session.add(usuario)
+        db.session.commit()
+        send = sendMail([usuario.usuario_email], "Welcome!", 'register', usuario=usuario)
+    except Exception as error:
+        db.session.rollback()
+        print(f"Error during registration: {str(error)}")
+        return jsonify({'error': str(error)}), 500
+    
+    return usuario.to_json(), 201
