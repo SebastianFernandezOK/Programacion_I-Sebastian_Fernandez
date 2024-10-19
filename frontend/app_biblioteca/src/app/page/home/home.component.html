@@ -23,11 +23,11 @@
     <!-- Se itera sobre los libros filtrados -->
     <div class="col-12 col-sm-6 col-lg-4 mb-4" *ngFor="let book of filteredBooks">
       <app-book
-        [title]="book.title"
-        [author]="book.author"
+        [title]="book.titulo"
+        [author]="book.autores"
         [gender]="book.gender"
-        [quantity]="book.quantity"
-        [review]="book.review"  
+        [quantity]="book.cantidad"
+        [review]="book.resenas[0].resena"  
         [image]="book.image">
       </app-book>
     </div>

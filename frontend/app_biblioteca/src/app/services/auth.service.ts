@@ -14,13 +14,9 @@ export class AuthService {
   ) { }
 
   login(dataLogin:any): Observable<any> {
-    // let dataLogin = {
-    //   usuario_email: "hola@gmail",
-    //   usuario_contraseña: "123"
-    // }
-
     return this.httpClient.post(this.url+'/auth/login', dataLogin).pipe(take(1));
   }
+  
   logout(){
     localStorage.removeItem("token");
     this.router.navigateByUrl("home");
