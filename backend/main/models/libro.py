@@ -44,7 +44,7 @@ class Libro(db.Model):
             'editorial': self.editorial,
             'prestamos': prestamos,
             "autores": autores,
-            "reseñas": reseñas,
+            "resenas": reseñas,
         }
         return Libro_json  
 

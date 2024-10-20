@@ -102,7 +102,15 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
 
     def put(self, id):
         libro = db.session.query(LibroModel).get_or_404(id)
-        data = request.get_json()
+        data = request.get_json()                
+        autores_ids = data.get('autores', [])  # Obtener los IDs de los autores del JSON o una lista vacía si no se proporcionan
+
+        if autores_ids:
+            # Obtener las instancias de autores basadas en las IDs recibidas
+            autores = AutorModel.query.filter(AutorModel.autorID.in_(autores_ids)).all()
+            # Agregar las instancias de autor a la lista de autores del libro
+            libro.autores.extend(autores)
+
         for key, value in data.items():
             setattr(libro, key, value)
         try:
