@@ -15,12 +15,13 @@ USUARIOS = {
 
 class Usuarios(Resource):
     @jwt_required()
-    @role_required(roles = ["admin"]) 
+    @role_required(roles=["admin", "librarian"]) 
     def get(self):
+
         #Página inicial por defecto
         page = 1
         #Cantidad de elementos por página por defecto
-        per_page = 10
+        per_page = 9
         
         usuarios = db.session.query(UsuarioModel)
         
@@ -112,8 +113,8 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
         for key, value in data.items():
             setattr(usuario, key, value)
         try:
-            db.session.add(usuario)
-            db.session.commit()
+            db.session.commit()  # Commit the changes
+            return jsonify(usuario.to_json()), 200
         except:
             db.session.rollback()
             return {"message": "Error al agregar al usuario"}, 400

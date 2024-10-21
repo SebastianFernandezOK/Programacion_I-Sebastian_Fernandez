@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; 
 import { Router } from '@angular/router';
 import { UsuariosService } from '../../../services/usuarios.service';
 declare var window: any; // Esto es para usar Bootstrap Modal con JavaScript
@@ -19,100 +19,7 @@ interface User {
   styleUrls: ['./see-user.component.css']
 })
 export class SeeUserComponent {
-  
-  //   { 
-  //     usuarioID: 1, 
-  //     nombre: 'John', 
-  //     apellido: 'Doe', 
-  //     email: 'johndoe@example.com', 
-  //     telefono: 1234567890, 
-  //     rol: 'User', 
-  //     photo: 'descarga (1).png' 
-  //   },
-  //   { 
-  //     usuarioID: 2, 
-  //     nombre: 'Jane', 
-  //     apellido: 'Smith', 
-  //     email: 'janesmith@example.com', 
-  //     telefono: 9876543210, 
-  //     rol: 'Librarian', 
-  //     photo: 'descarga (1).png' 
-  //   },
-  //   { 
-  //     usuarioID: 3, 
-  //     nombre: 'Admin', 
-  //     apellido: 'User', 
-  //     email: 'adminuser@example.com', 
-  //     telefono: 5551234567, 
-  //     rol: 'Admin', 
-  //     photo: 'descarga (1).png' 
-  //   },
-  //   { 
-  //     usuarioID: 4, 
-  //     nombre: 'Michael', 
-  //     apellido: 'Johnson', 
-  //     email: 'michaeljohnson@example.com', 
-  //     telefono: 1231231234, 
-  //     rol: 'User', 
-  //     photo: 'descarga (1).png' 
-  //   },
-  //   { 
-  //     usuarioID: 5, 
-  //     nombre: 'Emily', 
-  //     apellido: 'Davis', 
-  //     email: 'emilydavis@example.com', 
-  //     telefono: 3213214321, 
-  //     rol: 'Librarian', 
-  //     photo: 'descarga (1).png' 
-  //   },
-  //   { 
-  //     usuarioID: 6, 
-  //     nombre: 'William', 
-  //     apellido: 'Brown', 
-  //     email: 'williambrown@example.com', 
-  //     telefono: 4564564567, 
-  //     rol: 'User', 
-  //     photo: 'descarga (1).png' 
-  //   },
-  //   { 
-  //     usuarioID: 7, 
-  //     nombre: 'Olivia', 
-  //     apellido: 'Martinez', 
-  //     email: 'oliviamartinez@example.com', 
-  //     telefono: 7897897890, 
-  //     rol: 'Admin', 
-  //     photo: 'descarga (1).png' 
-  //   },
-  //   { 
-  //     usuarioID: 8, 
-  //     nombre: 'James', 
-  //     apellido: 'Garcia', 
-  //     email: 'jamesgarcia@example.com', 
-  //     telefono: 6546546543, 
-  //     rol: 'User', 
-  //     photo: 'descarga (1).png' 
-  //   },
-  //   { 
-  //     usuarioID: 9, 
-  //     nombre: 'Sophia', 
-  //     apellido: 'Wilson', 
-  //     email: 'sophiawilson@example.com', 
-  //     telefono: 9879879870, 
-  //     rol: 'Librarian', 
-  //     photo: 'descarga (1).png' 
-  //   },
-  //   { 
-  //     usuarioID: 10, 
-  //     nombre: 'Mason', 
-  //     apellido: 'Lopez', 
-  //     email: 'masonlopez@example.com', 
-  //     telefono: 3216549870, 
-  //     rol: 'Admin', 
-  //     photo: 'descarga (1).png' 
-  //   }
-  // 
-
-  users: User[] = []
+  users: User[] = [];
   selectedUser: User = {
     usuarioID: 0,
     usuario_nombre: '',
@@ -122,36 +29,40 @@ export class SeeUserComponent {
     rol: '',
     photo: ''
   };
+
+  // Estado del rol seleccionado
+  selectedRole: string = 'all'; // Por defecto, muestra todos los usuarios
   
   editUserModal: any;
 
   constructor(
     private router: Router,
     private usuariosService: UsuariosService
-  ){}
-    
+  ) {}
+
   ngOnInit() {
     this.usuariosService.getUsers().subscribe((rta:any) => {
-      console.log('usuarios api: ',rta);
+      console.log('usuarios api: ', rta);
       this.users = rta.usuarios || [];
       this.editUserModal = new window.bootstrap.Modal(
         document.getElementById('editUserModal')
       );
-      //this.filteredUsers = [...this.arrayUsuarios]
-    })
+    });
   }
-    
-  // ngOnInit() {
-  //   // Inicializamos el modal al cargar el componente
-  //   this.editUserModal = new window.bootstrap.Modal(
-  //     document.getElementById('editUserModal')
-  //   );
-  // }
+ 
+  
+  // Función para filtrar usuarios
+get filteredUsers() {
+  if (this.selectedRole === 'Todos') {
+    return this.users; // Devuelve todos los usuarios si 'Todos' está seleccionado
+  }
+  return this.users.filter(user => user.rol === this.selectedRole); // Filtra por rol
+}
+
 
   // Función para eliminar un usuario
   deleteUser(usuarioID: number): void {
     this.users = this.users.filter(user => user.usuarioID !== usuarioID);
-    // Lógica adicional, como una llamada a una API para eliminar el usuario del servidor.
   }
 
   // Función para abrir el modal con los datos del usuario seleccionado
@@ -162,12 +73,20 @@ export class SeeUserComponent {
 
   // Función para guardar los cambios del usuario editado
   saveUser(): void {
-    const index = this.users.findIndex(u => u.usuarioID === this.selectedUser.usuarioID);
-    if (index !== -1) {
-      this.users[index] = { ...this.selectedUser }; // Actualizamos el usuario en la lista
-      this.editUserModal.hide(); // Cerramos el modal después de guardar
-    } else {
-      console.error("Usuario no encontrado"); // Manejo de errores
-    }
+    console.log('Usuario a actualizar:', this.selectedUser); // Debugging
+    this.usuariosService.updateUser(this.selectedUser.usuarioID, this.selectedUser)
+      .subscribe(
+        response => {
+          console.log('Usuario actualizado:', response);
+          const index = this.users.findIndex(u => u.usuarioID === this.selectedUser.usuarioID);
+          if (index !== -1) {
+            this.users[index] = { ...this.selectedUser }; // Actualiza el usuario en la lista
+          }
+          this.editUserModal.hide(); // Cierra el modal después de guardar
+        },
+        error => {
+          console.error('Error al actualizar el usuario:', error);
+        }
+      );
   }
 }
