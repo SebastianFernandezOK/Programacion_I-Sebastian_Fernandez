@@ -2,7 +2,8 @@ from datetime import datetime
 import sqlite3
 
 # Conectarse a la base de datos existente
-conn = sqlite3.connect('C:\\Users\\MegaTecnologia\\Documents\\Programacion_I-Sebastian_Fernandez\\backend\\DB\\biblioteca.db')
+conn = sqlite3.connect('D:\\User\\Desktop\\code\\Programacion_I-Sebastian_Fernandez\\backend\\DB\\biblioteca.db')
+
 
 # Crear un cursor para ejecutar consultas
 cur = conn.cursor()
