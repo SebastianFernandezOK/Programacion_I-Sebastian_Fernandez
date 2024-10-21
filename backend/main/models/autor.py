@@ -1,8 +1,9 @@
 from .. import db
 
 libros_autores = db.Table("libros_autores",
-    db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID"),primary_key=True),
-    db.Column("autorID",db.Integer,db.ForeignKey("autores.autorID"),primary_key=True)
+    db.Column("id",db.Integer,primary_key=True, autoincrement=True),
+    db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID")),
+    db.Column("autorID",db.Integer,db.ForeignKey("autores.autorID")),
     )  
 
 class Autor(db.Model):
@@ -51,6 +52,7 @@ class Autor(db.Model):
         autorID = autor_json.get('autorID')
         autor_nombre = autor_json.get('autor_nombre')
         autor_apellido = autor_json.get('autor_apellido')
+        print(autorID, autor_nombre, autor_apellido)
         return Autor(autorID=autorID,
                     autor_nombre=autor_nombre, 
                     autor_apellido=autor_apellido

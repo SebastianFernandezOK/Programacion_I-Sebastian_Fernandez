@@ -10,7 +10,6 @@ export class BookComponent {
   @Input() author!: string; // Propiedad de entrada
   @Input() quantity!: number; // Propiedad de entrada
   @Input() review!: string; // Propiedad de entrada
-  @Input() gender!: string; // Propiedad de entrada
   @Input() image!: string; // Propiedad de entrada
   
   showInfo = false; // Estado para mostrar u ocultar la información del libro
