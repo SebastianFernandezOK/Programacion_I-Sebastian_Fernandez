@@ -49,7 +49,7 @@ class Prestamos(Resource):
         #Obtener valor paginado
         prestamos = prestamos.paginate(page=page, per_page=per_page, error_out=True)
 
-        return jsonify({"prestamos":[prestamo.to_json() for prestamo in prestamos],    
+        return jsonify({"prestamos":[prestamo.to_json_complete() for prestamo in prestamos],    
                   'total': prestamos.total,
                   'pages': prestamos.pages,
                   'page': page      

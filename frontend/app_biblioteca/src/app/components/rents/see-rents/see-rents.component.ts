@@ -1,14 +1,12 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
-import { RentService } from '../../../services/rent.service'; 
-
-declare var window: any; // Para usar Bootstrap Modal con JavaScript
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { RentsService } from '../../../services/rents.service'; 
 
 @Component({
   selector: 'app-see-rents',
   templateUrl: './see-rents.component.html',
   styleUrls: ['./see-rents.component.css']
 })
-export class SeeRentsComponent {
+export class SeeRentsComponent implements OnInit {
   @Input() id: number = 0;
   @Input() title: string = 'Default title';
   @Input() author: string = 'Default author';
@@ -16,14 +14,30 @@ export class SeeRentsComponent {
   @Input() rentedBy: string = "Default user";
   @Input() image: string = 'media/default-book-cover.jpg';
 
-  loans: any[] = []; // Array para almacenar los préstamos
-  selectedLoan: any; // Para almacenar el préstamo seleccionado en el modal
+  loans: any[] = []; // Para almacenar los préstamos
+  selectedLoan: any; // Para el modal de préstamo seleccionado
   renewLoanModal: any;
 
-  constructor(private cdr: ChangeDetectorRef, private rentService: RentService) {} // Inyecta el servicio
+  constructor(
+    private cdr: ChangeDetectorRef, 
+    private rentsService: RentsService // Inyecta el servicio
+  ) {}
 
   ngOnInit() {
-    this.renewLoanModal = new window.bootstrap.Modal(document.getElementById('renewLoanModal'));
+    this.loadRents(); // Llama a la función para cargar los préstamos
+  }
+
+  // Cargar todos los préstamos usando el servicio RentsService
+  loadRents() {
+    this.rentsService.getRents().subscribe(
+      (response: any) => {
+        this.loans = response.prestamos; // Asigna los préstamos obtenidos
+        console.log('Préstamos cargados:', this.loans);
+      },
+      (error) => {
+        console.error('Error al cargar préstamos:', error);
+      }
+    );
   }
 
   // Función para calcular los días restantes
@@ -33,26 +47,24 @@ export class SeeRentsComponent {
     return Math.ceil(remainingTime / (1000 * 3600 * 24));
   }
 
-  // Función para verificar si el préstamo está a punto de vencer
+  // Verifica si un préstamo está por vencer
   isAboutToExpire(): boolean {
-    const daysRemaining = this.calculateDaysLeft();
-    return daysRemaining <= 3; // Considera 3 días o menos como a punto de vencer
+    return this.calculateDaysLeft() <= 3;
   }
 
-  // Abre el modal de renovación y carga la información del préstamo seleccionado
+  // Abre el modal de renovación y asigna el préstamo seleccionado
   openRenewModal(loan: any) {
     this.selectedLoan = loan;
     this.renewLoanModal.show();
   }
 
-  // Función para renovar el préstamo
+  // Renueva el préstamo seleccionado usando el servicio
   renewLoan() {
     if (this.selectedLoan) {
-      this.rentService.renewLoan(this.selectedLoan.id).subscribe(
+      this.rentsService.renewLoan(this.selectedLoan.id).subscribe(
         (response) => {
-          console.log(`Préstamo renovado para: ${this.selectedLoan.title}`, response);
-          this.renewLoanModal.hide();
-          // Aquí puedes agregar lógica para actualizar el estado de tu componente si es necesario
+          console.log('Préstamo renovado:', response);
+          this.renewLoanModal.hide(); // Cierra el modal al finalizar
         },
         (error) => {
           console.error('Error al renovar el préstamo:', error);
@@ -61,15 +73,14 @@ export class SeeRentsComponent {
     }
   }
 
-  // Función para eliminar el préstamo
+  // Elimina un préstamo de la lista
   deleteLoan(index: number) {
-    const loanToDelete = this.loans[index]; // Accede al préstamo por su índice
+    const loanToDelete = this.loans[index];
     if (loanToDelete) {
-      this.rentService.deleteLoan(loanToDelete.id).subscribe(
+      this.rentsService.deleteLoan(loanToDelete.id).subscribe(
         (response) => {
-          console.log(`Préstamo eliminado: ${loanToDelete.title}`, response);
+          console.log('Préstamo eliminado:', response);
           this.loans.splice(index, 1); // Elimina el préstamo de la lista
-          // Aquí puedes agregar lógica para actualizar la vista si es necesario
         },
         (error) => {
           console.error('Error al eliminar el préstamo:', error);
