@@ -1,29 +1,37 @@
 <div class="container d-flex justify-content-center align-items-start pt-5">
-    <div class="card p-4 shadow-sm" style="width: 100%; max-width: 800px;">
-      
-      <!-- Header -->
-      <app-header></app-header>
+  <div class="card p-4 shadow-sm" style="width: 100%; max-width: 800px;">
+    
+    <!-- Header -->
+    <app-header></app-header>
   
-      <!-- Page Title -->
-      <h3 class="fw-bold mb-4">Rented Books</h3>
+    <!-- Page Title -->
+    <h3 class="fw-bold mb-4">Rented Books</h3>
   
-      <!-- Search Bar -->
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search rented books..." [(ngModel)]="searchQuery" (input)="filterRents()">
-        <span class="input-group-text">
-          <i class="bi bi-search"></i>
-        </span>
-      </div>
+    <!-- Search Bar -->
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search rented books..." 
+             [(ngModel)]="searchQuery" (input)="filterRents()">
+      <span class="input-group-text">
+        <i class="bi bi-search"></i>
+      </span>
+    </div>
   
-      <!-- Book List -->
-      <div *ngIf="filteredRents.length > 0">
-        <app-see-rents [loans]="filteredRents"></app-see-rents>
-      </div>
+    <!-- Book List -->
+    <div *ngFor="let loan of filteredRents">
+      <app-see-rents
+        [id]="loan?.id"
+        [title]="loan?.libro?.titulo || 'Título no disponible'"
+        [author]="loan?.libro?.autor || 'Autor no disponible'"
+        [daysLeft]="loan?.daysLeft || 0"
+        [rentedBy]="loan?.rentadoPor || 'Usuario no disponible'"
+        [image]="loan?.libro?.imagen || 'media/default-book-cover.jpg'">
+      </app-see-rents>
+    </div>
+    
   
-      <!-- Message if no books found -->
-      <div *ngIf="filteredRents.length === 0" class="alert alert-warning" role="alert">
-        No rented books found.
-      </div>
+    <!-- Message if no books found -->
+    <div *ngIf="filteredRents.length === 0" class="alert alert-warning" role="alert">
+      No rented books found.
     </div>
   </div>
-  
+</div>

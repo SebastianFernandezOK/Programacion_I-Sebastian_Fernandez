@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { RentsService } from '../../services/rents.service';
-import { ActivatedRoute } from '@angular/router';
+import { RentService } from '../../services/rent.service';
 
 @Component({
   selector: 'app-librarian-rents',
@@ -10,33 +9,40 @@ import { ActivatedRoute } from '@angular/router';
 export class LibrarianRentsComponent {
   rents: any[] = [];
   searchQuery = '';
-  filteredRents = this.rents;
+  filteredRents: any[] = []; // Asegúrate de inicializar este arreglo
 
-  constructor(private route: ActivatedRoute, private rentsService: RentsService) {}
+  constructor(private rentService: RentService) {}
 
   ngOnInit() {
-    this.getRents(1);
+    this.getRents(1); // Aquí pasa un número de página o el id correcto
   }
-
+  
   getRents(page: number) {
-    this.rentsService.getRents().subscribe(
+    this.rentService.getRent(page).subscribe(
       (answer: any) => {
-        const today = new Date(); // Cambiado a un objeto Date
-        this.rents = answer.prestamos || [];
+        console.log('Respuesta de la API:', answer); // Para verificar los datos
+        const today = new Date(); // Obtener la fecha actual
+        this.rents = answer.prestamos || []; // Asignar los préstamos
+  
+        // Procesar los préstamos para calcular los días restantes
         this.rents.forEach(prestamo => {
           prestamo.daysLeft = prestamo.fecha_devolucion
             ? Math.ceil((new Date(prestamo.fecha_devolucion).getTime() - today.getTime()) / (1000 * 3600 * 24))
             : null;
         });
-        this.filteredRents = [...this.rents];
+  
+        this.filteredRents = [...this.rents]; // Asignar a los préstamos filtrados
       },
       (error) => console.error('Error al obtener préstamos:', error)
     );
   }
+  
 
   filterRents() {
-    this.filteredRents = this.rents.filter((prestamos) => {
-      return prestamos.titulo.toLowerCase().includes(this.searchQuery.toLowerCase());
+    this.filteredRents = this.rents.filter(prestamo => {
+      // Asegúrate de que la propiedad 'libro' y 'titulo' existan
+      return prestamo.libro && prestamo.libro.titulo &&
+             prestamo.libro.titulo.toLowerCase().includes(this.searchQuery.toLowerCase());
     });
   }
 }

@@ -1,13 +1,7 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
-declare var window: any; // Para usar Bootstrap Modal con JavaScript
+import { RentService } from '../../../services/rent.service'; 
 
-interface Loan {
-  title: string;
-  author: string;
-  daysLeft: number;
-  rentedBy: string;
-  imageUrl: string;
-}
+declare var window: any; // Para usar Bootstrap Modal con JavaScript
 
 @Component({
   selector: 'app-see-rents',
@@ -15,38 +9,72 @@ interface Loan {
   styleUrls: ['./see-rents.component.css']
 })
 export class SeeRentsComponent {
-  
-  @Input() loans: Loan[] = [];  // Recibe la lista de préstamos del componente padre
+  @Input() id: number = 0;
+  @Input() title: string = 'Default title';
+  @Input() author: string = 'Default author';
+  @Input() daysLeft: Date = new Date();
+  @Input() rentedBy: string = "Default user";
+  @Input() image: string = 'media/default-book-cover.jpg';
 
-  selectedLoan: Loan | null = null; 
+  loans: any[] = []; // Array para almacenar los préstamos
+  selectedLoan: any; // Para almacenar el préstamo seleccionado en el modal
   renewLoanModal: any;
-  daysLeft: number | null = null; 
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private rentService: RentService) {} // Inyecta el servicio
 
   ngOnInit() {
-    // Inicializar el modal
     this.renewLoanModal = new window.bootstrap.Modal(document.getElementById('renewLoanModal'));
-    this.cdr.detectChanges(); 
   }
 
-  openRenewModal(loan: Loan) {
-    this.selectedLoan = { ...loan }; 
-    this.daysLeft = this.selectedLoan.daysLeft; 
-    this.renewLoanModal.show(); 
+  // Función para calcular los días restantes
+  calculateDaysLeft(): number {
+    const today = new Date();
+    const remainingTime = new Date(this.daysLeft).getTime() - today.getTime();
+    return Math.ceil(remainingTime / (1000 * 3600 * 24));
   }
 
+  // Función para verificar si el préstamo está a punto de vencer
+  isAboutToExpire(): boolean {
+    const daysRemaining = this.calculateDaysLeft();
+    return daysRemaining <= 3; // Considera 3 días o menos como a punto de vencer
+  }
+
+  // Abre el modal de renovación y carga la información del préstamo seleccionado
+  openRenewModal(loan: any) {
+    this.selectedLoan = loan;
+    this.renewLoanModal.show();
+  }
+
+  // Función para renovar el préstamo
   renewLoan() {
-    if (this.selectedLoan && this.daysLeft !== null) { 
-      const index = this.loans.findIndex(loan => loan.title === this.selectedLoan!.title);
-      if (index !== -1) {
-        this.loans[index].daysLeft = this.daysLeft; 
-        this.renewLoanModal.hide(); 
-      }
+    if (this.selectedLoan) {
+      this.rentService.renewLoan(this.selectedLoan.id).subscribe(
+        (response) => {
+          console.log(`Préstamo renovado para: ${this.selectedLoan.title}`, response);
+          this.renewLoanModal.hide();
+          // Aquí puedes agregar lógica para actualizar el estado de tu componente si es necesario
+        },
+        (error) => {
+          console.error('Error al renovar el préstamo:', error);
+        }
+      );
     }
   }
 
+  // Función para eliminar el préstamo
   deleteLoan(index: number) {
-    this.loans.splice(index, 1); 
+    const loanToDelete = this.loans[index]; // Accede al préstamo por su índice
+    if (loanToDelete) {
+      this.rentService.deleteLoan(loanToDelete.id).subscribe(
+        (response) => {
+          console.log(`Préstamo eliminado: ${loanToDelete.title}`, response);
+          this.loans.splice(index, 1); // Elimina el préstamo de la lista
+          // Aquí puedes agregar lógica para actualizar la vista si es necesario
+        },
+        (error) => {
+          console.error('Error al eliminar el préstamo:', error);
+        }
+      );
+    }
   }
 }
