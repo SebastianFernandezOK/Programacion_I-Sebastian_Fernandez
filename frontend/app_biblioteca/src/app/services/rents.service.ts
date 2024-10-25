@@ -12,7 +12,7 @@ export class RentsService {
   constructor(private httpClient: HttpClient) {}
 
   // Obtener préstamos
-  getRents(): Observable<any> {
+  getRents(page: number): Observable<any> {
     const auth_token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
@@ -22,13 +22,7 @@ export class RentsService {
 
     const requestOptions = { headers: headers };
 
-    return this.httpClient.get(this.url + '/prestamos', requestOptions).pipe(
-      take(1),
-      catchError((error) => {
-        console.error('Error fetching rents:', error);
-        return throwError(error);
-      })
-    );
+    return this.httpClient.get(this.url + '/prestamos', requestOptions);
   }
 
   // Renovar préstamo

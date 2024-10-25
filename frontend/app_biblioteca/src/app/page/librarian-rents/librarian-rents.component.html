@@ -17,19 +17,17 @@
     </div>
   
     <!-- Book List -->
-    <div *ngFor="let loan of filteredRents">
-      {{ loan | json }} <!-- Esto mostrará todos los datos del préstamo en la consola -->
+    @for (rent of rents ; track rent.prestamoID){
       <app-see-rents
-        [id]="loan?.id"
-        [title]="loan?.libro?.titulo || 'Título no disponible'"
-        [author]="loan?.libro?.autor || 'Autor no disponible'"
-        [daysLeft]="loan?.daysLeft || 0"
-        [rentedBy]="loan?.rentadoPor || 'Usuario no disponible'"
-        [image]="loan?.libro?.imagen || 'media/default-book-cover.jpg'">
+        title = "{{ rent.libro.titulo || 'Libro no disponible'}}"
+        user = "{{rent.usuario.usuario_nombre + ' ' + rent.usuario.usuario_apellido}}"
+        [daysLeft]="rent.daysLeft"
+        image = "{{ rent.libro.image }}"
+        >
       </app-see-rents>
-    </div>
+    }
     
-    
+
     <!-- Message if no books found -->
     <div *ngIf="filteredRents.length === 0" class="alert alert-warning" role="alert">
       No rented books found.

@@ -11,12 +11,11 @@ declare var window: any; // Para usar Bootstrap Modal con JavaScript
 export class SeeRentsComponent {
   @Input() id: number = 0;
   @Input() title: string = 'Default title';
-  @Input() author: string = 'Default author';
-  @Input() daysLeft: Date = new Date();
-  @Input() rentedBy: string = "Default user";
+  @Input() user: string = 'Default user';
+  @Input() daysLeft: number = 0;
   @Input() image: string = 'media/default-book-cover.jpg';
 
-  loans: any[] = []; // Array para almacenar los préstamos
+
   selectedLoan: any; // Para almacenar el préstamo seleccionado en el modal
   renewLoanModal: any;
 
@@ -24,19 +23,6 @@ export class SeeRentsComponent {
 
   ngOnInit() {
     this.renewLoanModal = new window.bootstrap.Modal(document.getElementById('renewLoanModal'));
-  }
-
-  // Función para calcular los días restantes
-  calculateDaysLeft(): number {
-    const today = new Date();
-    const remainingTime = new Date(this.daysLeft).getTime() - today.getTime();
-    return Math.ceil(remainingTime / (1000 * 3600 * 24));
-  }
-
-  // Función para verificar si el préstamo está a punto de vencer
-  isAboutToExpire(): boolean {
-    const daysRemaining = this.calculateDaysLeft();
-    return daysRemaining <= 3; // Considera 3 días o menos como a punto de vencer
   }
 
   // Abre el modal de renovación y carga la información del préstamo seleccionado
@@ -61,20 +47,28 @@ export class SeeRentsComponent {
     }
   }
 
-  // Función para eliminar el préstamo
-  deleteLoan(index: number) {
-    const loanToDelete = this.loans[index]; // Accede al préstamo por su índice
-    if (loanToDelete) {
-      this.rentsService.deleteLoan(loanToDelete.id).subscribe(
-        (response) => {
-          console.log(`Préstamo eliminado: ${loanToDelete.title}`, response);
-          this.loans.splice(index, 1); // Elimina el préstamo de la lista
-          // Aquí puedes agregar lógica para actualizar la vista si es necesario
-        },
-        (error) => {
-          console.error('Error al eliminar el préstamo:', error);
-        }
-      );
+
+  get expirationReport() {
+    if (this.daysLeft <= 1) {
+      return true;
     }
+    return false;
   }
+
+  // Función para eliminar el préstamo
+  // deleteLoan(index: number) {
+  //   const loanToDelete = this.loans[index]; // Accede al préstamo por su índice
+  //   if (loanToDelete) {
+  //     this.rentsService.deleteLoan(loanToDelete.id).subscribe(
+  //       (response) => {
+  //         console.log(`Préstamo eliminado: ${loanToDelete.title}`, response);
+  //         this.loans.splice(index, 1); // Elimina el préstamo de la lista
+  //         // Aquí puedes agregar lógica para actualizar la vista si es necesario
+  //       },
+  //       (error) => {
+  //         console.error('Error al eliminar el préstamo:', error);
+  //       }
+  //     );
+  //   }
+  // }
 }

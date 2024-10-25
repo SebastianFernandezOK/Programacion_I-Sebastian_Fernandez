@@ -1,18 +1,16 @@
 <div class="row">
-  <div id="Book-list" style="max-height: 700px; overflow-y: auto;">
-    <div *ngFor="let loan of loans; let i = index" class="col-12 mb-3">
+  <div id="Book-list">
+    <div  class="col-12 mb-3">
       <div class="card loan-card">
         <div class="book-header d-flex align-items-center">
-          <img [src]="loan.imageUrl" class="book-image" alt="{{ loan.title }}">
+          <img [src]="image" class="book-image" alt="{{ title }}">
           <div class="book-info ms-3">
-            <h5 class="fw-bold mb-0">{{ loan.title }}</h5>
-            <p class="text-muted">{{ loan.author }}</p>
-            <p>Días restantes: {{ calculateDaysLeft() }}</p>
+            <h5 class="fw-bold mb-0">{{ title }}</h5>
+            <p>Días restantes: {{ daysLeft }}</p>
             <p class="text-muted">
-              Alquilado por: 
-              {{ (loan.usuario?.usuario_nombre + ' ' + loan.usuario?.usuario_apellido) || 'Usuario desconocido' }}
+              Alquilado por: {{user}}
             </p>
-            <div *ngIf="isAboutToExpire()" class="alert alert-warning" role="alert">
+            <div *ngIf ="expirationReport" class="alert alert-warning" role="alert">
               ¡Este préstamo está a punto de vencer!
             </div>
           </div>
@@ -20,10 +18,10 @@
 
         <div class="card-body">
           <div class="button-group">
-            <button class="btn btn-outline-danger" (click)="deleteLoan(i)">
+            <button class="btn btn-outline-danger">
               <i class="bi bi-trash-fill"></i> Eliminar
             </button>
-            <button class="btn btn-outline-primary" (click)="openRenewModal(loan)">
+            <button class="btn btn-outline-primary" (click)="openRenewModal(selectedLoan)">
               <i class="bi bi-pencil-fill"></i> Renovar
             </button>
           </div>

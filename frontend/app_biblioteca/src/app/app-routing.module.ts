@@ -9,8 +9,8 @@ import { LoginComponent } from './page/login/login.component';
 import { NotificationsComponent } from './page/notifications/notifications.component';
 import { ProfileComponent } from './page/profile/profile.component';
 import { RegisterComponent } from './page/register/register.component';
-import { RentsComponent } from './page/rents/rents.component';
 import { UsersComponent } from './page/users/users.component';
+import { pepeGuard } from './guards/pepe.guard';
 
 const routes: Routes = [
   {path: 'configuration', component: ConfigurationComponent},
@@ -18,11 +18,10 @@ const routes: Routes = [
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'home', component: HomeComponent},
   {path: 'librarian-rents', component: LibrarianRentsComponent},
-  {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginComponent, canActivate: [pepeGuard]},
   {path: 'notifications', component: NotificationsComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'rents', component: RentsComponent},
   {path: 'users', component: UsersComponent},
 
 

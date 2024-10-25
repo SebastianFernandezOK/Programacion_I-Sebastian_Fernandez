@@ -12,7 +12,6 @@ import { LoginComponent } from './page/login/login.component';
 import { NotificationsComponent } from './page/notifications/notifications.component';
 import { ProfileComponent } from './page/profile/profile.component';
 import { RegisterComponent } from './page/register/register.component';
-import { RentsComponent } from './page/rents/rents.component';
 import { UsersComponent } from './page/users/users.component';
 import { LibrarianRentsComponent } from './page/librarian-rents/librarian-rents.component';
 import { ConfigurationComponent } from './page/configuration/configuration.component';
@@ -22,6 +21,7 @@ import { SeeUserComponent } from './components/users/see-user/see-user.component
 import { SeeRentsComponent } from './components/rents/see-rents/see-rents.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BookComponent } from './components/book/book.component';
+import { NgClass } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,6 @@ import { BookComponent } from './components/book/book.component';
     NotificationsComponent,
     ProfileComponent,
     RegisterComponent,
-    RentsComponent,
     UsersComponent,
     LibrarianRentsComponent,
     ConfigurationComponent,
@@ -42,16 +41,18 @@ import { BookComponent } from './components/book/book.component';
     HeaderComponent,
     SeeUserComponent,
     SeeRentsComponent,
-    BookComponent
+    BookComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgClass,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
