@@ -11,18 +11,19 @@ import { ProfileComponent } from './page/profile/profile.component';
 import { RegisterComponent } from './page/register/register.component';
 import { UsersComponent } from './page/users/users.component';
 import { authsessionGuard } from './guards/authsession.guard';
+import { roleGuard } from './guards/role.guard';
 
 const routes: Routes = [
-  {path: 'configuration', component: ConfigurationComponent},
+  {path: 'configuration', component: ConfigurationComponent, canActivate: [authsessionGuard]},
   {path: 'error_page', component: ErrorPageComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'librarian-rents', component: LibrarianRentsComponent},
-  {path: 'login', component: LoginComponent, canActivate: [authsessionGuard]},
-  {path: 'notifications', component: NotificationsComponent},
+  {path: 'librarian-rents', component: LibrarianRentsComponent, canActivate: [authsessionGuard, roleGuard]},
+  {path: 'login', component: LoginComponent},
+  {path: 'notifications', component: NotificationsComponent, canActivate: [authsessionGuard, roleGuard]},
   {path: 'profile', component: ProfileComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'users', component: UsersComponent},
+  {path: 'users', component: UsersComponent, canActivate: [authsessionGuard, roleGuard]},
 
 
   {path: '', redirectTo: 'home', pathMatch:'full'},
