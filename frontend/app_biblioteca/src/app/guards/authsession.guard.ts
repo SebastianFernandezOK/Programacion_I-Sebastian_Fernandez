@@ -1,5 +1,5 @@
 import { CanActivateFn } from '@angular/router';
 
-export const pepeGuard: CanActivateFn = (route, state) => {
+export const authsessionGuard: CanActivateFn = (route, state) => {
   return true;
 };

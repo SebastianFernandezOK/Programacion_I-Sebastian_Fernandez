@@ -10,7 +10,7 @@ import { NotificationsComponent } from './page/notifications/notifications.compo
 import { ProfileComponent } from './page/profile/profile.component';
 import { RegisterComponent } from './page/register/register.component';
 import { UsersComponent } from './page/users/users.component';
-import { pepeGuard } from './guards/pepe.guard';
+import { authsessionGuard } from './guards/authsession.guard';
 
 const routes: Routes = [
   {path: 'configuration', component: ConfigurationComponent},
@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'home', component: HomeComponent},
   {path: 'librarian-rents', component: LibrarianRentsComponent},
-  {path: 'login', component: LoginComponent, canActivate: [pepeGuard]},
+  {path: 'login', component: LoginComponent, canActivate: [authsessionGuard]},
   {path: 'notifications', component: NotificationsComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'register', component: RegisterComponent},
