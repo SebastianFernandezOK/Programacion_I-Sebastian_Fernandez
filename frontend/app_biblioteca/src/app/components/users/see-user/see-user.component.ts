@@ -60,10 +60,16 @@ get filteredUsers() {
 }
 
 
-  // Función para eliminar un usuario
-  deleteUser(usuarioID: number): void {
+// Función para eliminar un usuario
+deleteUser(usuarioID: number): void {
+  this.usuariosService.deleteUser(usuarioID).subscribe(() => {
+    // Actualiza la lista local solo después de que la eliminación se haya completado con éxito
     this.users = this.users.filter(user => user.usuarioID !== usuarioID);
-  }
+  }, error => {
+    console.error('Error al eliminar el usuario:', error);
+    // Manejar el error aquí, por ejemplo, mostrando un mensaje al usuario
+  });
+}
 
   // Función para abrir el modal con los datos del usuario seleccionado
   openEditModal(user: User): void {

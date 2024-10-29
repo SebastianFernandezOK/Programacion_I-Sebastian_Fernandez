@@ -1,3 +1,4 @@
+from venv import logger
 from flask_restful import Resource
 from flask import request
 from .. import db
@@ -94,17 +95,21 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
 
     #eliminar recurso
     @jwt_required()
-    @role_required(roles = ["admin","user","librarian"])
+    @role_required(roles=["admin", "user", "librarian"])
     def delete(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
         try:
+            # Eliminar notificaciones relacionadas
+            db.session.query(NotificacionModel).filter(NotificacionModel.usuarioID == id).delete()
+
+            # Ahora eliminar el usuario
             db.session.delete(usuario)
             db.session.commit()
-            return {"message": "Eliminado correctamente"}, 204
-        except:
+            return jsonify({"message": "Eliminado correctamente"}), 204
+        except Exception as e:
             db.session.rollback()
-            return {"message": "Error al borrar al usuario"}, 400
-
+            logger.error(f"Error al borrar al usuario con ID {id}: {str(e)}")
+            return jsonify({"message": "Error al borrar al usuario", "error": str(e)}), 500
     #Modificar el recurso usuario
     @jwt_required()
     def put(self, id):

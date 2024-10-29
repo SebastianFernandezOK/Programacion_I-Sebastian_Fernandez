@@ -5,25 +5,32 @@
 
         <!-- Register Form -->
         <h3 style="font-weight: bold; font-size: 24px; color: #1E1E1E;">Register</h3>
-        <form [formGroup]="registerForm">
+        <form [formGroup]="registerForm" (ngSubmit)="submit()">
             <div class="mb-3 position-relative">
                 <i class="bi bi-person form-control-icon"></i>
                 <label for="nombre" class="position-absolute" style="font-weight: normal; font-size: 14px; color: #6c757d; left: 40px; top: -10px; background-color: #fff; padding: 0 4px;">Name</label>
                 <input type="text" class="form-control" formControlName="usuario_nombre" id="nombre" placeholder="Ingresa tu nombre" required>
+                <div *ngIf="registerForm.get('usuario_nombre')?.touched && registerForm.get('usuario_nombre')?.invalid" class="text-danger">
+                    <small *ngIf="registerForm.get('usuario_nombre')?.errors?.['required']">El nombre es requerido.</small>
+                </div>
             </div>
 
             <div class="mb-3 position-relative">
                 <i class="bi bi-person form-control-icon"></i>
                 <label for="last-name" class="position-absolute" style="font-weight: normal; font-size: 14px; color: #6c757d; left: 40px; top: -10px; background-color: #fff; padding: 0 4px;">Last Name</label>
                 <input type="text" class="form-control" formControlName="usuario_apellido" id="last-name" placeholder="Ingresa tu apellido" required>
+                <div *ngIf="registerForm.get('usuario_apellido')?.touched && registerForm.get('usuario_apellido')?.invalid" class="text-danger">
+                    <small *ngIf="registerForm.get('usuario_apellido')?.errors?.['required']">El apellido es requerido.</small>
+                </div>
             </div>
 
             <div class="mb-3 position-relative">
                 <i class="bi bi-envelope form-control-icon"></i>
                 <label for="email" class="position-absolute" style="font-weight: normal; font-size: 14px; color: #6c757d; left: 40px; top: -10px; background-color: #fff; padding: 0 4px;">Email</label>
                 <input type="email" class="form-control" formControlName="usuario_email" id="email" placeholder="Ingresa tu correo electrónico" required>
-                <div class="invalid-feedback">
-                    Please provide a valid email address.
+                <div *ngIf="registerForm.get('usuario_email')?.touched && registerForm.get('usuario_email')?.invalid" class="text-danger">
+                    <small *ngIf="registerForm.get('usuario_email')?.errors?.['required']">El correo electrónico es requerido.</small>
+                    <small *ngIf="registerForm.get('usuario_email')?.errors?.['email']">El formato del correo electrónico no es válido.</small>
                 </div>
             </div>
 
@@ -31,20 +38,37 @@
                 <i class="bi bi-lock form-control-icon"></i>
                 <label for="password" class="position-absolute" style="font-weight: normal; font-size: 14px; color: #6c757d; left: 40px; top: -10px; background-color: #fff; padding: 0 4px;">Password</label>
                 <input type="password" class="form-control" formControlName="usuario_contraseña" id="password" placeholder="Ingresa tu contraseña" required>
+                <div *ngIf="registerForm.get('usuario_contraseña')?.touched && registerForm.get('usuario_contraseña')?.invalid" class="text-danger">
+                    <small *ngIf="registerForm.get('usuario_contraseña')?.errors?.['required']">La contraseña es requerida.</small>
+                    <small *ngIf="registerForm.get('usuario_contraseña')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</small>
+                </div>
             </div>
-
-            <!-- <div class="mb-3 position-relative">
-                <i class="bi bi-lock form-control-icon"></i>
-                <label for="confirm-password" class="position-absolute" style="font-weight: normal; font-size: 14px; color: #6c757d; left: 40px; top: -10px; background-color: #fff; padding: 0 4px;">Confirm Password</label>
-                <input type="password" class="form-control" formControlName="confirmPassword" id="confirm-password" placeholder="Confirmar contraseña" required> 
-            </div> -->
             <div class="mb-3 position-relative">
                 <i class="bi bi-lock form-control-icon"></i>
-                <label for="confirm-password" class="position-absolute" style="font-weight: normal; font-size: 14px; color: #6c757d; left: 40px; top: -10px; background-color: #fff; padding: 0 4px;">Phone</label>
-                <input type="text" class="form-control" formControlName="usuario_telefono" id="phone" placeholder="Phone" required>
+                <label for="confirm-password" class="position-absolute" style="font-weight: normal; font-size: 14px; color: #6c757d; left: 40px; top: -10px; background-color: #fff; padding: 0 4px;">Confirm Password</label>
+                <input type="password" 
+                       class="form-control" 
+                       formControlName="confirmPassword" 
+                       id="confirm-password" 
+                       placeholder="Confirma tu contraseña" 
+                       [ngClass]="{'is-invalid': registerForm.hasError('mismatch') && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty)}" 
+                       required>
+                <div *ngIf="registerForm.hasError('mismatch') && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty)" class="invalid-feedback">
+                    Las contraseñas no coinciden.
+                </div>
             </div>
+            <div class="mb-3 position-relative">
+                <i class="bi bi-lock form-control-icon"></i>
+                <label for="phone" class="position-absolute" style="font-weight: normal; font-size: 14px; color: #6c757d; left: 40px; top: -10px; background-color: #fff; padding: 0 4px;">Phone</label>
+                <input type="text" class="form-control" formControlName="usuario_telefono" id="phone" placeholder="Phone" required>
+                <div *ngIf="registerForm.get('usuario_telefono')?.touched && registerForm.get('usuario_telefono')?.invalid" class="text-danger">
+                    <small *ngIf="registerForm.get('usuario_telefono')?.errors?.['required']">El teléfono es requerido.</small>
+                    <small *ngIf="registerForm.get('usuario_telefono')?.errors?.['pattern']">El teléfono debe ser numérico.</small>
+                </div>
+            </div>
+
             <div class="text-center">
-                <button type="submit" (click)="submit()" class="btn" style="color: #ffffff; border-radius: 15px; width: 126px; height: 39px; font-size: 14px; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: background 0.3s ease, transform 0.3s ease;">
+                <button type="submit" class="btn" style="color: #ffffff; border-radius: 15px; width: 126px; height: 39px; font-size: 14px; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: background 0.3s ease, transform 0.3s ease;">
                     <i class="bi bi-person-plus" style="margin-right: 5px;"></i>
                     Register
                 </button>

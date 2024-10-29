@@ -19,11 +19,17 @@ export class RegisterComponent {
     this.registerForm = this.formBuilder.group({
       usuario_nombre: ['', Validators.required],
       usuario_apellido: ['', Validators.required],
-      usuario_email: ['', [Validators.required,]],
-      usuario_contraseña: ['', [Validators.required,]],
-      //confirmPassword: ['', Validators.required],
-      usuario_telefono: ['', Validators.required]
-    });
+      usuario_email: ['', [Validators.required, Validators.email]],  // Validación de email
+      usuario_contraseña: ['', [Validators.required, Validators.minLength(6)]],  // Validación de longitud
+      confirmPassword: ['', [Validators.required]],  // Campo de confirmación
+      usuario_telefono: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],  // Solo números
+    }, { validator: this.passwordMatchValidator });
+  }
+
+   // Validador para verificar que las contraseñas coincidan
+   passwordMatchValidator(form: FormGroup) {
+    return form.get('usuario_contraseña')?.value === form.get('confirmPassword')?.value
+      ? null : { mismatch: true };
   }
 
   submit() {
