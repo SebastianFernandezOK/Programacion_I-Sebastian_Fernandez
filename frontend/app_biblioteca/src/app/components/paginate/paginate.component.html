@@ -1,0 +1,18 @@
+<nav aria-label="Page navigation" class="d-flex justify-content-center">
+    <ul class="pagination mb-0">
+      <li class="page-item" [class.disabled]="page === 1">
+        <button class="page-link" (click)="goToPage(page - 1)" aria-label="Previous">
+          &laquo;
+        </button>
+      </li>
+      <li *ngFor="let pageNumber of range" class="page-item" [class.active]="page === pageNumber">
+        <button class="page-link" (click)="goToPage(pageNumber)">{{ pageNumber }}</button>
+      </li>
+      <li class="page-item" [class.disabled]="page === pages">
+        <button class="page-link" (click)="goToPage(page + 1)" aria-label="Next">
+          &raquo;
+        </button>
+      </li>
+      
+    </ul>
+  </nav>

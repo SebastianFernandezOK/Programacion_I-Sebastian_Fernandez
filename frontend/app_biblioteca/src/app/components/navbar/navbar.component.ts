@@ -7,15 +7,21 @@ import { AuthService } from '../../services/auth.service'
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
- ver = true;
-  constructor(
-    private authService: AuthService
-  ){}
+  ver = true;
+  isDropdownOpen = false;
 
- get isToken() {
+  constructor(private authService: AuthService) {}
+
+  get isToken() {
     return localStorage.getItem("token");
   }
-  cerrarSesion(){
+
+  cerrarSesion() {
     this.authService.logout();
- }
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 }
+

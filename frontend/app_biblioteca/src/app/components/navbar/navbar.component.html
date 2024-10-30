@@ -26,10 +26,10 @@
   
       <!-- Dropdown Menu -->
       <div class="dropdown">
-        <button *ngIf="isToken" class="btn btn-outline-dark" style="border-radius: 15px;" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+        <button *ngIf="isToken" class="btn btn-outline-dark" style="border-radius: 15px;" type="button" id="userMenu" (click)="toggleDropdown()">
           <i class="bi bi-list"></i> Menú
         </button>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu" style="min-width: 200px;">
+        <ul class="dropdown-menu dropdown-menu-end" [ngClass]="{'show': isDropdownOpen}" aria-labelledby="userMenu" style="min-width: 200px;">
           <li><a class="dropdown-item" routerLink="/notifications"><i class="bi-bell-fill me-2"></i> Notificaciones</a></li>
           <li><a class="dropdown-item" routerLink="/rents"><i class="bi bi-basket-fill me-2"></i> Alquileres</a></li>
           <li><a class="dropdown-item" routerLink="/configuration"><i class="bi bi-gear me-2"></i> Configuración</a></li>
@@ -37,6 +37,9 @@
         </ul>
       </div>
     </div>
+      
+
+
   
     <!-- Divider line -->
     <hr style="width: 100%; height: 1px; background-color: #333333; margin-top: 10px;">

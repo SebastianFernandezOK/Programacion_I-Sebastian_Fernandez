@@ -21,6 +21,7 @@ import { SeeUserComponent } from './components/users/see-user/see-user.component
 import { SeeRentsComponent } from './components/rents/see-rents/see-rents.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BookComponent } from './components/book/book.component';
+import { PaginateComponent } from './components/paginate/paginate.component';
 import { NgClass } from '@angular/common';
 
 @NgModule({
@@ -41,6 +42,7 @@ import { NgClass } from '@angular/common';
     HeaderComponent,
     SeeUserComponent,
     SeeRentsComponent,
+    PaginateComponent,
     BookComponent,
   ],
   imports: [

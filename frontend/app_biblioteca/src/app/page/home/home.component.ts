@@ -8,33 +8,41 @@ import { BooksService } from '../../services/books.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
-  constructor(private route: ActivatedRoute, private booksService: BooksService) { }
-
   books: any[] = [];
-
   searchQuery = '';
   filteredBooks = this.books;
 
+  page = 1;
+  pages = 1;
+
+  constructor(private route: ActivatedRoute, private booksService: BooksService) {}
 
   ngOnInit(): void {
-    this.getBooks( 1 );
+    this.getBooks(this.page);
   }
 
-
-  getBooks(page: Number) {
+  getBooks(page: number) {
+    console.log(`Solicitando libros para la página: ${page}`);
+    this.page = page; // Actualiza la página actual
     this.booksService.getBooks(page).subscribe((answer: any) => {
-      console.log(answer);
+      console.log(`Respuesta del servicio: `, answer);
       this.books = answer.libros || [];
       this.filteredBooks = [...this.books];
+      this.pages = answer.pages || 1; // Cambia aquí para obtener el número de páginas
+      console.log(`Libros cargados: ${this.books.length}, Total de páginas: ${this.pages}`);
     });
   }
+  
+  
+  
 
-  // Filtrar libros basado en el campo de búsqueda
   filterBooks() {
     this.filteredBooks = this.books.filter(book =>
-      book.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-      book.author.toLowerCase().includes(this.searchQuery.toLowerCase())
+      book.titulo.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+      book.autores?.some((autor: any) =>
+        (autor.autor_nombre + ' ' + autor.autor_apellidos).toLowerCase().includes(this.searchQuery.toLowerCase())
+      )
     );
   }
 }
+
