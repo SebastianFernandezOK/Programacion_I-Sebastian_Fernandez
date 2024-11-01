@@ -91,42 +91,19 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
     
     #obtener recurso 
     @jwt_required(optional=True)
-    def get(self, id):
-        usuario = db.session.query(UsuarioModel).get_or_404(id)
-        current_identity = get_jwt_identity()
-        if current_identity:
-            return usuario.to_json_complete()
-        else:
-            return usuario.to_json()
-
-
-    #eliminar recurso
-    @jwt_required()
-    @role_required(roles=["admin", "user", "librarian"])
+    @role_required(roles=["admin", "bibliotecario"])
     def delete(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
-        try:
-            # Eliminar notificaciones relacionadas
-            db.session.query(NotificacionModel).filter(NotificacionModel.usuarioID == id).delete()
+        db.session.delete(usuario)
+        db.session.commit()
+        return '', 204
 
-            # Ahora eliminar el usuario
-            db.session.delete(usuario)
-            db.session.commit()
-            return jsonify({"message": "Eliminado correctamente"}), 204
-        except Exception as e:
-            db.session.rollback()
-            logger.error(f"Error al borrar al usuario con ID {id}: {str(e)}")
-            return jsonify({"message": "Error al borrar al usuario", "error": str(e)}), 500
-    #Modificar el recurso usuario
     @jwt_required()
     def put(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
-        data = request.get_json()
-        for key, value in data.items():
+        data = request.get_json().items()
+        for key, value in data:
             setattr(usuario, key, value)
-        try:
-            db.session.commit()  # Commit the changes
-            return jsonify(usuario.to_json()), 200
-        except:
-            db.session.rollback()
-            return {"message": "Error al agregar al usuario"}, 400
+        db.session.add(usuario)
+        db.session.commit()
+        return usuario.to_json() , 201
