@@ -1,67 +1,67 @@
 <!-- Filtro por rol -->
 <div>
-  <label for="role">Filtrar por rol:</label>
-  <select id="role" [(ngModel)]="selectedRole">
-    <option value="Todos">Todos</option>
-    <option value="users">Usuario</option>
-    <option value="bibliotecario">Bibliotecario</option>
-    <option value="admin">Admin</option>
-  </select>
+    <label for="role">Filtrar por rol:</label>
+    <select id="role" [(ngModel)]="selectedRole" (change)="onRoleChange()">
+      <option value="all">Todos</option>
+      <option value="users">Usuario</option>
+      <option value="bibliotecario">Bibliotecario</option>
+      <option value="admin">Admin</option>
+    </select>
 </div>
-
+  
 <!-- Users List with Scrollbar -->
 <div id="users-list" style="max-height: 600px; overflow-y: auto;">
-    <div *ngFor="let user of filteredUsers" class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
-        <img [src]="user.photo" alt="User Photo" class="user-image rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
-        <div class="user-info">
-            <strong>{{ user.usuario_nombre }} {{ user.usuario_apellido }}</strong><br>
-            <span>{{ user.usuario_email }}<br>Teléfono: {{ user.usuario_telefono }}</span><br>
-            <span class="user-role text-secondary">{{ user.rol }}</span>
-        </div>
-        <div class="ms-auto">
-            <button class="btn btn-outline-danger me-2" (click)="deleteUser(user.usuarioID)">
-                <i class="bi bi-trash"></i> Eliminar
-            </button>
-            <button class="btn btn-outline-primary" (click)="openEditModal(user)">
-                <i class="bi bi-pencil"></i> Modificar
-            </button>
-        </div>
+    <div *ngFor="let user of users" class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
+      <img [src]="user.photo" alt="User Photo" class="user-image rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+      <div class="user-info">
+        <strong>{{ user.usuario_nombre }} {{ user.usuario_apellido }}</strong><br>
+        <span>{{ user.usuario_email }}<br>Teléfono: {{ user.usuario_telefono }}</span><br>
+        <span class="user-role text-secondary">{{ user.rol }}</span>
+      </div>
+      <div class="ms-auto">
+        <button class="btn btn-outline-danger me-2" (click)="deleteUser(user.usuarioID)">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
+        <button class="btn btn-outline-primary" (click)="openEditModal(user)">
+          <i class="bi bi-pencil"></i> Modificar
+        </button>
+      </div>
     </div>
 </div>
-
+  
 <!-- Edit User Modal -->
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editUserModalLabel">Editar Usuario</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form (ngSubmit)="saveUser()">
-                    <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" [(ngModel)]="selectedUser.usuario_nombre" name="nombre" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="apellido" [(ngModel)]="selectedUser.usuario_apellido" name="apellido" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" [(ngModel)]="selectedUser.usuario_email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="telefono" class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" id="telefono" [(ngModel)]="selectedUser.usuario_telefono" name="telefono" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="rol" class="form-label">Rol</label>
-                        <input type="text" class="form-control" id="rol" [(ngModel)]="selectedUser.rol" name="rol" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                </form>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editUserModalLabel">Editar Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <form (ngSubmit)="saveUser()">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" [(ngModel)]="selectedUser.usuario_nombre" name="nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="apellido" class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="apellido" [(ngModel)]="selectedUser.usuario_apellido" name="apellido" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="selectedUser.usuario_email" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="telefono" class="form-label">Teléfono</label>
+              <input type="text" class="form-control" id="telefono" [(ngModel)]="selectedUser.usuario_telefono" name="telefono" required>
+            </div>
+            <div class="mb-3">
+              <label for="rol" class="form-label">Rol</label>
+              <input type="text" class="form-control" id="rol" [(ngModel)]="selectedUser.rol" name="rol" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          </form>
+        </div>
+      </div>
     </div>
 </div>

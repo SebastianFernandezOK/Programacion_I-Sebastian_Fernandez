@@ -16,7 +16,7 @@ USUARIOS = {
 
 class Usuarios(Resource):
     @jwt_required()
-    @role_required(roles=["admin", "librarian"]) 
+    @role_required(roles=["admin", "bibliotecario"]) 
     def get(self):
 
         #Página inicial por defecto
@@ -49,6 +49,13 @@ class Usuarios(Resource):
                     subquery = db.session.query(PrestamoModel.usuarioID, func.count(PrestamoModel.prestamoID).label('total_prestamos')).group_by(PrestamoModel.usuarioID).subquery()
                     # Join con la subquery y ordenamiento por el número de préstamos, 
                     usuarios = usuarios.join(subquery, UsuarioModel.usuarioID == subquery.c.usuarioID).order_by(subquery.c.total_prestamos.desc())
+        # Filtrar por rol
+        rol = request.args.get('rol')
+        if rol:
+            usuarios = usuarios.filter(UsuarioModel.rol == rol)  # Asegúrate de que el campo sea correcto
+        
+    
+            
         ### FIN FILTROS ####     
           
         #Obtener valor paginado

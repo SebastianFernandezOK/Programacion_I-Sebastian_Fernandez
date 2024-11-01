@@ -41,35 +41,40 @@ export class SeeUserComponent {
   ) {}
 
   ngOnInit() {
-    this.usuariosService.getUsers().subscribe((rta:any) => {
-      console.log('usuarios api: ', rta);
-      this.users = rta.usuarios || [];
-      this.editUserModal = new window.bootstrap.Modal(
-        document.getElementById('editUserModal')
-      );
-    });
+    this.loadUsers(); // Cargar usuarios al iniciar el componente
+    this.editUserModal = new window.bootstrap.Modal(
+      document.getElementById('editUserModal')
+    );
   }
  
-  
-  // Función para filtrar usuarios
-get filteredUsers() {
-  if (this.selectedRole === 'Todos') {
-    return this.users; // Devuelve todos los usuarios si 'Todos' está seleccionado
+  // Método para cargar usuarios
+  loadUsers(): void {
+    if (this.selectedRole === 'all') {
+      this.usuariosService.getUsers().subscribe((rta: any) => {
+        console.log('usuarios api: ', rta);
+        this.users = rta.usuarios || [];
+      });
+    } else {
+      this.usuariosService.getUsersByRole(this.selectedRole).subscribe((rta: any) => {
+        console.log('usuarios filtrados por rol: ', rta);
+        this.users = rta.usuarios || [];
+      });
+    }
   }
-  return this.users.filter(user => user.rol === this.selectedRole); // Filtra por rol
-}
 
+  // Función para manejar el cambio de rol
+  onRoleChange(): void {
+    this.loadUsers(); // Cargar usuarios filtrados por rol cuando cambia el rol
+  }  
 
-// Función para eliminar un usuario
-deleteUser(usuarioID: number): void {
-  this.usuariosService.deleteUser(usuarioID).subscribe(() => {
-    // Actualiza la lista local solo después de que la eliminación se haya completado con éxito
-    this.users = this.users.filter(user => user.usuarioID !== usuarioID);
-  }, error => {
-    console.error('Error al eliminar el usuario:', error);
-    // Manejar el error aquí, por ejemplo, mostrando un mensaje al usuario
-  });
-}
+  // Función para eliminar un usuario
+  deleteUser(usuarioID: number): void {
+    this.usuariosService.deleteUser(usuarioID).subscribe(() => {
+      this.users = this.users.filter(user => user.usuarioID !== usuarioID);
+    }, error => {
+      console.error('Error al eliminar el usuario:', error);
+    });
+  }
 
   // Función para abrir el modal con los datos del usuario seleccionado
   openEditModal(user: User): void {
@@ -79,7 +84,7 @@ deleteUser(usuarioID: number): void {
 
   // Función para guardar los cambios del usuario editado
   saveUser(): void {
-    console.log('Usuario a actualizar:', this.selectedUser); // Debugging
+    console.log('Usuario a actualizar:', this.selectedUser);
     this.usuariosService.updateUser(this.selectedUser.usuarioID, this.selectedUser)
       .subscribe(
         response => {
