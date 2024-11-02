@@ -16,7 +16,7 @@ class Libros(Resource):
         #Página inicial por defecto
         page = 1
         #Cantidad de elementos por página por defecto
-        per_page = 10
+        per_page = 9
         
         #no ejecuto el .all()
         libros = db.session.query(LibroModel)#obtener todos objetos de la tabla en la base base de datos
