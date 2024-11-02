@@ -6,12 +6,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BookService {
-
-  url = '/api';
+  url = '/api/libro';
 
   constructor(private httpClient: HttpClient) { }
 
   getBook(id: Number): Observable<any> {
-    return this.httpClient.get('/api/libro/'+id);
+    return this.httpClient.get(`${this.url}/${id}`);
+  }
+
+  deleteBook(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.url}/${id}`);
+  }
+
+  updateBook(id: number, bookData: any): Observable<any> {
+    return this.httpClient.put(`${this.url}/${id}`, bookData);
   }
 }
