@@ -1,7 +1,6 @@
 from .. import db
 
 libros_autores = db.Table("libros_autores",
-    db.Column("id",db.Integer,primary_key=True, autoincrement=True),
     db.Column("libroID",db.Integer,db.ForeignKey("libros.libroID")),
     db.Column("autorID",db.Integer,db.ForeignKey("autores.autorID")),
     )  

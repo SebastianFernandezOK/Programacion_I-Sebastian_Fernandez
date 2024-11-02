@@ -21,16 +21,9 @@
       <button class="btn btn-success" (click)="onRentBook()">
         <i class="bi bi-cart-plus-fill"></i> Pedir
       </button>
-      <button class="btn btn-info" (click)="toggleInfo()">
+      <button class="btn btn-info" (click)="navigateToBookDetails()">
         <i class="bi bi-info-circle-fill"></i> Información
       </button>
-    </div>
-
-    <!-- Mini pestaña que se muestra/oculta -->
-    <div class="info-tab" [ngClass]="{ 'open': showInfo }">
-      <p><strong>Reseña:</strong> {{ review }}</p>
-      <p><strong>Cantidad Restante:</strong> {{ quantity }}</p>
-      <p><strong>Autor:</strong> {{ author }}</p>
     </div>
   </div>
 </div>

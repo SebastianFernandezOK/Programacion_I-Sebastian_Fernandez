@@ -1,0 +1,20 @@
+<header>
+    <app-navbar></app-navbar>
+  </header>
+  <div class="book-details-container">
+    <div class="book-content">
+      <!-- Imagen del libro -->
+      <div class="book-image-container">
+        <img [src]="book.image" alt="{{ book.titulo }}" class="book-image">
+      </div>
+  
+      <!-- Detalles del libro -->
+      <div class="book-info">
+        <h1 class="book-title">{{ book.titulo }}</h1>
+        <p class="book-author"><strong>Autor:</strong> {{ book.autores.autor_nombre + ' ' + book.autores.autor_apellido}}</p>
+        <p class="book-editorial"><strong>Editorial:</strong> {{ book.editorial }}</p>
+        <p class="book-cantidad"><strong>Cantidad:</strong> {{ book.cantidad }}</p>
+      </div>
+    </div>
+  </div>
+  

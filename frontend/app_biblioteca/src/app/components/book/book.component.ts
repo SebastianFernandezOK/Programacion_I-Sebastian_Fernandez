@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book',
@@ -6,16 +7,18 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./book.component.css']
 })
 export class BookComponent {
-  @Input() title!: string; // Propiedad de entrada
-  @Input() author!: string; // Propiedad de entrada
-  @Input() quantity!: number; // Propiedad de entrada
-  @Input() review!: string; // Propiedad de entrada
-  @Input() image!: string; // Propiedad de entrada
+  @Input() id!: number; // Propiedad de entrada para el ID del libro
+  @Input() title!: string;
+  @Input() author!: string;
+  @Input() quantity!: number;
+  @Input() review!: string;
+  @Input() image!: string;
   
-  showInfo = false; // Estado para mostrar u ocultar la información del libro
+  constructor(private router: Router) {}
 
-  toggleInfo() {
-    this.showInfo = !this.showInfo; // Cambia el estado de showInfo
+  // Método para navegar a la página de detalles del libro
+  navigateToBookDetails() {
+    this.router.navigate([`/book`, this.id]); 
   }
 
   onDeleteBook() {

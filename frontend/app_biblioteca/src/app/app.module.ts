@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BookComponent } from './components/book/book.component';
 import { PaginateComponent } from './components/paginate/paginate.component';
 import { NgClass } from '@angular/common';
+import { BookDetailsComponent } from './page/book-details/book-details.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { NgClass } from '@angular/common';
     SeeRentsComponent,
     PaginateComponent,
     BookComponent,
+    BookDetailsComponent,
   ],
   imports: [
     BrowserModule,

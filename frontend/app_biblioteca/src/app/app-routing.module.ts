@@ -10,6 +10,7 @@ import { NotificationsComponent } from './page/notifications/notifications.compo
 import { ProfileComponent } from './page/profile/profile.component';
 import { RegisterComponent } from './page/register/register.component';
 import { UsersComponent } from './page/users/users.component';
+import {BookDetailsComponent} from './page/book-details/book-details.component';
 import { authsessionGuard } from './guards/authsession.guard';
 import { roleGuard } from './guards/role.guard';
 
@@ -24,7 +25,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'users', component: UsersComponent, canActivate: [authsessionGuard, roleGuard]},
-
+  {path: 'book/:id', component: BookDetailsComponent},
 
   {path: '', redirectTo: 'home', pathMatch:'full'},
   {path: '**', redirectTo: 'error_page'}  
