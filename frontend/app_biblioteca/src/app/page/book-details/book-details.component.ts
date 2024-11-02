@@ -21,8 +21,12 @@ export class BookDetailsComponent implements OnInit {
     if (libroID) {
       // Llama al servicio para obtener los detalles del libro
       this.bookService.getBook(libroID).subscribe((data) => {
+        console.log(data);
         this.book = data;
       });
     }
   }
+
+
+
 }
