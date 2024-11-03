@@ -11,6 +11,8 @@ class Libro(db.Model):
     titulo = db.Column(db.String(100), nullable=False)
     cantidad = db.Column(db.Integer, nullable=False)
     editorial = db.Column(db.String(100), nullable=False)
+    genero = db.Column(db.String(100), nullable=False)
+    image = db.Column(db.String, nullable=False)
     #relacion 1:M(Libro es padre)
     prestamos =  db.relationship('Prestamo', back_populates='libro', cascade='all, delete-orphan') 
     #relacion 1:N(Libro es padre)
@@ -28,6 +30,8 @@ class Libro(db.Model):
             'titulo': self.titulo,
             "cantidad": self.cantidad,
             'editorial': self.editorial,
+            'genero': self.genero,
+            "image": self.image
         }
         return Libro_json
 
@@ -42,6 +46,8 @@ class Libro(db.Model):
             'titulo': self.titulo,
             "cantidad": self.cantidad,
             'editorial': self.editorial,
+            'genero': self.genero,
+            "image": self.image,
             'prestamos': prestamos,
             "autores": autores,
             "resenas": reseñas,
@@ -63,7 +69,12 @@ class Libro(db.Model):
         titulo = libro_json.get('titulo')
         cantidad = libro_json.get('cantidad')
         editorial = libro_json.get('editorial')
+        genero = libro_json.get('genero')
+        image = libro_json.get('image')
         return Libro(libroID=libroID,
                     titulo=titulo,
                     cantidad=cantidad,
-                    editorial=editorial)
+                    editorial=editorial,
+                    genero=genero,
+                    image=image
+                    )

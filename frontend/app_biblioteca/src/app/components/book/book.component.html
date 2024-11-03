@@ -16,21 +16,34 @@
       </button>
     </div>
 
+    <div *ngIf="isEditing">
+      <h5>Editar Libro</h5>
+      <form (ngSubmit)="updateBook()">
+        <div class="mb-3">
+          <label for="title" class="form-label">Título</label>
+          <input type="text" class="form-control" [(ngModel)]="updatedTitle" name="title" required>
+        </div>
+        <div class="mb-3">
+          <label for="author" class="form-label">Autor</label>
+          <input type="text" class="form-control" [(ngModel)]="updatedAuthor" name="author" required>
+        </div>
+        <div class="mb-3">
+          <label for="quantity" class="form-label">Cantidad</label>
+          <input type="number" class="form-control" [(ngModel)]="updatedQuantity" name="quantity" required>
+        </div>
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <button type="button" class="btn btn-secondary" (click)="isEditing = false">Cancelar</button>
+      </form>
+    </div>
+
     <!-- Contenedor para los botones Pedir e Información -->
     <div class="button-group-actions">
       <button class="btn btn-success" (click)="onRentBook()">
         <i class="bi bi-cart-plus-fill"></i> Pedir
       </button>
-      <button class="btn btn-info" (click)="toggleInfo()">
+      <button class="btn btn-info" (click)="navigateToBookDetails()">
         <i class="bi bi-info-circle-fill"></i> Información
       </button>
-    </div>
-
-    <!-- Mini pestaña que se muestra/oculta -->
-    <div class="info-tab" [ngClass]="{ 'open': showInfo }">
-      <p><strong>Reseña:</strong> {{ review }}</p>
-      <p><strong>Cantidad Restante:</strong> {{ quantity }}</p>
-      <p><strong>Autor:</strong> {{ author }}</p>
     </div>
   </div>
 </div>

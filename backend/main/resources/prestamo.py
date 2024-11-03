@@ -1,3 +1,4 @@
+from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 from flask import request
 from .. import db
@@ -17,7 +18,7 @@ class Prestamos(Resource):
         #Página inicial por defecto
         page = 1
         #Cantidad de elementos por página por defecto
-        per_page = 10
+        per_page = 9
         
         #no ejecuto el .all()
         prestamos = db.session.query(PrestamoModel)
@@ -69,9 +70,10 @@ class Prestamos(Resource):
     
 class Prestamo(Resource):
 
+    @jwt_required()
     def get(self, id):
         prestamo = db.session.query(PrestamoModel).get_or_404(id)
-        return prestamo.to_json_complete()
+        return prestamo.to_json()
 
     def delete(self, id):
         prestamo = db.session.query(PrestamoModel).get_or_404(id)

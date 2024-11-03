@@ -17,8 +17,8 @@ for i in range(1, 31):  # Genera datos para 30 usuarios
     usuario_contraseña = f'contraseña{i}'
     usuario_email = f'email{i}@example.com'
     usuario_telefono = 123456789 + i
-    configuracionID = 200 + i
-    datos_usuarios.append((usuarioID, usuario_nombre, usuario_apellido, usuario_contraseña, usuario_email, usuario_telefono))
+    rol = 'admin' if i % 2 == 0 else 'user'
+    datos_usuarios.append((usuarioID, usuario_nombre, usuario_apellido, usuario_contraseña, usuario_email, usuario_telefono, rol))
 
 # Insertar datos en la tabla "usuarios"
 cur.executemany('''
@@ -28,23 +28,26 @@ cur.executemany('''
         usuario_apellido,
         usuario_contraseña,
         usuario_email,
-        usuario_telefono
-    ) VALUES (?, ?, ?, ?, ?, ?)
+        usuario_telefono,
+        rol
+    ) VALUES (?, ?, ?, ?, ?, ?, ?)
 ''', datos_usuarios)
 
 # Generar automáticamente los datos para la tabla "libros"
 datos_libros = []
 for i in range(1, 31):  # Genera datos para 30 libros
     libroID = 1000 + i  # Suma una cantidad constante para obtener IDs únicos
-    titulo = f'Título del Libro {i}'
+    titulo = f'Libro {i}'
     cantidad = i * 2  # Cantidad variable
     editorial = f'Editorial {i}'
     valoracion = f'Valoración del Libro {i}'
-    datos_libros.append((libroID, titulo, cantidad, editorial))
+    genero = f'Genero {i}'
+    image = f'path/to/Image {i}'
+    datos_libros.append((libroID, titulo, cantidad, editorial, genero, image))
 
 # Insertar datos en la tabla "libros"
 cur.executemany('''
-    INSERT INTO libros (libroID, titulo, cantidad, editorial) VALUES (?, ?, ?, ?)
+    INSERT INTO libros (libroID, titulo, cantidad, editorial, genero, image) VALUES (?, ?, ?, ?, ?, ?)
 ''', datos_libros)
 
 # Generar automáticamente los datos para la tabla "autores"
@@ -132,7 +135,7 @@ cur.executemany('''
 # Generar automáticamente los datos para la tabla "libros_autores"
 datos_libros_autores = []
 for i in range(1, 31):  # Genera datos para 30 libros_autores
-    libroID = i
+    libroID = 1000 + i
     autorID = i
     datos_libros_autores.append((libroID, autorID))
 

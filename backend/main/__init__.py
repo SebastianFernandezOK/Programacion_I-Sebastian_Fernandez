@@ -33,6 +33,9 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.getenv('DATABASE_PATH'), os.getenv('DATABASE_NAME'))
     db.init_app(app)
 
+    # Inicializa Migrate con app y db
+    migrate.init_app(app, db)
+    
     with app.app_context():  # Entrar en el contexto de la aplicación Flask                           ##
         # Crear la base de datos si no existe (Solo válido si se utiliza SQLite)                      ##WINDOWS
         if not os.path.exists(os.path.join(os.getenv('DATABASE_PATH'), os.getenv('DATABASE_NAME'))):  ##
