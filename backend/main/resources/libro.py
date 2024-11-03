@@ -78,9 +78,9 @@ class Libros(Resource):
         try:
             db.session.add(libro)
             db.session.commit()
-        except:
+        except Exception as e:
             db.session.rollback()
-            return {"message": "Error al agregar el libro"}, 400
+            return {"message": f"Error al agregar el libro: {str(e)}"}, 400
         return libro.to_json(), 201 #Si la operación es exitosa, se devuelve la representación JSON del libro con el código de estado 201.
 
 class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso(Resource)
