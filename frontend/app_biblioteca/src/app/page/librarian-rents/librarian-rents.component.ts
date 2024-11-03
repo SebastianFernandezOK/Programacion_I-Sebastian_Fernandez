@@ -24,7 +24,7 @@ export class LibrarianRentsComponent {
     this.page = page; // Actualiza la página actual
     this.rentService.getRents(page).subscribe(
       (answer: any) => {
-        console.log('Respuesta de la API:', answer);
+        console.log('Respuesta de la API:', answer, page);
         const today = new Date();
         this.rents = answer.prestamos || [];
         this.pages = answer.pages || 1; // Asegúrate de que estás usando 'pages' correcto
