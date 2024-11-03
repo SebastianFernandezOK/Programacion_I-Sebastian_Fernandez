@@ -7,10 +7,12 @@ import { UsuariosService } from '../../services/usuarios.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  page: number = 1;       // Página actual
-  pages: number = 1;      // Total de páginas (se ajustará tras la carga de datos)
-  usuarios: any[] = [];   // Agregar esta propiedad para almacenar la lista de usuarios
-
+  page: number = 1;         // Página actual
+  pages: number = 1;        // Total de páginas (se ajustará tras la carga de datos)
+  usuarios: any[] = [];     // Agregar esta propiedad para almacenar la lista de usuarios
+  // Tema filtrado debe ir en pestaña general, componente usuario debe corresponder UNICAMENTE a cada usuario
+  selectedRole: string = 'all'; // Por defecto, muestra todos los usuarios
+  
   constructor(private usuariosService: UsuariosService) {}
 
   ngOnInit() {
@@ -19,10 +21,8 @@ export class UsersComponent implements OnInit {
   }
 
   // Método para cargar usuarios
-  loadUsers() {
-    this.usuariosService.getUsers(this.page).subscribe(
-      (data: any) => {
-        // Asegúrate de que la respuesta tenga 'pages'
+  loadUsers(page: number = 1) {
+    this.usuariosService.getUsers(page).subscribe((data: any) => {
         if (data && typeof data.pages === 'number') {
           this.pages = data.pages; // Ajusta el valor total de `pages` con el total del backend
           console.log(`Páginas disponibles: ${this.pages}`);
@@ -37,9 +37,16 @@ export class UsersComponent implements OnInit {
     );
   }
 
+  // Función para filtrar usuarios
+  get filteredUsers() {
+    if (this.selectedRole === 'Todos') {
+      return this.usuarios; // Devuelve todos los usuarios si 'Todos' está seleccionado
+    }
+    return this.usuarios.filter(usuarios => usuarios.rol === this.selectedRole); // Filtra por rol
+  }
+
   // Método para manejar el cambio de página
   onPageChange(newPage: number) {
-    this.page = newPage;
-    this.loadUsers();  // Recarga los usuarios en la nueva página
+    this.loadUsers(newPage);  // Recarga los usuarios en la nueva página
   }
 }

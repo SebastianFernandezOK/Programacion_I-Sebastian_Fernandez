@@ -1,3 +1,4 @@
+<<<<<<< HEAD:frontend/app_biblioteca/src/app/components/users/see-user/see-user.component.html
 <!-- Filtro por rol -->
 <div>
     <label for="role">Filtrar por rol:</label>
@@ -30,6 +31,24 @@
 </div>
   
 <!-- Edit User Modal -->
+=======
+<!-- Users List with Scrollbar -->
+<div class="user-info">
+  <strong>{{ nombre }} {{ apellido }}</strong><br>
+  <span>{{ email }}<br>Teléfono: {{ telefono }}</span><br>
+  <span class="user-role text-secondary">{{ rol }}</span>
+</div>
+<div class="ms-auto">
+  <button class="btn btn-outline-danger me-2" (click)="deleteUser(id)">
+    <i class="bi bi-trash"></i> Eliminar
+  </button>
+  <button class="btn btn-outline-primary" (click)="openEditModal(id)">
+    <i class="bi bi-pencil"></i> Modificar
+  </button>
+</div>
+
+<!-- Edit User Modal
+>>>>>>> 48c3bd332ba56be2b1ec5652fa0086c6b60b95c8:frontend/app_biblioteca/src/app/components/user/see-user/see-user.component.html
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -64,4 +83,4 @@
         </div>
       </div>
     </div>
-</div>
+</div> -->

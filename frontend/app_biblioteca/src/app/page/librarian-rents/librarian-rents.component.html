@@ -16,9 +16,9 @@
       </span>
     </div>
   
-  <!-- Book List -->
+
 <!-- Book List -->
-<div *ngFor="let rent of filteredRents; trackBy: trackRent">
+<div *ngFor="let rent of rents">
   <app-see-rents
     title="{{ rent.libro.titulo || 'Libro no disponible'}}"
     user="{{rent.usuario.usuario_nombre + ' ' + rent.usuario.usuario_apellido}}"
@@ -29,7 +29,7 @@
 
 
   <!-- Message if no books found -->
-  <div *ngIf="filteredRents.length === 0" class="alert alert-warning" role="alert">
+  <div *ngIf="rents.length === 0" class="alert alert-warning" role="alert">
     No rented books found.
   </div>
 
