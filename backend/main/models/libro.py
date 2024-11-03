@@ -12,7 +12,7 @@ class Libro(db.Model):
     cantidad = db.Column(db.Integer, nullable=False)
     editorial = db.Column(db.String(100), nullable=False)
     genero = db.Column(db.String(100), nullable=False)
-    image = db.Column(db.String(100), nullable=False)
+    image = db.Column(db.String, nullable=False)
     #relacion 1:M(Libro es padre)
     prestamos =  db.relationship('Prestamo', back_populates='libro', cascade='all, delete-orphan') 
     #relacion 1:N(Libro es padre)

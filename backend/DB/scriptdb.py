@@ -135,7 +135,7 @@ cur.executemany('''
 # Generar automáticamente los datos para la tabla "libros_autores"
 datos_libros_autores = []
 for i in range(1, 31):  # Genera datos para 30 libros_autores
-    libroID = i
+    libroID = 1000 + i
     autorID = i
     datos_libros_autores.append((libroID, autorID))
 

@@ -46,7 +46,8 @@
   .book-author,
   .book-editorial,
   .book-description,
-  .book-cantidad {
+  .book-cantidad,
+  .book-genero {
     font-size: 1.1em;
     margin: 8px 0;
     color: #555;
