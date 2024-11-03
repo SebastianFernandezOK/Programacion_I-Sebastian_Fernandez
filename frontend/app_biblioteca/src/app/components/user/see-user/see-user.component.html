@@ -1,35 +1,19 @@
-<!-- Filtro por rol -->
-<div>
-  <label for="role">Filtrar por rol:</label>
-  <select id="role" [(ngModel)]="selectedRole">
-    <option value="Todos">Todos</option>
-    <option value="users">Usuario</option>
-    <option value="bibliotecario">Bibliotecario</option>
-    <option value="admin">Admin</option>
-  </select>
-</div>
-
 <!-- Users List with Scrollbar -->
-<div id="users-list" style="max-height: 600px; overflow-y: auto;">
-    <div *ngFor="let user of filteredUsers" class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
-        <img [src]="user.photo" alt="User Photo" class="user-image rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
-        <div class="user-info">
-            <strong>{{ user.usuario_nombre }} {{ user.usuario_apellido }}</strong><br>
-            <span>{{ user.usuario_email }}<br>Teléfono: {{ user.usuario_telefono }}</span><br>
-            <span class="user-role text-secondary">{{ user.rol }}</span>
-        </div>
-        <div class="ms-auto">
-            <button class="btn btn-outline-danger me-2" (click)="deleteUser(user.usuarioID)">
-                <i class="bi bi-trash"></i> Eliminar
-            </button>
-            <button class="btn btn-outline-primary" (click)="openEditModal(user)">
-                <i class="bi bi-pencil"></i> Modificar
-            </button>
-        </div>
-    </div>
+<div class="user-info">
+  <strong>{{ nombre }} {{ apellido }}</strong><br>
+  <span>{{ email }}<br>Teléfono: {{ telefono }}</span><br>
+  <span class="user-role text-secondary">{{ rol }}</span>
+</div>
+<div class="ms-auto">
+  <button class="btn btn-outline-danger me-2" (click)="deleteUser(id)">
+    <i class="bi bi-trash"></i> Eliminar
+  </button>
+  <button class="btn btn-outline-primary" (click)="openEditModal(id)">
+    <i class="bi bi-pencil"></i> Modificar
+  </button>
 </div>
 
-<!-- Edit User Modal -->
+<!-- Edit User Modal
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -64,4 +48,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

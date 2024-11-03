@@ -1,17 +1,40 @@
 <div class="container d-flex justify-content-center align-items-start pt-5">
-    <div class="card p-4 shadow-sm" style="width: 100%; max-width: 800px;">
-      <app-header></app-header>
-      <h3 class="page-title mb-4 fw-bold">Users</h3>
+  <div class="card p-4 shadow-sm" style="width: 100%; max-width: 800px;">
+    <app-header></app-header>
+    <h3 class="page-title mb-4 fw-bold">Usuarios</h3>
 
-      <!-- Componente de ver usuarios -->
-      <app-see-user></app-see-user>
-
-      <!-- Componente de paginación -->
-      <app-paginate 
-      [(page)]="page"
-      [pages]="pages"
-      (pageChange)="onPageChange($event)">
-    </app-paginate>
-    
+    <!-- Filtro por rol -->
+    <div>
+      <label for="role">Filtrar por rol:</label>
+      <select id="role" [(ngModel)]="selectedRole">
+        <option value="Todos">Todos</option>
+        <option value="users">Usuario</option>
+        <option value="bibliotecario">Bibliotecario</option>
+        <option value="admin">Admin</option>
+      </select>
     </div>
+
+    <!-- Componente de ver usuarios -->
+    <!-- Aca debería haber un for para recorrer todos los usuarios -->
+    <div id="users-list" style="max-height: 600px; overflow-y: auto;">
+      <div *ngFor="let user of usuarios" class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
+        <app-see-user 
+        [id]="user.usuarioID"
+        [nombre]="user.usuario_nombre"
+        [apellido]="user.usuario_apellido"
+        [email]="user.usuario_email"
+        [telefono]="user.usuario_telefono"
+        [rol]="user.rol"
+        ></app-see-user>
+      </div>
+    </div>
+
+    <!-- Componente de paginación -->
+    <app-paginate 
+    [(page)]="page"
+    [pages]="pages"
+    (pageChange)="onPageChange($event)">
+  </app-paginate>
+  
+  </div>
 </div>

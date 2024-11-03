@@ -17,7 +17,7 @@ import { LibrarianRentsComponent } from './page/librarian-rents/librarian-rents.
 import { ConfigurationComponent } from './page/configuration/configuration.component';
 import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.component';
 import { HeaderComponent } from './components/header/header.component';
-import { SeeUserComponent } from './components/users/see-user/see-user.component';
+import { SeeUserComponent } from './components/user/see-user/see-user.component';
 import { SeeRentsComponent } from './components/rents/see-rents/see-rents.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BookComponent } from './components/book/book.component';
