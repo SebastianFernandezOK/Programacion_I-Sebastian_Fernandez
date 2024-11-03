@@ -22,7 +22,7 @@ export class RentsService {
 
     const requestOptions = { headers: headers };
 
-    return this.httpClient.get(this.url + '/prestamos', requestOptions);
+    return this.httpClient.get(this.url + '/prestamos?page=' + page, requestOptions);
   }
 
   // Renovar préstamo
