@@ -1,51 +1,42 @@
-<!-- Users List with Scrollbar -->
 <div class="user-info">
-  <strong>{{ nombre }} {{ apellido }}</strong><br>
-  <span>{{ email }}<br>Teléfono: {{ telefono }}</span><br>
-  <span class="user-role text-secondary">{{ rol }}</span>
-</div>
-<div class="ms-auto">
-  <button class="btn btn-outline-danger me-2" (click)="deleteUser(id)">
-    <i class="bi bi-trash"></i> Eliminar
-  </button>
-  <button class="btn btn-outline-primary" (click)="openEditModal(id)">
-    <i class="bi bi-pencil"></i> Modificar
-  </button>
-</div>
-
-<!-- Edit User Modal
-<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editUserModalLabel">Editar Usuario</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form (ngSubmit)="saveUser()">
-                    <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" [(ngModel)]="selectedUser.usuario_nombre" name="nombre" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="apellido" [(ngModel)]="selectedUser.usuario_apellido" name="apellido" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" [(ngModel)]="selectedUser.usuario_email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="telefono" class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" id="telefono" [(ngModel)]="selectedUser.usuario_telefono" name="telefono" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="rol" class="form-label">Rol</label>
-                        <input type="text" class="form-control" id="rol" [(ngModel)]="selectedUser.rol" name="rol" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                </form>
-            </div>
-        </div>
+    <strong>{{ nombre }} {{ apellido }}</strong><br>
+    <span>{{ email }}<br>Teléfono: {{ telefono }}</span><br>
+    <span class="user-role text-secondary">{{ rol }}</span>
+  </div>
+  <div class="ms-auto">
+    <button class="btn btn-outline-danger me-2" (click)="deleteUser(id)">
+      <i class="bi bi-trash"></i> Eliminar
+    </button>
+    <button class="btn btn-outline-primary" (click)="onEditUser()">
+      <i class="bi bi-pencil"></i> Modificar
+    </button>
+  </div>
+  
+  <!-- Pestaña lateral para editar usuario -->
+  <div class="sidebar" *ngIf="isEditing">
+    <div class="sidebar-header">
+      <h5>Editar Usuario</h5>
+      <button (click)="closeEdit()">X</button>
     </div>
-</div> -->
+    <form (ngSubmit)="updateUser()" class="sidebar-form">
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="updatedNombre" name="nombre" required>
+      </div>
+      <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" [(ngModel)]="updatedApellido" name="apellido" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="updatedEmail" name="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="text" class="form-control" [(ngModel)]="updatedTelefono" name="telefono">
+      </div>
+      <button type="submit" class="btn btn-success">Actualizar</button>
+      <button type="button" class="btn btn-secondary" (click)="closeEdit()">Cancelar</button>
+    </form>
+  </div>
+  

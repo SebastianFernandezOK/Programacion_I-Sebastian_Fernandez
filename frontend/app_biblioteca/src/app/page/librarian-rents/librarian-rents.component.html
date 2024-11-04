@@ -17,25 +17,27 @@
     </div>
   
 
-<!-- Book List -->
-<div *ngFor="let rent of rents">
-  <app-see-rents
-    title="{{ rent.libro.titulo || 'Libro no disponible'}}"
-    user="{{rent.usuario.usuario_nombre + ' ' + rent.usuario.usuario_apellido}}"
-    [daysLeft]="rent.daysLeft"
-    image="{{ rent.libro.image }}">
-  </app-see-rents>
-</div>
-
-
-  <!-- Message if no books found -->
-  <div *ngIf="rents.length === 0" class="alert alert-warning" role="alert">
-    No rented books found.
+  <!-- Book List -->
+  <div class="book-list-scroll mb-3"> 
+    <div *ngFor="let rent of rents">
+      <app-see-rents
+        title="{{ rent.libro.titulo || 'Libro no disponible'}}"
+        user="{{rent.usuario.usuario_nombre + ' ' + rent.usuario.usuario_apellido}}"
+        [daysLeft]="rent.daysLeft"
+        image="{{ rent.libro.image }}">
+      </app-see-rents>
+    </div>
   </div>
 
+      <!-- Div separador -->
+      <div class="separator"></div>
 
-<!-- Paginación -->
-<app-paginate [page]="page" [pages]="pages" (pageChange)="getRents($event)"></app-paginate>
+    <!-- Message if no books found -->
+    <div *ngIf="rents.length === 0" class="alert alert-warning" role="alert">
+      No rented books found.
+    </div>
 
+    <!-- Paginación -->
+    <app-paginate [page]="page" [pages]="pages" (pageChange)="getRents($event)"></app-paginate>
   </div>
 </div>

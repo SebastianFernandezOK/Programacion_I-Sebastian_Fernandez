@@ -15,26 +15,27 @@
     </div>
 
     <!-- Componente de ver usuarios -->
-    <!-- Aca debería haber un for para recorrer todos los usuarios -->
-    <div id="users-list" style="max-height: 600px; overflow-y: auto;">
+    <div class="users-list mb-3"> 
       <div *ngFor="let user of usuarios" class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
         <app-see-user 
-        [id]="user.usuarioID"
-        [nombre]="user.usuario_nombre"
-        [apellido]="user.usuario_apellido"
-        [email]="user.usuario_email"
-        [telefono]="user.usuario_telefono"
-        [rol]="user.rol"
-        ></app-see-user>
+          [id]="user.usuarioID"
+          [nombre]="user.usuario_nombre"
+          [apellido]="user.usuario_apellido"
+          [email]="user.usuario_email"
+          [telefono]="user.usuario_telefono"
+          [rol]="user.rol">
+        </app-see-user>
       </div>
     </div>
 
+    <!-- Div separador -->
+    <div class="separator"></div>
+
     <!-- Componente de paginación -->
     <app-paginate 
-    [(page)]="page"
-    [pages]="pages"
-    (pageChange)="onPageChange($event)">
-  </app-paginate>
-  
+      [(page)]="page"
+      [pages]="pages"
+      (pageChange)="onPageChange($event)">
+    </app-paginate>
   </div>
 </div>

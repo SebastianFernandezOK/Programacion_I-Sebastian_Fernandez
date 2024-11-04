@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core'; 
-import { Router } from '@angular/router';
+import { Component, Input } from '@angular/core';
 import { UsuariosService } from '../../../services/usuarios.service';
 
 @Component({
@@ -8,7 +7,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
   styleUrls: ['./see-user.component.css']
 })
 export class SeeUserComponent {
-  
+
   @Input() id: number = 0;
   @Input() nombre: string = '';
   @Input() apellido: string = '';
@@ -16,51 +15,58 @@ export class SeeUserComponent {
   @Input() telefono: string = '0';
   @Input() rol: string = '';
 
-  user: any;
-  
-  constructor(
-    private router: Router,
-    private usuariosService: UsuariosService
-  ) {}
+  // Variables para edición
+  isEditing: boolean = false;
+  updatedNombre: string = '';
+  updatedApellido: string = '';
+  updatedEmail: string = '';
+  updatedTelefono: string = '';
 
-  ngOnInit() {
-    this.usuariosService.getUser(this.id).subscribe((rta:any) => {
-      console.log('usuarios api: ', rta);
-      this.user = rta || [];
-    });
-  }
- 
+  constructor(private usuariosService: UsuariosService) {}
+
+  // Eliminar usuario
   deleteUser(usuarioID: number): void {
-    this.usuariosService.deleteUser(usuarioID).subscribe(() => {}, error => {
+    this.usuariosService.deleteUser(usuarioID).subscribe(() => {
+      console.log('Usuario eliminado');
+    }, error => {
       console.error('Error al eliminar el usuario:', error);
     });
   }
 
-  openEditModal(user: any): void {
-    console.log('User:', user);
+  // Abrir la pestaña de edición
+  onEditUser(): void {
+    this.isEditing = true;
+    this.updatedNombre = this.nombre;
+    this.updatedApellido = this.apellido;
+    this.updatedEmail = this.email;
+    this.updatedTelefono = this.telefono;
   }
 
-  // openEditModal(user: User): void {
-  //   this.selectedUser = { ...user }; // Clonamos el usuario seleccionado
-  //   this.editUserModal.show();
-  // }
+  // Cerrar la pestaña de edición
+  closeEdit(): void {
+    this.isEditing = false;
+  }
 
-  // // Función para guardar los cambios del usuario editado
-  // saveUser(): void {
-  //   console.log('Usuario a actualizar:', this.selectedUser); // Debugging
-  //   this.usuariosService.updateUser(this.selectedUser.usuarioID, this.selectedUser)
-  //     .subscribe(
-  //       response => {
-  //         console.log('Usuario actualizado:', response);
-  //         const index = this.users.findIndex(u => u.usuarioID === this.selectedUser.usuarioID);
-  //         if (index !== -1) {
-  //           this.users[index] = { ...this.selectedUser }; // Actualiza el usuario en la lista
-  //         }
-  //         this.editUserModal.hide(); // Cierra el modal después de guardar
-  //       },
-  //       error => {
-  //         console.error('Error al actualizar el usuario:', error);
-  //       }
-  //     );
-  // }
+  // Actualizar usuario
+  updateUser(): void {
+    const updatedUserData = {
+      nombre: this.updatedNombre,
+      apellido: this.updatedApellido,
+      email: this.updatedEmail,
+      telefono: this.updatedTelefono
+    };
+  
+    console.log('Datos a actualizar:', updatedUserData);
+  
+    this.usuariosService.updateUser(this.id, updatedUserData).subscribe(
+      () => {
+        console.log('Usuario actualizado');
+        this.isEditing = false; // Cierra la pestaña al actualizar
+      },
+      error => {
+        console.error('Error al actualizar el usuario:', error);
+      }
+    );
+  }
+  
 }
