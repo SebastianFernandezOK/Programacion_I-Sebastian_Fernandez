@@ -44,6 +44,14 @@ class Prestamos(Resource):
                 prestamos = prestamos.filter(PrestamoModel.fecha_devolucion == fecha_devolucion)
             except:
                 return "Formato de fecha incorrecto. Utilice el formato 'yyyy-mm-dd'.", 400
+
+        #Filtrar por Id de libro
+        if request.args.get('libroID'):
+            prestamos = prestamos.filter(PrestamoModel.libroID == request.args.get('libroID'))
+        
+        #Filtrar por Id de usuario
+        if request.args.get('usuarioID'):
+            prestamos = prestamos.filter(PrestamoModel.usuarioID == request.args.get('usuarioID'))
         ### FIN FILTROS ####     
           
         #Obtener valor paginado

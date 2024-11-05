@@ -19,7 +19,7 @@
 
   <!-- Book List -->
   <div class="book-list-scroll mb-3"> 
-    <div *ngFor="let rent of rents">
+    <div *ngFor="let rent of rents" >
       <app-see-rents
         title="{{ rent.libro.titulo || 'Libro no disponible'}}"
         user="{{rent.usuario.usuario_nombre + ' ' + rent.usuario.usuario_apellido}}"
@@ -29,8 +29,6 @@
     </div>
   </div>
 
-      <!-- Div separador -->
-      <div class="separator"></div>
 
     <!-- Message if no books found -->
     <div *ngIf="rents.length === 0" class="alert alert-warning" role="alert">

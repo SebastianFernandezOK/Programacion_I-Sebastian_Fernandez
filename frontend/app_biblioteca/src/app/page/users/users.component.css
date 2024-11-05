@@ -44,3 +44,40 @@ body {
     border-top: 1px solid #ddd; /* Borde superior sutil */
     margin: 10px 0; /* Espaciado arriba y abajo */
 }
+
+/* Estilos generales de filtros */
+.filter-section {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.filter-section h5 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Íconos y espaciado */
+.form-label i {
+  color: #6c757d;
+  margin-right: 0.5rem;
+}
+
+.form-select, .form-control {
+  border-radius: 6px;
+  transition: box-shadow 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.4);
+  border-color: #80bdff;
+}
+
+.user-card {
+  transition: box-shadow 0.2s ease;
+}
+
+.user-card:hover {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}

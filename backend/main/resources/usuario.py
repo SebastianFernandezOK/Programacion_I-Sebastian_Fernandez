@@ -42,13 +42,28 @@ class Usuarios(Resource):
         if request.args.get('apellido'):
             usuarios = usuarios.filter(UsuarioModel.usuario_apellido.like(f"%{request.args.get('apellido')}%"))     
         if 'apellido_titulo' in params:
-            usuarios = usuarios.order_by(UsuarioModel.usuario_apellido.desc()) 
+            usuarios = usuarios.order_by(UsuarioModel.usuario_apellido.desc())
+        # Filtrar por rol
+        if request.args.get('rol'):
+            usuarios = usuarios.filter(UsuarioModel.rol == request.args.get('rol'))
+        if 'sortby_rol' in params:
+            usuarios = usuarios.order_by(UsuarioModel.rol.desc())    
         # Filtrar por número de préstamos 
         if request.args.get('nr_prestamos'):
-                    # Subquery para contar el número de préstamos por usuario. subconsulta que cuenta el número de préstamos por usuario
-                    subquery = db.session.query(PrestamoModel.usuarioID, func.count(PrestamoModel.prestamoID).label('total_prestamos')).group_by(PrestamoModel.usuarioID).subquery()
-                    # Join con la subquery y ordenamiento por el número de préstamos, 
-                    usuarios = usuarios.join(subquery, UsuarioModel.usuarioID == subquery.c.usuarioID).order_by(subquery.c.total_prestamos.desc())
+            # Convierte el valor de préstamos a entero
+            nr_prestamos = int(request.args.get('nr_prestamos'))
+            
+            # Subquery para contar el número de préstamos por usuario
+            subquery = db.session.query(
+                PrestamoModel.usuarioID,
+                func.count(PrestamoModel.prestamoID).label('total_prestamos')
+            ).group_by(PrestamoModel.usuarioID).subquery()
+
+            # Filtrar usuarios que tienen el número específico de préstamos solicitado
+            usuarios = usuarios.join(subquery, UsuarioModel.usuarioID == subquery.c.usuarioID) \
+                            .filter(subquery.c.total_prestamos == nr_prestamos) \
+                            .order_by(subquery.c.total_prestamos.desc())
+
         ### FIN FILTROS ####     
           
         #Obtener valor paginado

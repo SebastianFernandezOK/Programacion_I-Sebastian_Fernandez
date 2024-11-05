@@ -10,16 +10,23 @@ export class UsuariosService {
   
   constructor(private httpClient: HttpClient) { }
 
-  getUsers(page: number = 1): Observable<any> {
+  getUsers(page: number = 1, perPage: number = 9, nombre?: string, apellido?: string, nr_prestamos?: number, rol?: string): Observable<any> {
     let auth_token = localStorage.getItem('token');
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${auth_token}` 
+      'Authorization': `Bearer ${auth_token}`
     });
-    const requestOptions = { headers: headers };
-    console.log(`Page on getUsers: ${page}`);
-    return this.httpClient.get(`${this.url}/usuarios?page=${page}`, requestOptions);
-  }
+
+    let params: any = { page, per_page: perPage };
+    if (nombre) params.nombre = nombre;
+    if (apellido) params.apellido = apellido;
+    if (nr_prestamos) params.nr_prestamos = nr_prestamos;
+    if (rol && rol !== 'Todos') params.rol = rol;  
+
+    return this.httpClient.get(`${this.url}/usuarios`, { headers, params });
+}
+
+
   
   getUser(usuarioID: number): Observable<any> {
     let auth_token = localStorage.getItem('token');
