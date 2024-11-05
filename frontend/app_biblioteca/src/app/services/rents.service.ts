@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, take } from 'rxjs/operators';
+import { catchError, map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentsService {
   url = '/api';
-  
+
   constructor(private httpClient: HttpClient) {}
 
-  // Obtener préstamos
-  getRents(page: number): Observable<any> {
+  // Obtener préstamos y calcular días restantes
+  getRents(page: number, filters: any): Observable<any> {
     const auth_token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
@@ -20,9 +20,30 @@ export class RentsService {
       'Authorization': `Bearer ${auth_token}`
     });
 
-    const requestOptions = { headers: headers };
+    // Crear los parámetros de filtrado y paginación para la URL
+    let params = `?page=${page}`;
+    for (const key in filters) {
+      if (filters[key]) {
+        params += `&${key}=${filters[key]}`;
+      }
+    }
 
-    return this.httpClient.get(this.url + '/prestamos?page=' + page, requestOptions);
+    return this.httpClient.get(`${this.url}/prestamos${params}`, { headers }).pipe(
+      map((data: any) => {
+        // Calcular días restantes para cada préstamo en la respuesta
+        data.prestamos.forEach((prestamo: any) => {
+          const fechaDevolucion = new Date(prestamo.fecha_devolucion);
+          const hoy = new Date();
+          const diff = fechaDevolucion.getTime() - hoy.getTime();
+          prestamo.daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        });
+        return data;
+      }),
+      catchError((error) => {
+        console.error('Error fetching rents:', error);
+        return throwError(error);
+      })
+    );
   }
 
   // Renovar préstamo
