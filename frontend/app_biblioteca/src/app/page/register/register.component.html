@@ -68,11 +68,13 @@
             </div>
 
             <div class="text-center">
-                <button type="submit" class="btn" style="color: #ffffff; border-radius: 15px; width: 126px; height: 39px; font-size: 14px; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: background 0.3s ease, transform 0.3s ease;">
+                <button type="submit" [disabled]="isSubmitting" class="btn" style="color: #ffffff; border-radius: 15px; width: 126px; height: 39px; font-size: 14px; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: background 0.3s ease, transform 0.3s ease;">
                     <i class="bi bi-person-plus" style="margin-right: 5px;"></i>
-                    Register
+                    <span *ngIf="!isSubmitting">Registrar</span>
+                    <span *ngIf="isSubmitting">Cargando...</span>
                 </button>
             </div>
+            
         </form>
 
         <!-- Footer Links -->

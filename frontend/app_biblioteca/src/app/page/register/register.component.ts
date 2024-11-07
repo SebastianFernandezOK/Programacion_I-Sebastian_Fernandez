@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   registerForm!: FormGroup;
+  isSubmitting = false; // Indicador de carga
 
   constructor(
     private formBuilder: FormBuilder,
@@ -19,37 +20,38 @@ export class RegisterComponent {
     this.registerForm = this.formBuilder.group({
       usuario_nombre: ['', Validators.required],
       usuario_apellido: ['', Validators.required],
-      usuario_email: ['', [Validators.required, Validators.email]],  // Validación de email
-      usuario_contraseña: ['', [Validators.required, Validators.minLength(6)]],  // Validación de longitud
-      confirmPassword: ['', [Validators.required]],  // Campo de confirmación
-      usuario_telefono: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],  // Solo números
+      usuario_email: ['', [Validators.required, Validators.email]], 
+      usuario_contraseña: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)]],
+      confirmPassword: ['', Validators.required],
+      usuario_telefono: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]], 
     }, { validator: this.passwordMatchValidator });
   }
 
-   // Validador para verificar que las contraseñas coincidan
-   passwordMatchValidator(form: FormGroup) {
+  // Validador para verificar que las contraseñas coincidan
+  passwordMatchValidator(form: FormGroup) {
     return form.get('usuario_contraseña')?.value === form.get('confirmPassword')?.value
       ? null : { mismatch: true };
   }
 
   submit() {
     if (this.registerForm.valid) {
-      console.log('Form data:', this.registerForm.value);
+      this.isSubmitting = true; // Activar el indicador de carga
       this.registerUser(this.registerForm.value);
     } else {
-      alert('All fields are required and must be valid!');
+      alert('Todos los campos son obligatorios y deben ser válidos!');
     }
   }
 
   registerUser(registerData: any) {
     this.authService.register(registerData).subscribe({
       next: (response: any) => {
-        alert('Registration successful!');
-        console.log('Success:', response);
-        this.router.navigateByUrl('/login'); // Redirect to login page
+        this.isSubmitting = false; // Desactivar el indicador de carga
+        alert('¡Registro exitoso!');
+        this.router.navigateByUrl('/login'); // Redirigir a una página post-registro
       },
       error: (error: any) => {
-        alert('Registration failed');
+        this.isSubmitting = false; // Desactivar el indicador de carga
+        alert('Falló el registro');
         console.error('Error:', error);
       },
     });
