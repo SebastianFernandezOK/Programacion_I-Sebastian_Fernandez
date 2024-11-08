@@ -18,7 +18,8 @@ export class AuthService {
     return this.httpClient.post(this.url + '/auth/login', dataLogin).pipe(
       take(1),
       tap((response: any) => {
-        localStorage.setItem('token', response.token);
+        // Guardar el token en sessionStorage
+        sessionStorage.setItem('token', response.token);
       })
     );
   }
@@ -27,17 +28,20 @@ export class AuthService {
     return this.httpClient.post(this.url + '/auth/register', dataRegister).pipe(
       take(1),
       tap((response: any) => {
-        localStorage.setItem('token', response.token);
+        // Guardar el token en sessionStorage
+        sessionStorage.setItem('token', response.token);
       })
     );
   }
 
   logout() {
-    localStorage.removeItem("token");
+    // Eliminar el token de sessionStorage al hacer logout
+    sessionStorage.removeItem('token');
     this.router.navigateByUrl("home");
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem("token");
+    // Verificar si el token está presente en sessionStorage
+    return !!sessionStorage.getItem('token');
   }
 }

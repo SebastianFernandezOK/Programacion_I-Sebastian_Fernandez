@@ -24,6 +24,8 @@ import { BookComponent } from './components/book/book.component';
 import { PaginateComponent } from './components/paginate/paginate.component';
 import { NgClass } from '@angular/common';
 import { BookDetailsComponent } from './page/book-details/book-details.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,11 @@ import { BookDetailsComponent } from './page/book-details/book-details.component
     ReactiveFormsModule,
     NgClass,
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

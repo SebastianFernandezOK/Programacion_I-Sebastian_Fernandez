@@ -1,27 +1,26 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service'
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  ver = true;
   isDropdownOpen = false;
 
   constructor(private authService: AuthService) {}
 
+  // Verificar si el token está presente usando el servicio AuthService
   get isToken() {
-    return localStorage.getItem("token");
+    return this.authService.isAuthenticated();  // Verifica si el token está en sessionStorage
   }
 
   cerrarSesion() {
-    this.authService.logout();
+    this.authService.logout();  // Eliminar el token de sessionStorage
   }
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 }
-
