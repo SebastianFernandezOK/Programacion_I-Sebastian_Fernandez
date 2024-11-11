@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -15,17 +16,26 @@ export class AuthInterceptor implements HttpInterceptor {
     const authToken = sessionStorage.getItem('token');
 
     if (authToken) {
-      // Si el token está presente, lo agregamos a la cabecera de la solicitud
+      // Si el token está presente, se agrega a la cabecera de la solicitud
       const authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${authToken}`
         }
       });
-      console.log('Token agregado:', authToken);
-      return next.handle(authReq);
+      console.log('Token agregado a la solicitud:', authToken);
+      return next.handle(authReq).pipe(
+        catchError(err => {
+          if (err.status === 401) {
+            console.log('Sesion expirada, redirigir a login');
+            this.authService.logout();
+          }
+          return throwError(err);
+        })
+      );
     }
 
-    // Si no hay token, simplemente continuamos con la solicitud sin modificarla
+    // Si no hay token, se continua con la solicitud sin modificarla
     return next.handle(req);
   }
 }
+
