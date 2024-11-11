@@ -11,7 +11,7 @@ export class UsuariosService {
   constructor(private httpClient: HttpClient) { }
 
   getUsers(page: number = 1, perPage: number = 9, nombre?: string, apellido?: string, nr_prestamos?: number, rol?: string): Observable<any> {
-    let auth_token = localStorage.getItem('token');
+    let auth_token = sessionStorage.getItem('token');
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
@@ -29,7 +29,7 @@ export class UsuariosService {
 
   
   getUser(usuarioID: number): Observable<any> {
-    let auth_token = localStorage.getItem('token');
+    let auth_token = sessionStorage.getItem('token');
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
@@ -40,7 +40,7 @@ export class UsuariosService {
   }
 
   updateUser(usuarioID: number, userData: any): Observable<any> {
-    let auth_token = localStorage.getItem('token');
+    let auth_token = sessionStorage.getItem('token');
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${auth_token}`
@@ -51,7 +51,7 @@ export class UsuariosService {
 
   // Método para eliminar un usuario
   deleteUser(usuarioID: number): Observable<void> {
-    let auth_token = localStorage.getItem('token');
+    let auth_token = sessionStorage.getItem('token');
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
