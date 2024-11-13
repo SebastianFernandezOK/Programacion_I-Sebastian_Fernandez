@@ -11,11 +11,6 @@ export class UsuariosService {
   constructor(private httpClient: HttpClient) { }
 
   getUsers(page: number = 1, perPage: number = 9, nombre?: string, apellido?: string, nr_prestamos?: number, rol?: string): Observable<any> {
-    let auth_token = sessionStorage.getItem('token');
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${auth_token}`
-    });
 
     let params: any = { page, per_page: perPage };
     if (nombre) params.nombre = nombre;
@@ -23,43 +18,19 @@ export class UsuariosService {
     if (nr_prestamos) params.nr_prestamos = nr_prestamos;
     if (rol && rol !== 'Todos') params.rol = rol;  
 
-    return this.httpClient.get(`${this.url}/usuarios`, { headers, params });
+    return this.httpClient.get(`${this.url}/usuarios`, { params });
 }
-
-
   
   getUser(usuarioID: number): Observable<any> {
-    let auth_token = sessionStorage.getItem('token');
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${auth_token}`
-    });
-    const requestOptions = { headers: headers };
-
-    return this.httpClient.get(`${this.url}/usuario/${usuarioID}`, requestOptions);
+    return this.httpClient.get(`${this.url}/usuario/${usuarioID}`);
   }
 
   updateUser(usuarioID: number, userData: any): Observable<any> {
-    let auth_token = sessionStorage.getItem('token');
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${auth_token}`
-    });
-    const requestOptions = { headers: headers };
-    return this.httpClient.put(`${this.url}/usuario/${usuarioID}`, userData, requestOptions);
+    return this.httpClient.put(`${this.url}/usuario/${usuarioID}`, userData);
   }
 
   // Método para eliminar un usuario
   deleteUser(usuarioID: number): Observable<void> {
-    let auth_token = sessionStorage.getItem('token');
-
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${auth_token}`
-    });
-
-    const requestOptions = { headers: headers };
-
-    return this.httpClient.delete<void>(`${this.url}/usuario/${usuarioID}`, requestOptions);
+    return this.httpClient.delete<void>(`${this.url}/usuario/${usuarioID}`);
   }
 }

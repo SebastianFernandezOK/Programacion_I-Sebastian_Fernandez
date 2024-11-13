@@ -13,16 +13,8 @@ export class RentService {
 
   // Función para obtener un préstamo por su ID
   getRent(id: Number) {
-    const auth_token = localStorage.getItem('token');
   
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${auth_token}`
-    });
-  
-    const requestOptions = { headers: headers };
-  
-    return this.httpClient.get(`${this.url}/prestamo/${id}`, requestOptions).pipe(
+    return this.httpClient.get(`${this.url}/prestamo/${id}`).pipe(
       catchError((error) => {
         console.error('Error fetching rents:', error);
         return throwError(error);
@@ -32,14 +24,8 @@ export class RentService {
 
   // Función para renovar un préstamo
   renewLoan(id: number): Observable<any> {
-    const auth_token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${auth_token}`
-    });
-    const requestOptions = { headers: headers };
 
-    return this.httpClient.put(`${this.url}/prestamo/${id}`, null, requestOptions).pipe(
+    return this.httpClient.put(`${this.url}/prestamo/${id}`, null).pipe(
       catchError((error) => {
         console.error('Error al renovar el préstamo:', error);
         return throwError(error);
@@ -49,14 +35,8 @@ export class RentService {
 
   // Función para eliminar un préstamo
   deleteLoan(id: number): Observable<any> {
-    const auth_token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${auth_token}`
-    });
-    const requestOptions = { headers: headers };
 
-    return this.httpClient.delete(`${this.url}/prestamo/${id}`, requestOptions).pipe(
+    return this.httpClient.delete(`${this.url}/prestamo/${id}`).pipe(
       catchError((error) => {
         console.error('Error al eliminar el préstamo:', error);
         return throwError(error);
