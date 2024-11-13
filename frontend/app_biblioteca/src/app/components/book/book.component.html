@@ -1,6 +1,7 @@
 <div class="card">
   <div class="book-header">
-    <img [src]="image" class="book-image" alt="{{ title }}">
+    <!-- Configuración de la URL de la imagen -->
+    <img src="cover/{{ image }}" alt="Book image" class="book-image" [alt]="title">
     <div class="book-info">
       <h4 class="mb-0 text-dark">{{ title }}</h4>
     </div>

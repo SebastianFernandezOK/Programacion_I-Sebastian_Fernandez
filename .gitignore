@@ -7,3 +7,4 @@ pyvenv.cfg
 /boot.bat
 /install.bat
 *__pycache__*
+*db.log*
