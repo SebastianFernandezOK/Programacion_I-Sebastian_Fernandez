@@ -59,7 +59,8 @@ class Libro(db.Model):
         Libro_json = {
             "libroID": self.libroID,
             "titulo": self.titulo,
-            "image": self.image
+            "image": self.image,
+            "genero": self.genero,
         }
         return Libro_json
 
