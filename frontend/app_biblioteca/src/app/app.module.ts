@@ -26,6 +26,8 @@ import { NgClass } from '@angular/common';
 import { BookDetailsComponent } from './page/book-details/book-details.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     NgClass,
+    BrowserAnimationsModule,
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
