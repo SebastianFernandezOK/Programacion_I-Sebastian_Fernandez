@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, take, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { jwtDecode } from 'jwt-decode';
-
 
 @Injectable({
   providedIn: 'root'
@@ -15,46 +13,6 @@ export class AuthService {
     private httpClient: HttpClient,
     private router: Router
   ) { }
-
-  isLibrarian(): boolean {
-    return this.rol === 'librarian';
-  }
-
-  isAdmin(): boolean {
-    return this.rol === 'admin';
-  }
-
-  isUser(): any {
-    return this.rol === 'user';
-  }
-  
-  isLoggedIn(): boolean {
-    return this.isAdmin() || this.isLibrarian() || this.isUser();
-  }
-
-  get token(): any {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      return '';
-    } else {
-      return token;
-    }
-  }
-
-  get rol(): string {
-    const token = this.token;
-    if (!token) {
-      return '';
-    }
-    try {
-      const decoded: any = jwtDecode(token);
-      return decoded.rol;
-    } catch (e) {
-      console.error('Invalid token format', e);
-      return '';
-    }
-  }
-
 
   login(dataLogin: any): Observable<any> {
     return this.httpClient.post(this.url + '/auth/login', dataLogin).pipe(

@@ -13,6 +13,7 @@ export class PaginateComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['pages'] && changes['pages'].currentValue) {
       this.pages = changes['pages'].currentValue;
+      console.log(`Paginador actualizado: total de páginas es ${this.pages}`);
     }
   }
 
@@ -24,6 +25,7 @@ export class PaginateComponent implements OnChanges {
     if (pageNumber >= 1 && pageNumber <= this.pages) {
         this.page = pageNumber;
         this.pageChange.emit(pageNumber); 
+        console.log(`Cambiando a la página: ${pageNumber}`); 
     } else {
         console.error('Número de página fuera de rango');
     }

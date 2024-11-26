@@ -22,11 +22,14 @@ export class HomeComponent {
   }
 
   getBooks(page: number) {
+    console.log(`Solicitando libros para la página: ${page}`);
     this.page = page; // Actualiza la página actual
     this.booksService.getBooks(page).subscribe((answer: any) => {
+      console.log(`Respuesta del servicio: `, answer);
       this.books = answer.libros || [];
       this.filteredBooks = [...this.books];
       this.pages = answer.pages || 1; // Cambia aquí para obtener el número de páginas
+      console.log(`Libros cargados: ${this.books.length}, Total de páginas: ${this.pages}`);
     });
   }
   

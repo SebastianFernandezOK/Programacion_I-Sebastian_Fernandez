@@ -4,14 +4,12 @@
 
   <!-- Right next to the title: Usuarios and Préstamos buttons -->
   <div class="d-flex align-items-center me-auto">
-    @if (isAdmin || isLibrarian){
     <a routerLink="/users" href="#" *ngIf="isToken" class="btn btn-outline-dark me-2" style="border-radius: 15px;">
       <i class="bi bi-people-fill"></i> Usuarios
     </a>
     <a routerLink="/librarian-rents" href="#" *ngIf="isToken" class="btn btn-outline-dark me-2" style="border-radius: 15px;">
       <i class="bi bi-journal-bookmark-fill"></i> Préstamos
     </a>
-  }
   </div>
 
   <!-- Right section: Login, Register, Dropdown Menu, and Logout -->

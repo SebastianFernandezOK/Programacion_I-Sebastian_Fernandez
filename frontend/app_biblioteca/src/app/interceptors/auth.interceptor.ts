@@ -10,6 +10,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log('Intercepting request:', req.url);
 
     // Verificar si el token está disponible en sessionStorage
     const authToken = sessionStorage.getItem('token');
@@ -21,9 +22,11 @@ export class AuthInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${authToken}`
         }
       });
+      console.log('Token agregado a la solicitud:', authToken);
       return next.handle(authReq).pipe(
         catchError(err => {
           if (err.status === 401) {
+            console.log('Sesion expirada, redirigir a login');
             this.authService.logout();
           }
           return throwError(err);
