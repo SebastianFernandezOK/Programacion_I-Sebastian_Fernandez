@@ -20,6 +20,17 @@ class Libro(db.Model):
     #relacion N:M(Libro es padre)
     #autores = db.relationship("Autor", secondary="libros_autores", back_populates="libros")
 
+
+    @property
+    def rating(self):
+        if not self.reseñas:
+            return 0
+        total_rating = 0
+        for reseña in self.reseñas:
+            total_rating += reseña.valoracion
+        return round(total_rating / len(self.reseñas),1)
+
+
     def __repr__(self):
         return '<Libro: %r  >' % (self.libroID)
 
@@ -31,7 +42,8 @@ class Libro(db.Model):
             "cantidad": self.cantidad,
             'editorial': self.editorial,
             'genero': self.genero,
-            "image": self.image
+            "image": self.image,
+            "rating": self.rating
         }
         return Libro_json
 
@@ -51,6 +63,7 @@ class Libro(db.Model):
             'prestamos': prestamos,
             "autores": autores,
             "resenas": reseñas,
+            "rating": self.rating
         }
         return Libro_json  
 

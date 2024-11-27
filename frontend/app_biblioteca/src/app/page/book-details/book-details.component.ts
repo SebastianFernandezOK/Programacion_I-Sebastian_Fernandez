@@ -16,6 +16,7 @@ export class BookDetailsComponent implements OnInit {
   genero: string = ''; // Genero del libro
   autores: string = ''; // Autor del libro
   cantidad: number = 0; // Cantidad de copias disponibles
+  rating: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +39,7 @@ export class BookDetailsComponent implements OnInit {
       this.editorial = data.editorial;
       this.cantidad = data.cantidad;
       this.genero = data.genero;
+      this.rating = data.rating;
   
       if (data.autores && data.autores.length > 0) {
         this.autores = data.autores.map((autor: any) => `${autor.autor_nombre} ${autor.autor_apellido}`).join(', ');

@@ -26,6 +26,7 @@ import { BookDetailsComponent } from './page/book-details/book-details.component
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { LoginComponent } from './page/login/login.component';
+import { StarComponent } from './components/star/star.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { LoginComponent } from './page/login/login.component';
     PaginateComponent,
     BookComponent,
     BookDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    StarComponent
   ],
   imports: [
     BrowserModule,

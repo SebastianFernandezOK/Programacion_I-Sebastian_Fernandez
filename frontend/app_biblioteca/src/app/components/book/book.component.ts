@@ -15,6 +15,7 @@ export class BookComponent {
   @Input() gender: string = '';
   @Input() quantity: number = 0;
   @Input() image!: string;
+  @Input() rating: number = 0;
 
   // Propiedades para el formulario de edición
   isEditing: boolean = false;
