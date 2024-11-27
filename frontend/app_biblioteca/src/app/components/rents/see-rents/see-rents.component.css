@@ -1,18 +1,7 @@
 body {
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Degradado */
     font-family: 'Inika', serif;
 }
-.logo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #1E1E1E;
-    transition: transform 0.3s ease;
-}
-.logo:hover {
-    transform: scale(1.1);
-}
+
 .loan-card {
     display: flex;
     align-items: flex-start; /* Align items at the start */
@@ -20,11 +9,11 @@ body {
     border-radius: 15px; /* Rounded corners */
     overflow: hidden; /* Ensure content stays within rounded corners */
     background: #fff; /* White background for the card */
-    padding: 10px; /* Add padding to the card */
+    padding: 5px; /* Add padding to the card */
 }
 .book-image {
-    width: 150px; /* Fixed width for image */
-    height: 200px; /* Fixed height for image */
+    width: 100px; /* Fixed width for image */
+    height: 150px; /* Fixed height for image */
     object-fit: cover; /* Cover image */
     border-radius: 8px; /* Rounded corners for the image */
     border: 1px solid #ddd; /* Border around image */
@@ -66,4 +55,13 @@ body {
 .card-header {
     background-color: #f8f9fa; /* Light grey background */
     border-bottom: 1px solid #ddd; /* Border bottom */
+
+}
+
+.button-group {
+    position: absolute;  /* Posiciona los botones de manera absoluta */
+    top: 10px;           /* Alinea con el borde superior con un pequeño espacio */
+    right: 10px;         /* Alinea con el borde derecho con un pequeño espacio */
+    display: flex;       /* Usar Flexbox para alinear los botones en fila */
+    gap: 10px;           /* Espacio entre los botones */
 }

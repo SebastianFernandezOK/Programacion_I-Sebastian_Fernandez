@@ -3,10 +3,13 @@
     <!-- Configuración de la URL de la imagen -->
     <img src="cover/{{ image }}" alt="Book image" class="book-image" [alt]="title">
     <div class="book-info">
-      <h4 class="mb-0 text-dark">{{ title }}</h4>
+      <strong class="d-inline-block mb-2 text-primary-emphasis">{{ gender }}</strong>
+      <h4 class="mb-0 shortened-title">{{ title }}</h4>
+      <div class="mb-1 text-body-secondary shortened-title">{{ authors || 'Desconocido' }}</div>
     </div>
   </div>
 
+@if (isAdmin || isLibrarian) {
   <div class="card-body">
     <div class="button-group">
       <button class="btn btn-outline-danger" (click)="onDeleteBook()">
@@ -36,15 +39,17 @@
         <button type="button" class="btn btn-secondary" (click)="isEditing = false">Cancelar</button>
       </form>
     </div>
+  </div>
+  }
 
     <!-- Contenedor para los botones Pedir e Información -->
     <div class="button-group-actions">
+      @if (isUser) {
       <button class="btn btn-success" (click)="onRentBook()">
         <i class="bi bi-cart-plus-fill"></i> Pedir
       </button>
+      }
       <button class="btn btn-info" (click)="navigateToBookDetails()">
         <i class="bi bi-info-circle-fill"></i> Información
       </button>
     </div>
-  </div>
-</div>
