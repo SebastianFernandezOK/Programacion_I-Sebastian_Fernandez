@@ -2,12 +2,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../services/auth.service'
 import { Router } from "@angular/router"
 import { FormBuilder, FormGroup, Validators } from "@angular/forms"
-import { slideInOutAnimation } from '../../animations';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  animations: [slideInOutAnimation],
 })
 export class LoginComponent {
   loginForm!: FormGroup;
@@ -21,6 +19,8 @@ export class LoginComponent {
       usuario_contraseña: ["", Validators.required]
     })
   }
+
+
   irLogin(dataLogin: any) {
     this.authService.login(dataLogin).subscribe({
       next: (rta: any) => {

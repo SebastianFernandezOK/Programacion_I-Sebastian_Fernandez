@@ -8,7 +8,6 @@ import { HomeComponent } from './page/home/home.component';
 import { ErrorPageComponent } from './page/error-page/error-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LoginComponent } from './page/login/login.component';
 import { NotificationsComponent } from './page/notifications/notifications.component';
 import { ProfileComponent } from './page/profile/profile.component';
 import { RegisterComponent } from './page/register/register.component';
@@ -26,8 +25,7 @@ import { NgClass } from '@angular/common';
 import { BookDetailsComponent } from './page/book-details/book-details.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { LoginComponent } from './page/login/login.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +34,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ErrorPageComponent,
     NavbarComponent,
     FooterComponent,
-    LoginComponent,
     NotificationsComponent,
     ProfileComponent,
     RegisterComponent,
@@ -50,6 +47,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PaginateComponent,
     BookComponent,
     BookDetailsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +56,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     ReactiveFormsModule,
     NgClass,
-    BrowserAnimationsModule,
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
