@@ -51,7 +51,7 @@ class Libro(db.Model):
     def to_json_complete(self):
         prestamos = [prestamo.to_json_short() for prestamo in self.prestamos]
         autores = [autor.to_json() for autor in self.autores]
-        reseñas = [reseña.to_json_short() for reseña in self.reseñas]
+        reseñas = [reseña.to_json() for reseña in self.reseñas]
 
         Libro_json = {
             "libroID": self.libroID,

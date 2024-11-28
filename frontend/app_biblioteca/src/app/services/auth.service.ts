@@ -41,6 +41,22 @@ export class AuthService {
     }
   }
 
+
+  get UserId(): any {
+    const token = this.token;
+    if (!token) {
+      return '';
+    }
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded.id;
+    } catch (e) {
+      console.error('Invalid token format', e);
+      return '';
+    }
+  }
+
+
   get rol(): string {
     const token = this.token;
     if (!token) {

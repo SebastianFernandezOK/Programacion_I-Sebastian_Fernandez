@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { StarComponent } from '../../components/star/star.component';
+import { ReviewComponent } from '../../components/review/review.component';
 import { BookService } from '../../services/book.service';
+import { ReviewsService } from '../../services/reviews.service';
+import { AuthService } from '../../services/auth.service';
+
 
 
 @Component({
@@ -9,18 +14,23 @@ import { BookService } from '../../services/book.service';
   styleUrls: ['./book-details.component.css']
 })
 export class BookDetailsComponent implements OnInit {
-  bookId: number | null = null; // ID del libro
-  titulo: string = ''; // Título del libro
-  image: string = ''; // Ruta de la imagen del libro
-  editorial: string = ''; // Editorial del libro
-  genero: string = ''; // Genero del libro
-  autores: string = ''; // Autor del libro
-  cantidad: number = 0; // Cantidad de copias disponibles
+  bookId: number | null = null; 
+  titulo: string = '';
+  image: string = ''; 
+  editorial: string = '';
+  genero: string = '';
+  autores: string = '';
+  cantidad: number = 0; 
   rating: number = 0;
+  resenas: any[] = [];
+  userRating: number = 1;
+  userReview: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    private bookService: BookService
+    private bookService: BookService,
+    private authService: AuthService,
+    private reviewService: ReviewsService
   ) {}
 
   ngOnInit() {
@@ -28,6 +38,27 @@ export class BookDetailsComponent implements OnInit {
     this.bookId = Number(this.route.snapshot.paramMap.get('id'));
     // Llama a la función para obtener los detalles del libro
     this.getBook(this.bookId);
+
+  }
+
+  setRating(rating: number) {
+    this.userRating = rating;
+  }
+
+  postReview() {
+    const reviewData = {
+      "libroID": this.bookId,
+      "usuarioID": this.authService.UserId,
+      "valoracion": this.userRating,
+      "comentario": this.userReview,
+    };
+    this.reviewService.postReview(reviewData).subscribe ((response) => {
+      window.location.reload();
+    })
+  }
+
+  get isLogged() {
+    return this.authService.isLoggedIn()
   }
 
   // Función para obtener los detalles del libro
@@ -35,10 +66,10 @@ export class BookDetailsComponent implements OnInit {
     this.bookService.getBook(id).subscribe((data: any) => {
       this.titulo = data.titulo;
       this.image = data.image;
-      console.log("Ruta de la imagen:", this.image); // Verificar ruta en la consola
       this.editorial = data.editorial;
       this.cantidad = data.cantidad;
       this.genero = data.genero;
+      this.resenas = data.resenas;
       this.rating = data.rating;
   
       if (data.autores && data.autores.length > 0) {
@@ -47,4 +78,8 @@ export class BookDetailsComponent implements OnInit {
     });
   }
   
+  trackByResenaId(index: number, resena: any): number {
+    return resena.resenaID; 
+  }
+
 }

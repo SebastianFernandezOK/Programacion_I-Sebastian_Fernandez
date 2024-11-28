@@ -9,7 +9,7 @@ import { UsuariosService } from '../../services/usuarios.service';
 })
 export class ReviewComponent {
   @Input() id!: number; 
-  @Input() rating: number = 0;
+  @Input() valoration: number = 0;
   @Input() comment: string = '';
   user: any = null;
 
