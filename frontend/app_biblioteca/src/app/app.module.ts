@@ -27,6 +27,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { LoginComponent } from './page/login/login.component';
 import { StarComponent } from './components/star/star.component';
+import { ReviewComponent } from './components/review/review.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { StarComponent } from './components/star/star.component';
     BookComponent,
     BookDetailsComponent,
     LoginComponent,
-    StarComponent
+    StarComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,
