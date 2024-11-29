@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PerfilService } from '../../services/perfil.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import jwtDecode from 'jwt-decode'; // Importación correcta de jwt-decode
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-profile',

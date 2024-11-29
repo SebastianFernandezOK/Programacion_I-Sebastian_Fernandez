@@ -92,18 +92,21 @@ with open(log_file, 'w') as log:
 
     # Generar datos para la tabla "reseñas"
     datos_reseñas = []
-    for i in range(1, 31):
-        reseñaID = i
-        usuarioID = i
-        libroID = 1000 + i
-        valoracion = fake.random_int(min=1, max=5)
-        comentario = fake.text(max_nb_chars=100)
-        datos_reseñas.append((reseñaID, usuarioID, libroID, valoracion, comentario))
+    reseñaID = 1  
+    for libroID in range(1001, 1031):  
+        num_reseñas = random.randint(1, 6)  # Determinar cuántas reseñas generar para cada libro
+        for _ in range(num_reseñas):
+            usuarioID = random.randint(1, 30)  # Seleccionar un usuario aleatorio
+            valoracion = fake.random_int(min=1, max=5)
+            comentario = fake.text(max_nb_chars=100)
+            datos_reseñas.append((reseñaID, usuarioID, libroID, valoracion, comentario))
+            reseñaID += 1  
 
     # Insertar datos en la tabla "reseñas"
     cur.executemany('''
         INSERT INTO reseñas (reseñaID, usuarioID, libroID, valoracion, comentario) VALUES (?, ?, ?, ?, ?)
     ''', datos_reseñas)
+
 
     # Generar datos para la tabla "prestamos"
     datos_prestamos = []

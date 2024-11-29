@@ -8,7 +8,6 @@ import { HomeComponent } from './page/home/home.component';
 import { ErrorPageComponent } from './page/error-page/error-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LoginComponent } from './page/login/login.component';
 import { NotificationsComponent } from './page/notifications/notifications.component';
 import { ProfileComponent } from './page/profile/profile.component';
 import { RegisterComponent } from './page/register/register.component';
@@ -26,6 +25,9 @@ import { NgClass } from '@angular/common';
 import { BookDetailsComponent } from './page/book-details/book-details.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { LoginComponent } from './page/login/login.component';
+import { StarComponent } from './components/star/star.component';
+import { ReviewComponent } from './components/review/review.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,6 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ErrorPageComponent,
     NavbarComponent,
     FooterComponent,
-    LoginComponent,
     NotificationsComponent,
     ProfileComponent,
     RegisterComponent,
@@ -48,6 +49,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     PaginateComponent,
     BookComponent,
     BookDetailsComponent,
+    LoginComponent,
+    StarComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,

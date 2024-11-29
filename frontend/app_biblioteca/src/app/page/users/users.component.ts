@@ -19,6 +19,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.loadUsers();
+    console.log(`Total de páginas inicializado: ${this.pages}`);
   }
 
   // Método para cargar usuarios con filtros

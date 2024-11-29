@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -33,4 +33,9 @@ export class UsuariosService {
   deleteUser(usuarioID: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.url}/usuario/${usuarioID}`);
   }
+
+  getUserName(usuarioID: Number): Observable<any> {
+    return this.httpClient.get(this.url+`/usuario/${usuarioID}`);
+  }
+
 }

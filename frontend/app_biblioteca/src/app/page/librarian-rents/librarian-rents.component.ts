@@ -29,6 +29,7 @@ export class LibrarianRentsComponent implements OnInit {
       (data) => {
         this.rents = data.prestamos;
         this.pages = data.pages; 
+        console.log(this.rents);
       },
       (error) => {
         console.error('Error fetching rents:', error);

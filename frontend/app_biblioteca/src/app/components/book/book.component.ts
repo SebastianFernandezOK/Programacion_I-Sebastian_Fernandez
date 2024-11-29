@@ -15,6 +15,7 @@ export class BookComponent {
   @Input() gender: string = '';
   @Input() quantity: number = 0;
   @Input() image!: string;
+  @Input() rating: number = 0;
 
   // Propiedades para el formulario de edición
   isEditing: boolean = false;
@@ -54,7 +55,6 @@ export class BookComponent {
 
   onDeleteBook() {
     this.bookService.deleteBook(this.id).subscribe(() => {
-      // Aquí podrías agregar lógica para mostrar un mensaje de éxito o redirigir a otra página
       console.log('Libro eliminado');
     });
   }
@@ -63,7 +63,7 @@ export class BookComponent {
     this.isEditing = true;
     // Guardamos los valores actuales en el formulario
     this.updatedTitle = this.title;
-    this.updatedAuthor = this.author;
+    this.updatedAuthor = this.authors;
     this.updatedGender = this.gender;
     this.updatedQuantity = this.quantity;
 
@@ -80,7 +80,6 @@ export class BookComponent {
     this.bookService.updateBook(this.id, updatedBookData).subscribe(() => {
       console.log('Libro actualizado');
       this.isEditing = false; // Oculta el formulario
-      // Aquí podrías agregar lógica para mostrar un mensaje de éxito o actualizar la vista
     });
   }
 

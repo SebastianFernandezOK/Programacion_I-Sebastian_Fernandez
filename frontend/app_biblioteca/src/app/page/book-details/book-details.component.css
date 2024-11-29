@@ -53,6 +53,50 @@
     color: #555;
   }
   
+  /* Contenedor de reseñas */
+.reseñas-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 900px;
+  width: 100%;
+  text-align: left;
+}
+
+.reseñas-container p {
+  color: #555;
+}
+
+/* Personalización del botón "Comentar" */
+.btn-info {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+  border-color: #117a8b;
+}
+
+/* Personalización de la tarjeta de comentarios */
+.card {
+  border-radius: 10px;
+}
+
+/* Área de texto ocupa todo el ancho del contenedor */
+textarea.form-control {
+  resize: none; /* Evita el redimensionamiento manual */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+app-review {
+  display: block;
+  margin-bottom: 20px; /* Aumenta el gap entre cada comentario */
+}
+
   /* Responsive */
   @media (min-width: 768px) {
     .book-content {
@@ -69,5 +113,9 @@
     .book-info {
       text-align: left;
     }
+
+    
+
+
   }
   

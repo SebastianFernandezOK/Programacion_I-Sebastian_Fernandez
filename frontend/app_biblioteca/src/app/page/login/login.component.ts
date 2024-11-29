@@ -19,11 +19,14 @@ export class LoginComponent {
       usuario_contraseña: ["", Validators.required]
     })
   }
+
+
   irLogin(dataLogin: any) {
     this.authService.login(dataLogin).subscribe({
       next: (rta: any) => {
         alert('Credenciales correctas');
-        // Guardar el token en sessionStorage 
+        console.log('Exito:', rta);
+        // Guardar el token en sessionStorage en lugar de localStorage
         sessionStorage.setItem("token", rta.access_token);
         this.router.navigateByUrl("home");
       },
@@ -32,12 +35,16 @@ export class LoginComponent {
         console.log('Error:', err);
         sessionStorage.removeItem("token");
       },
+      complete: () => {
+        console.log('finalizo');
+      }
     });
   }
   
 
   sumbit(){
     if(this.loginForm.valid){
+      console.log("Datos del formulario: ",this.loginForm.value);
       this.irLogin(this.loginForm.value);
       
     }  else {

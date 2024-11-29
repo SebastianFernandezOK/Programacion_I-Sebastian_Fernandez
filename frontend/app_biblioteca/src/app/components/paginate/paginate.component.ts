@@ -24,9 +24,8 @@ export class PaginateComponent implements OnChanges {
     if (pageNumber >= 1 && pageNumber <= this.pages) {
         this.page = pageNumber;
         this.pageChange.emit(pageNumber); 
-    } else {
-        console.error('Número de página fuera de rango');
     }
+  }
 }
 
-}
+

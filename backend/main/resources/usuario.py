@@ -128,13 +128,11 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
     #Modificar el recurso usuario
     @jwt_required()
     def put(self, id):
+       
         usuario = db.session.query(UsuarioModel).get_or_404(id)
-        data = request.get_json()
-        for key, value in data.items():
+        data = request.get_json().items()
+        for key, value in data:
             setattr(usuario, key, value)
-        try:
-            db.session.commit()  # Commit the changes
-            return jsonify(usuario.to_json()), 200
-        except:
-            db.session.rollback()
-            return {"message": "Error al agregar al usuario"}, 400
+        db.session.add(usuario)
+        db.session.commit()
+        return usuario.to_json() , 201
